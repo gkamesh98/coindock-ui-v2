@@ -10,8 +10,7 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 import { publicRoutes, loggedroutes } from "routes"; // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context"; // Images
-import brandWhite from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
+
 import { useIsAuthenticated, useFetchAuthRefresh } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -35,8 +34,8 @@ export default function App() {
     layout,
     openConfigurator,
     sidenavColor,
-    transparentSidenav,
-    whiteSidenav,
+    // transparentSidenav,
+    // whiteSidenav,
     darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
@@ -93,7 +92,7 @@ export default function App() {
           <>
             <Sidenav
               color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+              // brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
               brandName="CoinDock 2"
               routes={loggedroutes}
               onMouseEnter={handleOnMouseEnter}

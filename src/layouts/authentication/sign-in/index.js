@@ -1,7 +1,7 @@
-import { useState } from "react"; // react-router-dom components
+// react-router-dom components
 import { Link } from "react-router-dom"; // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
+
 import Grid from "@mui/material/Grid";
 import MuiLink from "@mui/material/Link"; // @mui icons
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -12,13 +12,12 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton"; // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout"; // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+// import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
   return (
-    <BasicLayout image={bgImage}>
+    <BasicLayout>
+      {/* <BasicLayout image={bgImage}> */}
       <Card>
         <MDBox
           variant="gradient"
@@ -60,18 +59,7 @@ function Basic() {
             <MDBox mb={2}>
               <MDInput type="password" label="Password" fullWidth />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
-            </MDBox>
+
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth>
                 sign in
