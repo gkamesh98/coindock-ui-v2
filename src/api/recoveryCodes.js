@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-// eslint-disable-next-line import/no-unresolved
 import { getUserId } from "helper/functions";
 import baseApi from "./api";
 
