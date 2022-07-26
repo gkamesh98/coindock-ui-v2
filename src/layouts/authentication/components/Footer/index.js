@@ -1,13 +1,14 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable import/no-unresolved */
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types"; // @mui material components
 import Container from "@mui/material/Container";
 import MDBox from "components/MDBox";
 
-function Footer({ light }) {
+function Footer() {
   return (
     <MDBox position="absolute" width="100%" bottom={0} py={4}>
-      <Container>
-      </Container>
+      <Container />
     </MDBox>
   );
 } // Setting default props for the Footer

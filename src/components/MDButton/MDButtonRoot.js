@@ -32,6 +32,7 @@ export default styled(Button)(({ theme, ownerState }) => {
     if (!darkMode && (color === "white" || color === "light" || !palette[color])) {
       colorValue = text.main;
     } else if (darkMode && (color === "white" || color === "light" || !palette[color])) {
+      // eslint-disable-next-line prefer-destructuring
       colorValue = grey[600];
     } // color value when button is focused
     let focusedColorValue = white.main;

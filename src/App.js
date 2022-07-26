@@ -105,10 +105,11 @@ export default function App() {
         )
       )}
       {layout === "vr" && <Configurator />}
-      {authenticated ? (
+      {!authenticated ? (
         <Routes>
           {getRoutes(loggedroutes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="/account" element={<Navigate to="/account" />} />
         </Routes>
       ) : (
         <Routes>

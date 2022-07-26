@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createApi } from "@reduxjs/toolkit/query/react";
+// eslint-disable-next-line import/no-unresolved
 import { convertObjectKeys } from "helper/functions";
 import { camelCase, snakeCase } from "lodash";
 
