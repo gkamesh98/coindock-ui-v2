@@ -19,6 +19,7 @@ const MDProgress = forwardRef(({ variant, color, value, label, ...rest }, ref) =
     />
   </>
 )); // Setting default values for the props of MDProgress
+MDProgress.displayName = "Progress";
 MDProgress.defaultProps = {
   variant: "contained",
   color: "info",

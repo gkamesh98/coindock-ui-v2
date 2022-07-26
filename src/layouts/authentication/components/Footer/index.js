@@ -6,8 +6,7 @@ import MDBox from "components/MDBox";
 function Footer({ light }) {
   return (
     <MDBox position="absolute" width="100%" bottom={0} py={4}>
-      <Container>
-      </Container>
+      <Container />
     </MDBox>
   );
 } // Setting default props for the Footer

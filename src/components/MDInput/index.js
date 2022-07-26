@@ -15,4 +15,5 @@ MDInput.propTypes = {
   success: PropTypes.bool,
   disabled: PropTypes.bool,
 };
+MDInput.displayName = "Input";
 export default MDInput;

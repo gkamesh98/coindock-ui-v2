@@ -14,6 +14,7 @@ const MDBadge = forwardRef(
     </MDBadgeRoot>
   )
 ); // Setting default values for the props of MDBadge
+MDBadge.displayName = "Badge";
 MDBadge.defaultProps = {
   color: "info",
   variant: "gradient",
