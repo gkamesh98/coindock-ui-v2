@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import Name from "Shared/Form/Name/Name";
+import Name, { nameValidation } from "Shared/Form/Name/Name";
 import { useNavigate } from "react-router-dom";
-import { useAccountData } from "App/Api/accapi";
-import { useAccount } from "App/Api/accapi";
+import { useAccountData, useAccount } from "App/Api/accapi";
+
 import "../../../Shared/common-styles/common.css";
-import { nameValidation } from "Shared/Form/Name/Name";
 
 function ProfileName() {
   const { data: account } = useAccount();

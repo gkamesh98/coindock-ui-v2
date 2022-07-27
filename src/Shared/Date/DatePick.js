@@ -13,11 +13,10 @@ export const dateValidation = (value) => {
   }
   return error;
 };
-function DatePick({ name, onChange, formErrors,value}) {
-
- const [selectedDate, setSelectedDate] = useState("");
- const [date, setDate] = useState(new Date(value))
- const [fieldsTouched, setFieldsTouched] = useState(false);
+function DatePick({ name, onChange, formErrors, value }) {
+  const [selectedDate, setSelectedDate] = useState("");
+  const [date, setDate] = useState(new Date(value));
+  const [fieldsTouched, setFieldsTouched] = useState(false);
   const handleChanges = (value) => {
     if (onChange) {
       onChange({
@@ -28,7 +27,7 @@ function DatePick({ name, onChange, formErrors,value}) {
       });
     }
     setSelectedDate(value);
-    setDate(value)
+    setDate(value);
   };
 
   const handleFocus = () => {
@@ -36,7 +35,7 @@ function DatePick({ name, onChange, formErrors,value}) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <label className="cd-mt-12 cd-lable-signup">Date of Birth</label>
       <DatePicker
         name={name}
@@ -47,13 +46,13 @@ function DatePick({ name, onChange, formErrors,value}) {
         onBlur={handleFocus}
       />
       {fieldsTouched && <p className="text-danger">{formErrors[name]}</p>}
-    </React.Fragment>
+    </>
   );
 }
 DatePick.propTypes = {
   label: propTypes.number,
-  onChange:propTypes.func,
-  value:propTypes.string,
-  formErrors:propTypes.object,
+  onChange: propTypes.func,
+  value: propTypes.string,
+  formErrors: propTypes.object,
 };
 export default DatePick;

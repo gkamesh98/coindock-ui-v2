@@ -23,6 +23,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up"; // @mui icons
 import Icon from "@mui/material/Icon";
+import Account from "layouts/Account/Account";
 
 export const loggedroutes = [
   {
@@ -32,6 +33,14 @@ export const loggedroutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Account",
+    key: "Account",
+    icon: <Icon fontSize="small">account_circle</Icon>,
+    route: "/account",
+    component: <Account />,
   },
   {
     type: "collapse",

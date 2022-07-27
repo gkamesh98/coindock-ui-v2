@@ -4,12 +4,11 @@ import moment from "moment";
 import Typography from "@mui/material/Typography";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useAccount } from "App/Api/accapi";
-import { FaEdit } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaEdit, FaArrowLeft } from "react-icons/fa";
+
 import "../../../Shared/common-styles/button.css";
 import { useNavigate } from "react-router-dom";
-import { Card } from "@mui/material";
-import { CardContent } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 
 function ProfileSettings() {
   const { data: account, message } = useAccount();
@@ -74,7 +73,7 @@ function ProfileSettings() {
               <CardContent className="d-flex justify-content-between">
                 <Typography>
                   {" "}
-                  {field.label} : {accountDetails.first_name + " " + accountDetails.last_name}
+                  {field.label} : {`${accountDetails.first_name} ${accountDetails.last_name}`}
                 </Typography>
                 <span
                   type="submit"

@@ -1,5 +1,5 @@
 // import { store } from "reducers";
-import { baseApi } from "./api";
+import baseApi from "./api";
 
 const auth = baseApi.injectEndpoints({
   endpoints: (build) => ({

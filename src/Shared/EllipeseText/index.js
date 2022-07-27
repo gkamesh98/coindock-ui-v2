@@ -1,18 +1,11 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 
-const EllipseNumber = ({
-  text,
-  component: Component,
-  initialStrink,
-  maxLetters,
-  classNames,
-}) => {
+function EllipseNumber({ text, component: Component, initialStrink, maxLetters, classNames }) {
   const initalMount = useRef(true);
   const [isCallaped, setIsCollapesed] = useState(initialStrink);
 
   const [displayText, setDisplayText] = useState(text);
-  useEffect(() => {
-  }, [displayText]);
+  useEffect(() => {}, [displayText]);
   const handleCollapse = useCallback(() => {
     setDisplayText(() => {
       if (!isCallaped) return text;
@@ -30,14 +23,12 @@ const EllipseNumber = ({
     }
   }, [initialStrink, maxLetters, text, handleCollapse]);
   return (
-    <React.Fragment>
-      <Component onClick={handleCollapse} classNames={classNames}>
-        {displayText}
-        {!isCallaped && "..."}
-      </Component>
-    </React.Fragment>
+    <Component onClick={handleCollapse} classNames={classNames}>
+      {displayText}
+      {!isCallaped && "..."}
+    </Component>
   );
-};
+}
 
 EllipseNumber.defaultProps = {
   initialStrink: true,

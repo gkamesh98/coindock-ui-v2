@@ -2,8 +2,8 @@ import React from "react";
 import "../Account.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Typography } from "@mui/material";
-import { FaArrowLeft } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
+import { FaArrowLeft, FaEdit } from "react-icons/fa";
+
 import "../../../Shared/common-styles/button.css";
 import { useAccount } from "App/Api/accapi";
 import { useNavigate } from "react-router-dom";

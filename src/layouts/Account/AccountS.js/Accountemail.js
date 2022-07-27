@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useAccount } from "api/accapi";
-import Email from "Shared/Form/Email/Email";
-import { useAccountData } from "api/accapi";
-import { emailValidation } from "Shared/Form/Email/Email";
+import { useAccount, useAccountData } from "api/accapi";
+import Email, { emailValidation } from "Shared/Form/Email/Email";
 
 function Accountemail() {
   const { data: account } = useAccount();

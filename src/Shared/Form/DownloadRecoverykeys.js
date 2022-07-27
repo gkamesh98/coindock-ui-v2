@@ -9,11 +9,9 @@ function DownloadRecoverykeys() {
     downloadble();
   };
   return (
-    <>
-      <button className="cd-button cd-card-button1" onClick={handleOnClick}>
-        Download words
-      </button>
-    </>
+    <button className="cd-button cd-card-button1" onClick={handleOnClick}>
+      Download words
+    </button>
   );
 }
 export default DownloadRecoverykeys;

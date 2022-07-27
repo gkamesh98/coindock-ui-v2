@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useCountry } from "App/Api/accapi";
+import { useCountry, useAccount, useAccountData } from "App/Api/accapi";
 import { useNavigate } from "react-router-dom";
-import { useAccount } from "App/Api/accapi";
-import { useAccountData } from "App/Api/accapi";
+
 import { countryValidation } from "Shared/Form/Select/Select";
 
 function Country() {
@@ -34,7 +33,7 @@ function Country() {
     handleValidation({ ...formValues, [name]: value });
   };
   const navigate = useNavigate();
- 
+
   const handleChange = (e) => {
     setFilter(e.target.value);
   };
@@ -64,18 +63,14 @@ function Country() {
           label="Country"
         >
           {countryfilter?.data?.results?.countries?.map((value) => (
-              <option value={value} key={value}>
-                {value}
-              </option>
-            ))}
+            <option value={value} key={value}>
+              {value}
+            </option>
+          ))}
         </select>
       </form>
       <div className="cd-edit-style">
-        <button
-          className="cd-button-2"
-          disabled={!isValid}
-          onClick={handleSubmit}
-        >
+        <button className="cd-button-2" disabled={!isValid} onClick={handleSubmit}>
           Submit
         </button>
       </div>

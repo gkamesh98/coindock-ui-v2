@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import thunk from "redux-thunk";
 import { logger } from "redux-logger";
-import { baseApi } from "api/api";
+import baseApi from "api/api";
 import { authReducer } from "./auth";
 
 const reducer = combineReducers({

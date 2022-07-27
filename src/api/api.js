@@ -77,8 +77,10 @@ const axiosBaseQuery =
       responseType,
     });
 
-export const baseApi = createApi({
+const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: axiosBaseQuery({ baseUrl: process.env.REACT_APP_API_DOMAIN }),
   endpoints: () => ({}),
 });
+
+export default baseApi;

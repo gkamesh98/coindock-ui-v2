@@ -108,7 +108,7 @@ export default function App() {
         <Routes>
           {getRoutes(loggedroutes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
-          <Route path="/account" element={<Navigate to="/account" />} />
+          <Route path="/Account" element={<Navigate to="/Account" />} />
         </Routes>
       ) : (
         <Routes>
