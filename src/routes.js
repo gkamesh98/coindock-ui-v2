@@ -1,9 +1,9 @@
-/** 
+/**
   All of the routes for the Material Dashboard 2 React are added here,
   You can add a new route, customize the routes and delete the routes here.  Once you add a new route on this file it will be visible automatically on
   the Sidenav.  For adding a new route you can follow the existing routes in the routes array.
   1. The `type` key with the `collapse` value is used for a route.
-  2. The `type` key with the `title` value is used for a title inside the Sidenav. 
+  2. The `type` key with the `title` value is used for a title inside the Sidenav.
   3. The `type` key with the `divider` value is used for a divider between Sidenav items.
   4. The `name` key is used for the name of the route on the Sidenav.
   5. The `key` key is used for the key of the route (It will help you with the key prop inside a loop).
@@ -21,7 +21,9 @@ import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up"; // @mui icons
+import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icons
+import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
+import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
 
 export const loggedroutes = [
@@ -78,11 +80,27 @@ export const publicRoutes = [
   },
   {
     type: "collapse",
-    name: "Sign Up",
+    name: "Create account",
     key: "sign-up",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/sign-up",
+    route: "/sign-up/create-account",
     component: <SignUp />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/sign-up/recovery-codes",
+    component: <RecoveryCodes />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/sign-up/recovery-code-test",
+    component: <RecoveryCodeTest />,
   },
 ];
 export default { loggedroutes, publicRoutes };
