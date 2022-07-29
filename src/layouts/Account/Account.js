@@ -1,23 +1,23 @@
 import React from "react";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Logout from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
-import MDTypography from "components/MDTypography";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import { blue, grey, purple, pink } from "@mui/material/colors";
-import { useAccount } from "api/accapi";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "api/auth";
 import { Settings } from "@mui/icons-material";
 import { PersonOutlineTwoTone } from "@mui/icons-material";
 import { AccountBoxSharp } from "@mui/icons-material";
-// import { Card } from "react-bootstrap";
+import MDTypography from "components/MDTypography";
 import { Card } from "@mui/material";
 import { CardContent } from "@mui/material";
 import { Avatar } from "@mui/material";
-import { CardHeader } from "@mui/material";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+
 function Account() {
-  const { data: account } = useAccount();
-  const accountDetails = account?.data?.results?.user || {};
+  // const { data: account } = useAccount();
+  // const accountDetails = account?.data?.results?.user || {};
   const [logout] = useLogout();
   const navigate = useNavigate();
   const handleCardProfile = () => {
@@ -31,11 +31,29 @@ function Account() {
   };
   const useStyles = makeStyles({
     avatar: {
-      width: "10px",
+      // marginTop: "20px",
+      marginRight: "18rem",
+
+      width: "50px",
       height: "50px",
     },
+    button: {
+      alignItems: "center",
+      color: "white",
+      marginTop: "4%",
+      marginLeft: "28%",
+    },
+    headings: {
+      marginLeft: "30%",
+      alignItems: "center",
+      // marginTop: "25px",
+    },
     card: {
-      width: "450px",
+      alignItems: "center",
+      margin: "auto",
+      marginTop: "30px",
+      width: "auto",
+      height: "70px",
       marginBottom: "20px",
     },
     cardheader: {
@@ -43,20 +61,6 @@ function Account() {
     },
   });
   const classes = useStyles();
-  const accordianBasedAccountDetails = [
-    {
-      label: "Profile settings",
-      key: "profile",
-    },
-    {
-      label: "Account settings",
-      key: "accounts",
-    },
-    {
-      label: "System settings",
-      key: "system",
-    },
-  ];
 
   const handleLogoutClick = async () => {
     try {
@@ -65,99 +69,68 @@ function Account() {
     } catch (e) {}
   };
   return (
-    <div>
-      {/* <h1 style={{marginTop:'5px',marginLeft:'42%'}}>Account</h1> */}
-      <MDTypography style={{ textAlign: "center" }} variant="h3" component="div">
-        Account
-      </MDTypography>
-      <div className="container-11">
-        <div className=" col py-5 ">
-          {accordianBasedAccountDetails &&
-            accordianBasedAccountDetails.map((item, id) => (
-              <div key={id}>
-                {item.key == "profile" ? (
-                  <Card
-                    elevation={3}
-                    style={{ backgroundColor: blue[50], marginBottom: "40px" }}
-                    //  className={classes.card}
-                    type="submit"
-                    className="bg-light mb-3"
-                    onClick={() => {
-                      handleCardProfile();
-                    }}
-                  >
-                    <CardHeader
-                      className={classes.cardheader}
-                      titleMDTypographyProps={{
-                        fontSize: 19,
-                      }}
-                      avatar={
-                        <Avatar sx={{ bgcolor: pink[400] }}>
-                          <PersonOutlineTwoTone />
-                        </Avatar>
-                      }
-                      title={item.label}
-                    />
-                  </Card>
-                ) : item.key == "accounts" ? (
-                  <Card
-                    elevation={3}
-                    style={{ backgroundColor: blue[50] }}
-                    //  className={classes.card}
-                    type="submit"
-                    onClick={() => handleCardAccount()}
-                    className="bg-light mb-3"
-                  >
-                    <CardHeader
-                      className={classes.cardheader}
-                      titleMDTypographyProps={{
-                        fontSize: 19,
-                      }}
-                      avatar={
-                        <Avatar sx={{ bgcolor: grey[700] }} alt="Remy Sharp">
-                          <AccountBoxSharp />
-                        </Avatar>
-                      }
-                      title={item.label}
-                    />
-                  </Card>
-                ) : item.key == "system" ? (
-                  <Card
-                    elevation={3}
-                    style={{ backgroundColor: blue[50] }}
-                    //  className={classes.card}
-                    onClick={() => handleCardSystem()}
-                    className="bg-light mb-3"
-                    type="submit"
-                  >
-                    <CardHeader
-                      className={classes.cardheader}
-                      titleMDTypographyProps={{
-                        fontSize: 19,
-                      }}
-                      avatar={
-                        <Avatar alt="Remy Sharp" sx={{ bgcolor: purple[400] }}>
-                          <Settings />
-                        </Avatar>
-                      }
-                      title={item.label}
-                    />
-                  </Card>
-                ) : null}
-              </div>
-            ))}
-          <Button
-            startIcon={<Logout />}
-            style={{ marginTop: "10px" }}
-            variant="contained"
-            size="large"
-            onClick={handleLogoutClick}
+    <DashboardLayout>
+      <DashboardNavbar />
+      <Card
+        onClick={() => {
+          handleCardProfile();
+        }}
+        type="submit"
+        className={classes.card}
+        sx={{ maxWidth: 450 }}
+      >
+        <CardContent>
+          <Avatar
+            sx={{ bgcolor: pink[400], marginRight: "15rem", marginTop: "4px" }}
+            lg={{ marginRight: "25rem", marginTop: "4px" }}
           >
-            Logout
-          </Button>
-        </div>
-      </div>
-    </div>
+            <PersonOutlineTwoTone />
+          </Avatar>
+          <MDTypography className={classes.headings} variant="h5" color="text.secondary">
+            Profile settings
+          </MDTypography>
+        </CardContent>
+      </Card>
+      <Card
+        onClick={() => handleCardAccount()}
+        type="submit"
+        className={classes.card}
+        sx={{ maxWidth: 450 }}
+      >
+        <CardContent>
+          <Avatar className={classes.avatar} sx={{ bgcolor: grey[700] }} alt="Remy Sharp">
+            <AccountBoxSharp />
+          </Avatar>
+          <MDTypography className={classes.headings} variant="h5" color="text.secondary">
+            Account settings
+          </MDTypography>
+        </CardContent>
+      </Card>
+      <Card
+        onClick={() => handleCardSystem()}
+        type="submit"
+        className={classes.card}
+        sx={{ maxWidth: 450 }}
+      >
+        <CardContent>
+          <Avatar className={classes.avatar} alt="Remy Sharp" sx={{ bgcolor: purple[400] }}>
+            <Settings />
+          </Avatar>
+          <MDTypography className={classes.headings} variant="h5" color="text.primary">
+            System settings
+          </MDTypography>
+        </CardContent>
+      </Card>
+      <Button
+        className={classes.button}
+        startIcon={<Logout />}
+        variant="contained"
+        size="large"
+        onClick={handleLogoutClick}
+      >
+        Logout
+      </Button>
+    </DashboardLayout>
   );
 }
 export default Account;

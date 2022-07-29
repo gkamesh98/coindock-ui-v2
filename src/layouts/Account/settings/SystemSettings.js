@@ -1,21 +1,29 @@
 import React from "react";
-import { FaArrowLeft, FaEdit } from "react-icons/fa";
-
-import "../../../Shared/common-styles/button.css";
+import { makeStyles } from "@mui/styles";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import MDTypography from "components/MDTypography";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useAccount } from "api/accapi";
+import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useAccount } from "App/Api/accapi";
-import { Card } from "react-bootstrap";
+import { Card, CardContent } from "@mui/material";
 
 function SystemSettings() {
   const { data: account } = useAccount();
   const accountDetails = account?.data?.results?.user || {};
+  console.log(account);
   const navigate = useNavigate();
-  const handlePrimary = () => {
-    navigate("/primary");
-  };
-  const handleSecondary = () => {
-    navigate("/secondary");
-  };
+  const useStyles = makeStyles({
+    card: {
+      justifyContent: "space-between",
+      margin: "auto",
+      marginTop: "30px",
+      width: "100%",
+      height: "70px",
+      marginBottom: "20px",
+    },
+  });
+  const classes = useStyles();
   const fields = [
     {
       label: "Primary currency",
@@ -28,25 +36,31 @@ function SystemSettings() {
       type: "edit",
     },
   ];
+  const handlePrimary = () => {
+    navigate("/primary");
+  };
+  const handleSecondary = () => {
+    navigate("/secondary");
+  };
+
   return (
-    <>
-      <div
-        type="submit"
-        className="cd-back"
-        onClick={() => {
-          navigate("/account");
-        }}
-      >
-        <FaArrowLeft />
-      </div>
-      <h2 className="cd-headerStyle">System settings</h2>
+    <DashboardLayout>
+      <DashboardNavbar />
       {fields.map((field, id) => (
-        <div className="cd-card1" key={id}>
+        <div key={id}>
           {field.fieldKey === "primarycurrency" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <Card.Body className="d-flex justify-content-between">
-                {field.label}:
-                {`${accountDetails.primary_currency} ${accountDetails.primary_currency_symbol}`}
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
+                  {field.label} :{" "}
+                  {`${accountDetails.primary_currency} ${accountDetails.primary_currency_symbol}`}
+                </MDTypography>
+              </CardContent>
+            </Card>
+          ) : field.fieldKey === "changePassword" ? (
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography> {field.label}</MDTypography>
                 <span
                   type="submit"
                   onClick={() => {
@@ -55,29 +69,30 @@ function SystemSettings() {
                 >
                   <FaEdit />
                 </span>
-              </Card.Body>
+              </CardContent>
             </Card>
           ) : field.fieldKey === "secondarycurrency" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <Card.Body className="d-flex justify-content-between p-3">
-                {field.label}:
-                {`${accountDetails.secondary_currency} ${accountDetails.secondary_currency_symbol}`}
-                <span style={{ float: "right" }}>
-                  <span
-                    type="submit"
-                    onClick={() => {
-                      handleSecondary();
-                    }}
-                  >
-                    <FaEdit />
-                  </span>
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
+                  {" "}
+                  {field.label} :{" "}
+                  {`${accountDetails.secondary_currency} ${accountDetails.secondary_currency_symbol}`}
+                </MDTypography>
+                <span
+                  type="submit"
+                  onClick={() => {
+                    handleSecondary();
+                  }}
+                >
+                  <FaEdit />
                 </span>
-              </Card.Body>
+              </CardContent>
             </Card>
           ) : null}
         </div>
       ))}
-    </>
+    </DashboardLayout>
   );
 }
 export default SystemSettings;

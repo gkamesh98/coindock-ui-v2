@@ -107,8 +107,11 @@ export default function App() {
       {!authenticated ? (
         <Routes>
           {getRoutes(loggedroutes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-          <Route path="/Account" element={<Navigate to="/Account" />} />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/account" element={<Navigate to="/Account" />} />
+          <Route path="/profile-settings" element={<Navigate to="/ProfileSettings" />} />
+          <Route path="/account-settings" element={<Navigate to="/AccountSettings" />} />
+          <Route path="/system-settings" element={<Navigate to="/SystemSettings" />} />
         </Routes>
       ) : (
         <Routes>

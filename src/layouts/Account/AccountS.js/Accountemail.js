@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useAccount, useAccountData } from "api/accapi";
 import Email, { emailValidation } from "Shared/Form/Email/Email";
 

@@ -1,3 +1,5 @@
+import { chainPropTypes } from "@mui/utils";
+/* eslint-disable react/prop-types */
 import React from "react";
 
 function RecoveryBoxs(props) {
@@ -12,4 +14,5 @@ function RecoveryBoxs(props) {
     </div>
   );
 }
+
 export default RecoveryBoxs;

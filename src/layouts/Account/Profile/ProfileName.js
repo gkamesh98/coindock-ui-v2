@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import Name, { nameValidation } from "Shared/Form/Name/Name";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import Typography from "@mui/material/Typography";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useFormik } from "formik";
+import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
-import { useAccountData, useAccount } from "App/Api/accapi";
-
-import "../../../Shared/common-styles/common.css";
+import { useAccountData, useAccount } from "api/accapi";
+import { Button } from "@mui/material";
 
 function ProfileName() {
   const { data: account } = useAccount();
@@ -13,68 +16,73 @@ function ProfileName() {
     first_name: accountDetails.first_name,
     last_name: accountDetails.last_name,
   };
-  const handleValidation = (values) => {
+
+  const validate = (values, label = "Name", length = 0) => {
     const errors = {};
-    errors.first_name = nameValidation(values.first_name, "First Name", 45);
-    errors.last_name = nameValidation(values.last_name, "Last name", 45);
-    const isValid = !Object.values(errors).some(Boolean);
-    setformErrors(errors);
-    setValid(isValid);
-    return {
-      isValid,
-      errors,
-    };
+    if (!values.first_name) {
+      errors.first_name = "Required";
+    }
+    if (!values.last_name) {
+      errors.last_name = "Required";
+    } else if (values.length > 45) {
+      errors = ` The ${label} may not be greater than ${length} characters.`;
+    }
+    return errors;
+    // setValid(isValid);
+    // return {
+    //   isValid,
+    //   errors,
+    // };
   };
   const [isValid, setValid] = useState(false);
   const [getData] = useAccountData();
-  const handleChanges = (e) => {
-    const { name, value } = e.target;
-    setformValues({ ...formValues, [name]: value });
-    handleValidation({ ...formValues, [name]: value });
+  const onSubmit = (values) => {
+    console.log(values);
+    // getData({
+    //   ...values,
+    // })
+    //   .unwrap()
+    //   .then(() => {
+    //     navigate("/profile-settings");
+    //   });
   };
 
-  const handleSubmit = () => {
-    const { errors, isValid } = handleValidation(formValues);
-    if (!isValid) {
-      setformErrors(errors);
-    } else {
-      getData({
-        ...formValues,
-      })
-        .unwrap()
-        .then(() => {
-          navigate("/profile-settings");
-        });
-    }
-  };
-  const [formValues, setformValues] = useState(initialValues);
-  const [formErrors, setformErrors] = useState({});
+  const formik = useFormik({
+    initialValues,
+    validate,
+    onSubmit,
+  });
 
   return (
-    <div className="container-2 col py-5">
+    <DashboardLayout>
+      <DashboardNavbar />
+
       <h3>Edit name</h3>
-      <form onInput={handleChanges}>
-        <Name
+      <form onSubmit={formik.handleSubmit}>
+        <TextField
           name="first_name"
           placeholder="Enter First Name"
           label="First Name"
-          value={formValues.first_name}
-          formErrors={formErrors}
+          {...formik.getFieldProps("first_name")}
         />
-        <Name
+        {formik.touched.first_name && formik.errors.first_name ? (
+          <div>{formik.errors.first_name}</div>
+        ) : null}
+        <TextField
           name="last_name"
           placeholder="Enter Last Name"
           label="Last Name"
-          value={formValues.last_name}
-          formErrors={formErrors}
+          {...formik.getFieldProps("last_name")}
         />
-      </form>
-      <div className="cd-edit-style">
-        <button className="cd-button-2" disabled={!isValid} onClick={handleSubmit}>
+        {formik.touched.last_name && formik.errors.last_name ? (
+          <div>{formik.errors.last_name}</div>
+        ) : null}
+        <Button variant="contained" type="submit">
           Submit
-        </button>
-      </div>
-    </div>
+        </Button>
+      </form>
+    </DashboardLayout>
   );
 }
+
 export default ProfileName;

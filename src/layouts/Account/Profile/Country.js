@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useCountry, useAccount, useAccountData } from "App/Api/accapi";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useCountry, useAccount, useAccountData } from "api/accapi";
 import { useNavigate } from "react-router-dom";
 
-import { countryValidation } from "Shared/Form/Select/Select";
+// import { countryValidation } from "Shared/Form/Select/Select";
 
 function Country() {
   const { data: account } = useAccount();
@@ -18,7 +20,7 @@ function Country() {
   const [getData] = useAccountData();
   const handleValidation = (values) => {
     const errors = {};
-    errors.country = countryValidation(values.country);
+    // errors.country = countryValidation(values.country);
     const isValid = !Object.values(errors).some(Boolean);
     setformErrors(errors);
     setValid(isValid);
@@ -52,7 +54,8 @@ function Country() {
     }
   };
   return (
-    <div className="container-2 col py-5">
+    <DashboardLayout>
+      <DashboardNavbar />
       <h3>Edit Country</h3>
       <form onInput={handleChanges}>
         <select
@@ -74,7 +77,7 @@ function Country() {
           Submit
         </button>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
 export default Country;

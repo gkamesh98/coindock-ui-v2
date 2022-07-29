@@ -1,9 +1,22 @@
-import React, { useState } from "react";
-import { useAccountData, useAccount } from "App/Api/accapi";
+import React, { useEffect, useState } from "react";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useAccountData } from "api/accapi";
 import { useNavigate } from "react-router-dom";
+import { useAccount } from "api/accapi";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import DatePick, { dateValidation } from "Shared/Date/DatePick";
-
+import { Button } from "@mui/material";
+const dateValidation = (value) => {
+  let error = null;
+  if (!value) {
+    error = "Date of birth is required";
+  }
+  if (moment().diff(value, "years") < 15) {
+    error = "You need to be 15 years old to register for CoinDock";
+  }
+  return error;
+};
 function DateofBirth() {
   const { data: account } = useAccount();
   const accountDetails = account?.data?.results?.user || {};
@@ -15,6 +28,12 @@ function DateofBirth() {
   const [formValues, setformValues] = useState(initialValues);
   const [isValid, setValid] = useState(false);
   const [getData] = useAccountData();
+  const handleChanges = (e) => {
+    const { name, value } = e.target;
+    setformValues({ ...formValues, [name]: value });
+    handleValidation({ ...formValues, [name]: value });
+  };
+  console.log(setformValues);
   const handleValidation = (values) => {
     const errors = {};
     errors.date_of_birth = dateValidation(values.date_of_birth);
@@ -26,12 +45,6 @@ function DateofBirth() {
       errors,
     };
   };
-  const handleChanges = (e) => {
-    const { name, value } = e.target;
-    setformValues({ ...formValues, [name]: value });
-    handleValidation({ ...formValues, [name]: value });
-  };
-
   const handleSubmit = () => {
     const { errors, isValid } = handleValidation(formValues);
     if (!isValid) {
@@ -48,17 +61,16 @@ function DateofBirth() {
   };
 
   return (
-    <div className="container-2 col py-5">
-      <h3>Edit Date-of-birth</h3>
+    <DashboardLayout>
+      <DashboardNavbar />
       <form onInput={handleChanges}>
-        <DatePick name="date_of_birth" value={formValues.date_of_birth} formErrors={formErrors} />
+        <DatePicker name="date_of_birth" value={formValues.date_of_birth} formErrors={formErrors} />
       </form>
-      <div className="cd-edit-style">
-        <button className="cd-button-2 cd-button " disabled={!isValid} onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-    </div>
+
+      <Button className="cd-button-2 cd-button " disabled={!isValid} onClick={handleSubmit}>
+        Submit
+      </Button>
+    </DashboardLayout>
   );
 }
 export default DateofBirth;

@@ -1,19 +1,31 @@
 import React from "react";
-import "../Account.css";
 import moment from "moment";
-import Typography from "@mui/material/Typography";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { useAccount } from "App/Api/accapi";
-import { FaEdit, FaArrowLeft } from "react-icons/fa";
-
-import "../../../Shared/common-styles/button.css";
+import { makeStyles } from "@mui/styles";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import MDTypography from "components/MDTypography";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useAccount } from "api/accapi";
+import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
 
 function ProfileSettings() {
-  const { data: account, message } = useAccount();
+  const { data: account } = useAccount();
   const accountDetails = account?.data?.results?.user || {};
+  console.log(account);
+
   const navigate = useNavigate();
+  const useStyles = makeStyles({
+    card: {
+      justifyContent: "space-between",
+      margin: "auto",
+      marginTop: "30px",
+      width: "100%",
+      height: "70px",
+      marginBottom: "20px",
+    },
+  });
+  const classes = useStyles();
   const fields = [
     {
       label: "Name",
@@ -32,8 +44,6 @@ function ProfileSettings() {
     },
   ];
 
-  const date = moment(accountDetails.date_of_birth).format("DD-MM-YYYY");
-
   const handleProfileName = () => {
     navigate("/profile-name");
   };
@@ -43,38 +53,18 @@ function ProfileSettings() {
   const handleProfileCountry = () => {
     navigate("/profile-country");
   };
+  const date = moment(accountDetails.date_of_birth).format("DD-MM-YYYY");
   return (
-    <div>
-      {/* <div type="submit" className="cd-back"onClick={()=>{navigate("/account")}}>< FaArrowLeft/></div> */}
-      {/* <h2 className="cd-headerStyle">Profile settings</h2> */}
-      <ArrowBackIosIcon
-        type="submit"
-        style={{ maxWidth: 45, marginTop: "35px" }}
-        onClick={() => {
-          navigate("/account");
-        }}
-      />{" "}
-      <Typography
-        style={{
-          textAlign: "center",
-          fontWeight: "lighter",
-          fontFamily: "monospace",
-          marginTop: "-30px",
-          marginBottom: "10px",
-        }}
-        variant="h4"
-      >
-        Profile settings
-      </Typography>
+    <DashboardLayout>
+      <DashboardNavbar />
       {fields.map((field, id) => (
-        <div className="cd-card1" key={id}>
+        <div key={id}>
           {field.fieldKey === "name" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <CardContent className="d-flex justify-content-between">
-                <Typography>
-                  {" "}
-                  {field.label} : {`${accountDetails.first_name} ${accountDetails.last_name}`}
-                </Typography>
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
+                  {field.label} : {accountDetails.first_name + " " + accountDetails.last_name}
+                </MDTypography>
                 <span
                   type="submit"
                   onClick={() => {
@@ -86,12 +76,12 @@ function ProfileSettings() {
               </CardContent>
             </Card>
           ) : field.fieldKey === "dateofbirth" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <CardContent className="d-flex justify-content-between">
-                <Typography>
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
                   {" "}
                   {field.label} : {date}
-                </Typography>
+                </MDTypography>
                 <span
                   type="submit"
                   onClick={() => {
@@ -103,12 +93,12 @@ function ProfileSettings() {
               </CardContent>
             </Card>
           ) : field.fieldKey === "country" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <CardContent className="d-flex justify-content-between">
-                <Typography>
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
                   {" "}
                   {field.label} : {accountDetails.country}
-                </Typography>
+                </MDTypography>
                 <span
                   type="submit"
                   onClick={() => {
@@ -122,7 +112,7 @@ function ProfileSettings() {
           ) : null}
         </div>
       ))}
-    </div>
+    </DashboardLayout>
   );
 }
 export default ProfileSettings;

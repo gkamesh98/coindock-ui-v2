@@ -6,6 +6,10 @@ import { camelCase, snakeCase } from "lodash";
 const localStorageAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 const localStorageRefreshToken = process.env.REACT_APP_REFRESH_TOKEN;
 
+console.log(
+  { localStorageAccessToken, localStorageRefreshToken },
+  process.env.REACT_APP_API_DOMAIN
+);
 export const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(

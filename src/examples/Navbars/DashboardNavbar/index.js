@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"; // react-router components
-import { useLocation, Link } from "react-router-dom"; // prop-types is a library for typechecking of props.
+import { useLocation, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types"; // @material-ui core components
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -30,6 +31,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const navigate = useNavigate();
   useEffect(() => {
     // Setting the navbar type
     if (fixedNavbar) {
@@ -49,7 +51,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
   }, [dispatch, fixedNavbar]);
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-
+  const handleAccount = () => {
+    navigate("/account");
+  };
   const handleCloseMenu = () => setOpenMenu(false); // Render the notifications menu
   const renderMenu = () => (
     <Menu
@@ -93,11 +97,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/Account">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
+              <IconButton onClick={handleAccount} sx={navbarIconButton} size="small" disableRipple>
+                <Icon sx={iconsStyle}>account_circle</Icon>
+              </IconButton>
+
               <IconButton
                 size="small"
                 disableRipple

@@ -1,18 +1,30 @@
 import React from "react";
-import "../Account.css";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { Typography } from "@mui/material";
-import { FaArrowLeft, FaEdit } from "react-icons/fa";
-
-import "../../../Shared/common-styles/button.css";
-import { useAccount } from "App/Api/accapi";
+import moment from "moment";
+import { makeStyles } from "@mui/styles";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import MDTypography from "components/MDTypography";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useAccount } from "api/accapi";
+import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { Card } from "react-bootstrap";
+import { Card, CardContent } from "@mui/material";
 
 function AccountSettings() {
   const { data: account } = useAccount();
   const accountDetails = account?.data?.results?.user || {};
+  console.log(account);
   const navigate = useNavigate();
+  const useStyles = makeStyles({
+    card: {
+      justifyContent: "space-between",
+      margin: "auto",
+      marginTop: "30px",
+      width: "100%",
+      height: "70px",
+      marginBottom: "20px",
+    },
+  });
+  const classes = useStyles();
   const fields = [
     {
       label: "Email",
@@ -27,45 +39,28 @@ function AccountSettings() {
       fieldKey: "recoverycode",
     },
   ];
+
   const handlePassword = () => {
     navigate("/apassword");
   };
 
   return (
-    <>
-      {/* <div type="submit" className="cd-back"onClick={()=>{navigate("/account")}}>< FaArrowLeft/></div> */}
-      <ArrowBackIosIcon
-        type="submit"
-        style={{ maxWidth: 45, marginTop: "35px" }}
-        onClick={() => {
-          navigate("/account");
-        }}
-      />{" "}
-      <Typography
-        style={{
-          textAlign: "center",
-          fontWeight: "lighter",
-          fontFamily: "monospace",
-          marginTop: "-30px",
-          marginBottom: "10px",
-        }}
-        variant="h4"
-      >
-        Account settings
-      </Typography>
-      {/* <h2 className="cd-headerStyle">Account settings</h2> */}
+    <DashboardLayout>
+      <DashboardNavbar />
       {fields.map((field, id) => (
-        <div className="cd-card1" key={id}>
+        <div key={id}>
           {field.fieldKey === "email" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <Card.Body style={{ display: "flex", marginLeft: "6px" }} className="p-2 mt-2">
-                {field.label}:{accountDetails.email}
-              </Card.Body>
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
+                  {field.label} : {`${accountDetails.email}`}
+                </MDTypography>
+              </CardContent>
             </Card>
           ) : field.fieldKey === "changePassword" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <Card.Body className="d-flex justify-content-between">
-                {field.label}
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography> {field.label}</MDTypography>
                 <span
                   type="submit"
                   onClick={() => {
@@ -74,12 +69,15 @@ function AccountSettings() {
                 >
                   <FaEdit />
                 </span>
-              </Card.Body>
+              </CardContent>
             </Card>
           ) : field.fieldKey === "recoverycode" ? (
-            <Card className="cd-cardstyle bg-light mb-3">
-              <Card.Body className="d-flex justify-content-between">
-                {field.label}
+            <Card className={classes.card}>
+              <CardContent>
+                <MDTypography>
+                  {" "}
+                  {field.label} : {accountDetails.country}
+                </MDTypography>
                 <button
                   onClick={() => {
                     navigate("/recovery-codes-account");
@@ -88,12 +86,12 @@ function AccountSettings() {
                 >
                   Re-Generate
                 </button>
-              </Card.Body>
+              </CardContent>
             </Card>
           ) : null}
         </div>
       ))}
-    </>
+    </DashboardLayout>
   );
 }
 export default AccountSettings;

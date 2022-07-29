@@ -24,6 +24,13 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up"; // @mui icons
 import Icon from "@mui/material/Icon";
 import Account from "layouts/Account/Account";
+import ProfileSettings from "layouts/Account/settings/ProfileSettings";
+import AccountSettings from "layouts/Account/settings/AccountSettings";
+import SystemSettings from "layouts/Account/settings/SystemSettings";
+import ProfileName from "layouts/Account/Profile/ProfileName";
+import Country from "layouts/Account/Profile/Country";
+import DateofBirth from "layouts/Account/Profile/DateOfBirth";
+import RecoveryCodeBoxStepAccount from "Shared/RecoveryStep/RecoveryStepAccount";
 
 export const loggedroutes = [
   {
@@ -35,12 +42,61 @@ export const loggedroutes = [
     component: <Dashboard />,
   },
   {
-    type: "collapse",
+    type: "route",
     name: "Account",
     key: "Account",
-    icon: <Icon fontSize="small">account_circle</Icon>,
     route: "/account",
     component: <Account />,
+  },
+  {
+    type: "route",
+    name: "ProfileSettings",
+    key: "profile-settings",
+    route: "/profile-settings",
+    component: <ProfileSettings />,
+  },
+  {
+    type: "route",
+    name: "Name",
+    key: "profile-name",
+    route: "/profile-name",
+    component: <ProfileName />,
+  },
+  // recovery-codes-account
+  {
+    type: "route",
+    name: "Country",
+    key: "profile-country",
+    route: "/profile-country",
+    component: <Country />,
+  },
+  {
+    type: "route",
+    name: "Date-of-birth",
+    key: "profile-dob",
+    route: "/profile-dob",
+    component: <DateofBirth />,
+  },
+  {
+    type: "route",
+    name: "AccountSettings",
+    key: "account-settings",
+    route: "/account-settings",
+    component: <AccountSettings />,
+  },
+  {
+    type: "route",
+    name: "Country",
+    key: "profile-country",
+    route: "/recovery-codes-account",
+    component: <RecoveryCodeBoxStepAccount />,
+  },
+  {
+    type: "route",
+    name: "SystemSettings",
+    key: "system-settings",
+    route: "/system-settings",
+    component: <SystemSettings />,
   },
   {
     type: "collapse",
@@ -59,6 +115,7 @@ export const loggedroutes = [
     route: "/notifications",
     component: <Notifications />,
   },
+
   {
     type: "collapse",
     name: "Profile",

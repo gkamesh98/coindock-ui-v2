@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useAccountData } from "App/Api/accapi";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useAccountData } from "api/accapi";
 import { useNavigate } from "react-router-dom";
 import Password, { passwordValidation } from "Shared/Password/Password";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+/* eslint-disable react/prop-types */
 function Checkbox(props) {
   const [checked, setChecked] = useState(props.checked);
   const handleOnChange = (event) => {
@@ -26,4 +26,5 @@ function Checkbox(props) {
     </div>
   );
 }
+
 export default Checkbox;

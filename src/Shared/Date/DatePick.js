@@ -50,6 +50,7 @@ function DatePick({ name, onChange, formErrors, value }) {
   );
 }
 DatePick.propTypes = {
+  name: propTypes.string,
   label: propTypes.number,
   onChange: propTypes.func,
   value: propTypes.string,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useAccount, useCurrency, useAccountData } from "App/Api/accapi";
-
+import { useAccount, useCurrency, useAccountData } from "api/accapi";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useNavigate } from "react-router-dom";
 
 function Primary() {
