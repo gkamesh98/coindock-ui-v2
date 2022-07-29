@@ -21,6 +21,7 @@ const MDButton = forwardRef(
     );
   }
 ); // Setting default values for the props of MDButton
+MDButton.displayName = "Button";
 MDButton.defaultProps = {
   size: "medium",
   variant: "contained",

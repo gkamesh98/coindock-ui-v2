@@ -11,6 +11,8 @@ const MDBox = forwardRef(
     />
   )
 ); // Setting default values for the props of MDBox
+
+MDBox.displayName = "Box";
 MDBox.defaultProps = {
   variant: "contained",
   bgColor: "transparent",

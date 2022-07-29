@@ -29,6 +29,9 @@ const MDTypography = forwardRef(
     );
   }
 ); // Setting default values for the props of MDTypography
+
+MDTypography.displayName = "Typography";
+
 MDTypography.defaultProps = {
   color: "dark",
   fontWeight: false,

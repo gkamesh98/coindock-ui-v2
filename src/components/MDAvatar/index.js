@@ -5,6 +5,7 @@ import MDAvatarRoot from "components/MDAvatar/MDAvatarRoot";
 const MDAvatar = forwardRef(({ bgColor, size, shadow, ...rest }, ref) => (
   <MDAvatarRoot ref={ref} ownerState={{ shadow, bgColor, size }} {...rest} />
 )); // Setting default values for the props of MDAvatar
+MDAvatar.displayName = "Avatar";
 MDAvatar.defaultProps = {
   bgColor: "transparent",
   size: "md",
