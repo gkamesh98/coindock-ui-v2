@@ -1,5 +1,5 @@
 import { getUserId } from "helper/functions";
-import baseApi from "./api";
+import { baseApi } from "./api";
 
 baseApi.enhanceEndpoints({
   addTagTypes: ["pie", "piefilter"],
@@ -12,6 +12,7 @@ const piechartapi = baseApi.injectEndpoints({
         params: { filter_by },
         method: "get",
       }),
+      transformResponse: (response) => response?.data?.results,
       providesTags: ["pie"],
     }),
     piefilter: build.query({
@@ -19,7 +20,7 @@ const piechartapi = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/pie-chart/filter`,
         method: "get",
       }),
-
+      transformResponse: (response) => response?.data?.results,
       providesTags: ["piefilter"],
     }),
 

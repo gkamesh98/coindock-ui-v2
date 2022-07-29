@@ -39,7 +39,12 @@
     "redux-logger": "3.0.6",
     "redux-thunk": "2.4.1",
     "web-vitals": "2.1.4",
+<<<<<<< HEAD
     "yup": "^0.32.11"
+=======
+    "yup": "^0.32.11",
+    "yup-password": "^0.2.2"
+>>>>>>> 68c7f60fdd44a8861f47cbd72c87dbd6c2306c08
   },
   "scripts": {
     "start": "react-scripts start",

@@ -10,9 +10,26 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData"; // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
+import {
+  usePrimaryCurrency,
+  useTotalCurrency,
+  useTopperformer,
+  useLowperformer,
+} from "api/coinperformance";
+import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
+import { usePieChart } from "api/piechartapi";
+
+import { useLineChart } from "api/linechartapi";
+import { MenuItem, Select } from "@mui/material";
 
 function Dashboard() {
   const { sales } = reportsLineChartData;
+
+  const { data: total } = useTotalCurrency();
+  const { data: primary } = usePrimaryCurrency();
+  const { data: top } = useTopperformer();
+  const { data: low } = useLowperformer();
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -23,12 +40,11 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="dark"
                 icon="weekend"
-                title="Bookings"
-                count={281}
+                // image={total?.img_url}
+                title={total?.heading}
+                count={total?.balance.toFixed(4)}
                 percentage={{
                   color: "success",
-                  // amount: "+55%",
-                  // label: "than lask week",
                 }}
               />
             </MDBox>
@@ -37,8 +53,8 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
+                title={primary?.heading}
+                count={primary?.balance.toFixed(4)}
                 percentage={{
                   color: "success",
                   // amount: "+3%",
@@ -52,8 +68,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="success"
                 icon="trending_up"
-                title="Revenue"
-                count="34k"
+                title={top?.heading}
+                count={top?.balance.toFixed(4)}
                 percentage={{
                   color: "success",
                   // amount: "+1%",
@@ -67,8 +83,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="primary"
                 icon="trending_down"
-                title="Followers"
-                count="+91"
+                title={low?.heading}
+                count={low?.balance.toFixed(4)}
                 percentage={{
                   color: "success",
                   // amount: "",
@@ -97,7 +113,7 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <ReportsLineChart
+                <DefaultDoughnutChart
                   color="success"
                   title="daily sales"
                   description={
