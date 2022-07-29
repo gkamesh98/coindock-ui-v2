@@ -37,6 +37,7 @@ const MDPagination = forwardRef(
     );
   }
 ); // Setting default values for the props of MDPagination
+MDPagination.displayName = "Pagination";
 MDPagination.defaultProps = {
   item: false,
   variant: "gradient",

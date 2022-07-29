@@ -52,7 +52,7 @@ function DataTable({
     setGlobalFilter,
     state: { pageIndex, pageSize, globalFilter },
   } = tableInstance; // Set the default value for the entries per page when component mounts
-  useEffect(() => setPageSize(defaultValue || 10), [defaultValue]); // Set the entries per page value based on the select value
+  useEffect(() => setPageSize(defaultValue || 10), [defaultValue, setPageSize]); // Set the entries per page value based on the select value
   const setEntriesPerPage = (value) => setPageSize(value); // Render the paginations
   const renderPagination = pageOptions.map((option) => (
     <MDPagination
@@ -132,10 +132,11 @@ function DataTable({
       ) : null}
       <Table {...getTableProps()}>
         <MDBox component="thead">
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+          {headerGroups.map((headerGroup, index) => (
+            <TableRow key={index} {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column, headerIndex) => (
                 <DataTableHeadCell
+                  key={headerIndex + "-" + index}
                   {...column.getHeaderProps(isSorted && column.getSortByToggleProps())}
                   width={column.width ? column.width : "auto"}
                   align={column.align ? column.align : "left"}
@@ -151,9 +152,10 @@ function DataTable({
           {page.map((row, key) => {
             prepareRow(row);
             return (
-              <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell) => (
+              <TableRow key={key} {...row.getRowProps()}>
+                {row.cells.map((cell, index) => (
                   <DataTableBodyCell
+                    key={`index${index}-key${key}`}
                     noBorder={noEndBorder && rows.length - 1 === key}
                     align={cell.column.align ? cell.column.align : "left"}
                     {...cell.getCellProps()}

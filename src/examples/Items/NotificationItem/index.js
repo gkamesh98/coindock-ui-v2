@@ -22,4 +22,5 @@ NotificationItem.propTypes = {
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
 };
+NotificationItem.displayName = "Notification";
 export default NotificationItem;
