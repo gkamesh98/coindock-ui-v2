@@ -12,12 +12,40 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton"; // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout"; // Images
+import { useLogin } from "api/auth";
+import YupPassword from "yup-password";
 // import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import * as Yup from "yup";
+import { useState } from "react";
+
+const validationSchema = Yup.object({
+  email: Yup.string().email("Email is not Valid").required("Email is Required"),
+  password: Yup.string().required("Password is Required"),
+});
 
 function Basic() {
+  const [login, loginOptions] = useLogin();
+
+  const initialValues = { email: "", password: "" };
+  const onSubmit = (values, actions) => {
+    console.log(values);
+    login({
+      ...values,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/dashboard");
+      });
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
   return (
     <BasicLayout>
-      {/* <BasicLayout image={bgImage}> */}
       <Card>
         <MDBox
           variant="gradient"
@@ -33,35 +61,29 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="email" label="Email" fullWidth {...formik.getFieldProps("email")} />
+              {formik.touched.email && formik?.errors?.email ? (
+                <div>{formik?.errors?.email}</div>
+              ) : null}
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                fullWidth
+                {...formik.getFieldProps("password")}
+              />
+              {formik.touched.password && formik?.errors?.password ? (
+                <div>{formik?.errors?.password}</div>
+              ) : null}
             </MDBox>
 
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" type="submit" fullWidth>
                 sign in
               </MDButton>
             </MDBox>

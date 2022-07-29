@@ -13,6 +13,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 
 import { useIsAuthenticated, useFetchAuthRefresh } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const getRoutes = (allRoutes) =>
   allRoutes.map((route) => {
@@ -86,7 +87,9 @@ export default function App() {
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
       {!ready ? (
-        <CircularProgress />
+        <Box display="flex" widht={1} justifyContent="center">
+          <CircularProgress />
+        </Box>
       ) : (
         layout === "dashboard" && (
           <>
@@ -103,19 +106,19 @@ export default function App() {
           </>
         )
       )}
-      {layout === "vr" && <Configurator />}
-      {!authenticated ? (
-        <Routes>
-          {getRoutes(loggedroutes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-          <Route path="/account" element={<Navigate to="/account" />} />
-        </Routes>
-      ) : (
-        <Routes>
-          {getRoutes(publicRoutes)}
-          <Route path="*" element={<Navigate to="/sign-in" />} />
-        </Routes>
-      )}
+      {ready &&
+        (authenticated ? (
+          <Routes>
+            {getRoutes(loggedroutes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+            <Route path="/account" element={<Navigate to="/account" />} />
+          </Routes>
+        ) : (
+          <Routes>
+            {getRoutes(publicRoutes)}
+            <Route path="*" element={<Navigate to="/sign-in" />} />
+          </Routes>
+        ))}
     </ThemeProvider>
   );
 }

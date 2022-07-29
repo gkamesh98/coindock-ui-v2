@@ -1,5 +1,5 @@
 import { getUserId } from "helper/functions";
-import baseApi from "./api";
+import { baseApi } from "./api";
 
 baseApi.enhanceEndpoints({
   addTagTypes: ["total", "primarycurrency", "topperformer", "lowperformer"],
@@ -19,7 +19,7 @@ const coinperformanceapi = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/primary-currency`,
         method: "get",
       }),
-
+      transformResponse: (response) => response?.data?.results,
       providesTags: ["primarycurrency"],
     }),
     top: build.query({
@@ -27,7 +27,7 @@ const coinperformanceapi = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/top-performer`,
         method: "get",
       }),
-
+      transformResponse: (response) => response?.data?.results,
       providesTags: ["topperformer"],
     }),
     low: build.query({
@@ -35,7 +35,7 @@ const coinperformanceapi = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/low-performer`,
         method: "get",
       }),
-
+      transformResponse: (response) => response?.data?.results,
       providesTags: ["lowperformer"],
     }),
 

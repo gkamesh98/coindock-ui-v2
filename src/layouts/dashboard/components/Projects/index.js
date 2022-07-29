@@ -8,7 +8,6 @@ import data from "layouts/dashboard/components/Projects/data";
 
 function Projects() {
   const { columns, rows } = data();
-
   return (
     <Card>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
