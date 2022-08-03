@@ -8,8 +8,9 @@ import { useAccount } from "api/accapi";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
-import MDButton from "components/MDButton";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
+import outlined from "assets/theme/components/button/outlined";
 function AccountSettings() {
   const { data: account, isLoading } = useAccount();
   const accountDetails = account?.user || {};
@@ -17,6 +18,7 @@ function AccountSettings() {
   const navigate = useNavigate();
   const useStyles = makeStyles({
     card: {
+      cursor: "pointer",
       minWidth: "250px",
       maxWidth: "500px",
       margin: "auto",
@@ -28,10 +30,8 @@ function AccountSettings() {
       marginTop: "10px",
     },
     button: {
-      onHover: "light blue",
       float: "right",
       color: "white",
-      backgroundColor: "blue",
     },
   });
   const classes = useStyles();
@@ -94,7 +94,8 @@ function AccountSettings() {
               <Card className={classes.card}>
                 <CardContent className={classes.cardcontent}>
                   <MDTypography style={{ fontSize: "18px" }}> {field.label}</MDTypography>
-                  <MDButton
+                  <Button
+                    variant="contained"
                     style={{ marginTop: "-7%" }}
                     className={classes.button}
                     onClick={() => {
@@ -102,7 +103,7 @@ function AccountSettings() {
                     }}
                   >
                     Re-Generate
-                  </MDButton>
+                  </Button>
                 </CardContent>
               </Card>
             ) : null}

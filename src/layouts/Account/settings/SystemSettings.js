@@ -16,6 +16,7 @@ function SystemSettings() {
   const navigate = useNavigate();
   const useStyles = makeStyles({
     card: {
+      cursor: "pointer",
       minWidth: "250px",
       maxWidth: "500px",
       margin: "auto",

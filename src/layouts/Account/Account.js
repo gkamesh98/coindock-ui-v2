@@ -27,28 +27,27 @@ function Account() {
   };
   const useStyles = makeStyles({
     avatar: {
-      marginTop: "10px",
-      width: "55px",
-      height: "55px",
+      marginTop: "-6px",
+      float: "end",
+      width: "50px",
+      height: "50px",
+      marginLeft: "10px",
     },
     button: {
       alignItems: "center",
       color: "white",
-      marginTop: "4%",
-      marginLeft: "28%",
+      marginTop: "6%",
+      width: "150px",
     },
 
     card: {
-      alignItems: "center",
+      cursor: "pointer",
+      display: "flex",
+      marginTop: "3%",
       margin: "auto",
       width: "auto",
       height: "70px",
       marginBottom: "20px",
-    },
-    cardheader: {
-      justifyContent: "space-between",
-      color: "black",
-      marginRight: "25%",
     },
   });
   const classes = useStyles();
@@ -67,49 +66,60 @@ function Account() {
           handleCardProfile();
         }}
         className={classes.card}
+        elevation={7}
         sx={{ maxWidth: 450 }}
       >
         <CardHeader
-          className={classes.cardheader}
           avatar={
-            <Avatar sx={{ bgcolor: pink[700] }}>
+            <Avatar className={classes.avatar} sx={{ bgcolor: pink[700] }}>
               <PersonOutlineTwoTone />
             </Avatar>
           }
+          titleTypographyProps={{ fontSize: "18px" }}
           title="Profile Settings"
         />
       </Card>
-      <Card onClick={() => handleCardAccount()} className={classes.card} sx={{ maxWidth: 450 }}>
+      <Card
+        onClick={() => handleCardAccount()}
+        className={classes.card}
+        elevation={7}
+        sx={{ maxWidth: 450 }}
+      >
         <CardHeader
-          className={classes.cardheader}
           avatar={
-            <Avatar sx={{ bgcolor: grey[700] }}>
+            <Avatar className={classes.avatar} sx={{ bgcolor: grey[700] }}>
               <AccountBoxSharp />
             </Avatar>
           }
+          titleTypographyProps={{ fontSize: "18px" }}
           title="Account Settings"
         />
       </Card>
-      <Card onClick={() => handleCardSystem()} className={classes.card} sx={{ maxWidth: 450 }}>
+      <Card
+        onClick={() => handleCardSystem()}
+        elevation={7}
+        className={classes.card}
+        sx={{ maxWidth: 450 }}
+      >
         <CardHeader
-          className={classes.cardheader}
           avatar={
-            <Avatar sx={{ bgcolor: purple[400] }}>
+            <Avatar className={classes.avatar} sx={{ bgcolor: purple[400] }}>
               <Settings />
             </Avatar>
           }
+          titleTypographyProps={{ fontSize: "18px" }}
           title="System Settings"
         />
+        <Button
+          className={classes.button}
+          startIcon={<Logout />}
+          variant="contained"
+          size="large"
+          onClick={handleLogoutClick}
+        >
+          Logout
+        </Button>
       </Card>
-      <Button
-        className={classes.button}
-        startIcon={<Logout />}
-        variant="contained"
-        size="large"
-        onClick={handleLogoutClick}
-      >
-        Logout
-      </Button>
     </DashboardLayout>
   );
 }

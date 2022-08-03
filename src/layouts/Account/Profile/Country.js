@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,7 +20,7 @@ function Country() {
   const initialValues = {
     country: accountDetails.country,
   };
-  const { data: countryfilter } = useCountry();
+  const { data: countryfilter, isLoading } = useCountry();
 
   const [formValues, setformValues] = useState(initialValues);
 
@@ -62,21 +64,26 @@ function Country() {
         Edit Country
       </MDTypography>
       <form onInput={(e) => handleChange(e)}>
-        <Select
-          className={classes.input}
-          name="country"
-          onChange={handleChange}
-          defaultValue={formValues.country}
-          label="Country"
-        >
-          {countryfilter?.countries?.map((value) => {
-            return (
-              <MenuItem value={value} key={value}>
-                {value}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        {isLoading ? (
+          <Box display="flex" width={0.5} justifyContent="center">
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Select
+            className={classes.input}
+            onChange={handleChange}
+            defaultValue={formValues.country}
+            label="Country"
+          >
+            {countryfilter?.countries?.map((value) => {
+              return (
+                <MenuItem value={value} key={value}>
+                  {value}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        )}
       </form>
       <MDButton
         className={classes.button}
