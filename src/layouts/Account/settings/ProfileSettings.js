@@ -66,7 +66,7 @@ function ProfileSettings() {
 
       {isLoading ? (
         <Box display="flex" widht={1} justifyContent="center">
-          <CircularProgress />
+          <CircularProgress style={{ color: "blue" }} />
         </Box>
       ) : (
         fields.map((field, id) => (

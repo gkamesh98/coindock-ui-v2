@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // @mui material components
-import { makeStyles } from "@mui/styles";
+
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import MDBox from "components/MDBox";
@@ -14,7 +14,7 @@ import MDTypography from "components/MDTypography";
 
 function ProfileName() {
   const { data: account } = useAccount();
-
+  const [isValid, setValid] = useState(false);
   const accountDetails = account?.user || {};
   const validationSchema = Yup.object({
     firstName: Yup.string()
@@ -26,6 +26,9 @@ function ProfileName() {
       .max(45)
       .required(),
   });
+  const handleOnChange = () => {
+    setValid(true);
+  };
 
   const [getData] = useAccountData();
   const navigate = useNavigate();
@@ -53,7 +56,12 @@ function ProfileName() {
         Edit Name
       </MDTypography>
       <MDBox pt={4} pb={3} px={3} ml={4} sx={4} md={6} lg={12}>
-        <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
+        <MDBox
+          component="form"
+          role="form"
+          onSubmit={formik.handleSubmit}
+          onChange={handleOnChange}
+        >
           <MDBox mb={3}>
             <MDInput label="First Name" {...formik.getFieldProps("firstName")} />
             {formik?.errors?.firstName ? (
@@ -68,7 +76,7 @@ function ProfileName() {
           </MDBox>
 
           <MDBox mt={4} mb={1}>
-            <MDButton variant="gradient" color="info" type="submit">
+            <MDButton disabled={!isValid} variant="gradient" color="info" type="submit">
               Submit
             </MDButton>
           </MDBox>

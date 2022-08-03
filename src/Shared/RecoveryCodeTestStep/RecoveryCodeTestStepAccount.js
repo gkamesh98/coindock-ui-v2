@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import RecoveryBoxs from "Shared/Form/RecoveryBoxes";
@@ -9,12 +10,12 @@ import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
 import Popup from "Shared/Popup/Popup";
 import MDTypography from "components/MDTypography";
-import Button from "components/MDButton";
+import { Button } from "@mui/material";
 
 function RecoveryCodeTestStepAccount() {
   const navigate = useNavigate();
 
-  const { data = [] } = useGetRandomRecoveryCodesQuery();
+  const { data = [], isLoading } = useGetRandomRecoveryCodesQuery();
 
   const [recoveryTestCodes, { error }] = usePutRecoveryCodesMutation();
 
@@ -25,8 +26,7 @@ function RecoveryCodeTestStepAccount() {
     button: {
       marginTop: "4%",
       marginLeft: "4%",
-      textDecorationColor: "white",
-      backgroundColor: "blue",
+      color: "white",
     },
     label: {
       marginLeft: "3%",
@@ -73,18 +73,24 @@ function RecoveryCodeTestStepAccount() {
         <MDTypography className={classes.label}>
           Please enter the recovery words on the same order to activate the CoinDock account.
         </MDTypography>
-        <Box sx={{ flexGrow: 1 }} mt={5} ml={4}>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {Boolean(recoveryCodes) &&
-              recoveryCodes.map((index, number) => (
-                <Grid item md={2} key={number}>
-                  <RecoveryBoxs key={index} index={number} submitEvent={true} input={true} />
-                </Grid>
-              ))}
-          </Grid>
-        </Box>
-
+        {isLoading ? (
+          <Box display="flex" widht={1} justifyContent="center">
+            <CircularProgress style={{ color: "blue" }} />
+          </Box>
+        ) : (
+          <Box sx={{ flexGrow: 1 }} mt={5} ml={4}>
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {Boolean(recoveryCodes) &&
+                recoveryCodes.map((index, number) => (
+                  <Grid item md={2} key={index}>
+                    <RecoveryBoxs key={index} index={number + 1} submitEvent={true} input={true} />
+                  </Grid>
+                ))}
+            </Grid>
+          </Box>
+        )}
         <Button
+          variant="contained"
           className={classes.button}
           onClick={() => {
             navigate("/recovery-codes-account");
@@ -92,7 +98,7 @@ function RecoveryCodeTestStepAccount() {
         >
           Back
         </Button>
-        <Button className={classes.button} onClick={handleSubmit}>
+        <Button variant="contained" className={classes.button} onClick={handleSubmit}>
           Confirm
         </Button>
       </form>

@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   box: {
     position: "relative",
     boxSizing: "border-box",
-    width: "82px",
+    width: "100px",
     height: "65px",
     background: "#ffffff",
     border: "1px solid #0080b1",
@@ -18,12 +18,10 @@ const useStyles = makeStyles({
     justifyContent: "center",
     margin: "6px",
     display: "flex",
-    flex: "auto",
   },
   boxDate: {
     margin: "0px",
     justifyContent: "center",
-    height: "fir-content",
     padding: "20px",
     fontFamily: "Roboto, Helvetica, Arial, sans-serif",
   },

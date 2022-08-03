@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 /* eslint-disable react/prop-types */
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { experimentalStyled as styled } from "@mui/material/styles";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import RecoveryBoxs from "Shared/Form/RecoveryBoxes";
@@ -11,7 +10,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DownloadRecoverykeys from "Shared/Form/DownloadRecoverykeys";
 import { usePostRecoveryCodesQuery } from "api/recoveryCodes";
 import { useNavigate } from "react-router-dom";
-import Button from "components/MDButton";
+import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import MDTypography from "components/MDTypography";
 
@@ -20,7 +19,7 @@ function RecoveryCodeBoxStepAccount() {
 
   const navigate = useNavigate();
 
-  const { data = [] } = usePostRecoveryCodesQuery();
+  const { data = [], isLoading } = usePostRecoveryCodesQuery();
 
   const handleOnSubmit = () => {
     navigate("/recovery-test-account");
@@ -34,7 +33,7 @@ function RecoveryCodeBoxStepAccount() {
     button: {
       marginTop: "2%",
       marginLeft: "2%",
-      backgroundColor: "blue",
+      color: "white",
     },
     label: {
       marginLeft: "3%",
@@ -43,8 +42,8 @@ function RecoveryCodeBoxStepAccount() {
       marginLeft: "3%",
     },
     download: {
-      marginBottom: "2%",
-      marginTop: "2%",
+      marginBottom: "3%",
+      marginTop: "3%",
       marginLeft: "3%",
     },
   });
@@ -57,17 +56,22 @@ function RecoveryCodeBoxStepAccount() {
       <MDTypography className={classes.label}>
         Please note down the below recovery words in the same order and keep it securely
       </MDTypography>
-
-      <Box sx={{ flexGrow: 1 }} mt={5} ml={4}>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {Boolean(recoveryCodes) &&
-            recoveryCodes.map((value, number) => (
-              <Grid item md={2} key={number}>
-                <RecoveryBoxs key={number} index={number + 1} code={value} />
-              </Grid>
-            ))}
-        </Grid>
-      </Box>
+      {isLoading ? (
+        <Box display="flex" widht={1} justifyContent="center">
+          <CircularProgress style={{ color: "blue" }} />
+        </Box>
+      ) : (
+        <Box sx={{ flexGrow: 1 }} mt={5} ml={4}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {Boolean(recoveryCodes) &&
+              recoveryCodes.map((value, number) => (
+                <Grid item md={2} key={number}>
+                  <RecoveryBoxs key={number} index={number + 1} code={value} />
+                </Grid>
+              ))}
+          </Grid>
+        </Box>
+      )}
       <div className={classes.download}>
         <DownloadRecoverykeys />
       </div>

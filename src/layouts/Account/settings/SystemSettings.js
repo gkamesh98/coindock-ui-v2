@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 function SystemSettings() {
   const { data: account, isLoading } = useAccount();
   const accountDetails = account?.user || {};
-  console.log(account);
+
   const navigate = useNavigate();
   const useStyles = makeStyles({
     card: {
@@ -52,7 +52,7 @@ function SystemSettings() {
       <DashboardNavbar />
       {isLoading ? (
         <Box display="flex" widht={1} justifyContent="center">
-          <CircularProgress />
+          <CircularProgress style={{ color: "blue" }} />
         </Box>
       ) : (
         fields.map((field, id) => (

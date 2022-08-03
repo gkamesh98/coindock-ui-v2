@@ -3,7 +3,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Logout from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
-import { blue, grey, purple, pink } from "@mui/material/colors";
+import { purple, pink, red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "api/auth";
 import { Settings } from "@mui/icons-material";
@@ -41,6 +41,10 @@ function Account() {
     },
 
     card: {
+      "&:hover": {
+        backgroundColor: "#e1f5fe",
+      },
+      backgroundColor: "white",
       cursor: "pointer",
       display: "flex",
       marginTop: "3%",
@@ -71,7 +75,7 @@ function Account() {
       >
         <CardHeader
           avatar={
-            <Avatar className={classes.avatar} sx={{ bgcolor: pink[700] }}>
+            <Avatar className={classes.avatar} sx={{ bgcolor: pink[500] }}>
               <PersonOutlineTwoTone />
             </Avatar>
           }
@@ -87,7 +91,7 @@ function Account() {
       >
         <CardHeader
           avatar={
-            <Avatar className={classes.avatar} sx={{ bgcolor: grey[700] }}>
+            <Avatar className={classes.avatar} sx={{ bgcolor: red[500] }}>
               <AccountBoxSharp />
             </Avatar>
           }

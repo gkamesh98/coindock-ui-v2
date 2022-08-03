@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
+import MenuItem from "@mui/material/MenuItem";
 import { useAccount, useCurrency, useAccountData } from "api/accapi";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useNavigate } from "react-router-dom";
-import MDButton from "components/MDButton";
+import { Button, Select } from "@mui/material";
 import MDTypography from "components/MDTypography";
 
 function Secondary() {
@@ -16,14 +17,19 @@ function Secondary() {
   const useStyles = makeStyles({
     button: {
       height: "15px",
+      color: "white",
       marginTop: "15px",
+    },
+    select: {
+      width: "200px",
+      height: "25px",
     },
   });
   const classes = useStyles();
   const navigate = useNavigate();
   const { data: currencyfilter } = useCurrency();
   const [formValues, setformValues] = useState(initialValues);
-  const [isValid, setValid] = useState(false);
+
   const [filter, setFilter] = useState({});
   const [getData] = useAccountData();
   const handleChanges = (e) => {
@@ -50,23 +56,22 @@ function Secondary() {
       <DashboardNavbar />
       <MDTypography>Edit secondary currency</MDTypography>
       <form onInput={handleChanges}>
-        <select
-          style={{ width: "200px", height: "25px" }}
+        <Select
+          className={classes.select}
           name="secondary_currency"
           defaultValue={formValues.secondaryCurrency}
           onChange={handleChange}
-          label="Secondary Currency"
         >
           {currencyfilter?.coins?.map((value, id) => (
-            <option value={value.coin_id} key={id}>
+            <MenuItem value={value.coin_id} key={id}>
               {value.coin_id}
-            </option>
+            </MenuItem>
           ))}
-        </select>
+        </Select>
       </form>
-      <MDButton className={classes.button} disabled={!isValid} onClick={handleSubmit}>
+      <Button variant="contained" className={classes.button} onClick={handleSubmit}>
         Submit
-      </MDButton>
+      </Button>
     </DashboardLayout>
   );
 }

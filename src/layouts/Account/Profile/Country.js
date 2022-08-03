@@ -66,14 +66,13 @@ function Country() {
       <form onInput={(e) => handleChange(e)}>
         {isLoading ? (
           <Box display="flex" width={0.5} justifyContent="center">
-            <CircularProgress />
+            <CircularProgress style={{ color: "blue" }} />
           </Box>
         ) : (
           <Select
             className={classes.input}
             onChange={handleChange}
             defaultValue={formValues.country}
-            label="Country"
           >
             {countryfilter?.countries?.map((value) => {
               return (

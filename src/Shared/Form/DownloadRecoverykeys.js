@@ -1,6 +1,6 @@
 import React from "react";
-
 import { useGetRecoveryCodesDownloadMutation } from "api/recoveryCodes";
+import { Button } from "@mui/material";
 
 function DownloadRecoverykeys() {
   const [downloadble] = useGetRecoveryCodesDownloadMutation();
@@ -9,9 +9,9 @@ function DownloadRecoverykeys() {
     downloadble();
   };
   return (
-    <button className="cd-button cd-card-button1" onClick={handleOnClick}>
+    <Button variant="contained" style={{ color: "white" }} onClick={handleOnClick}>
       Download words
-    </button>
+    </Button>
   );
 }
 export default DownloadRecoverykeys;
