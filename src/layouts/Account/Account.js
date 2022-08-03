@@ -9,15 +9,11 @@ import { useLogout } from "api/auth";
 import { Settings } from "@mui/icons-material";
 import { PersonOutlineTwoTone } from "@mui/icons-material";
 import { AccountBoxSharp } from "@mui/icons-material";
-import MDTypography from "components/MDTypography";
-import { Card } from "@mui/material";
-import { CardContent } from "@mui/material";
+import { Card, CardHeader } from "@mui/material";
 import { Avatar } from "@mui/material";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 function Account() {
-  // const { data: account } = useAccount();
-  // const accountDetails = account?.data?.results?.user || {};
   const [logout] = useLogout();
   const navigate = useNavigate();
   const handleCardProfile = () => {
@@ -31,11 +27,9 @@ function Account() {
   };
   const useStyles = makeStyles({
     avatar: {
-      // marginTop: "20px",
-      marginRight: "18rem",
-
-      width: "50px",
-      height: "50px",
+      marginTop: "10px",
+      width: "55px",
+      height: "55px",
     },
     button: {
       alignItems: "center",
@@ -43,21 +37,18 @@ function Account() {
       marginTop: "4%",
       marginLeft: "28%",
     },
-    headings: {
-      marginLeft: "30%",
-      alignItems: "center",
-      // marginTop: "25px",
-    },
+
     card: {
       alignItems: "center",
       margin: "auto",
-      marginTop: "30px",
       width: "auto",
       height: "70px",
       marginBottom: "20px",
     },
     cardheader: {
-      marginLeft: "7px",
+      justifyContent: "space-between",
+      color: "black",
+      marginRight: "25%",
     },
   });
   const classes = useStyles();
@@ -75,51 +66,40 @@ function Account() {
         onClick={() => {
           handleCardProfile();
         }}
-        type="submit"
         className={classes.card}
         sx={{ maxWidth: 450 }}
       >
-        <CardContent>
-          <Avatar
-            sx={{ bgcolor: pink[400], marginRight: "15rem", marginTop: "4px" }}
-            lg={{ marginRight: "25rem", marginTop: "4px" }}
-          >
-            <PersonOutlineTwoTone />
-          </Avatar>
-          <MDTypography className={classes.headings} variant="h5" color="text.secondary">
-            Profile settings
-          </MDTypography>
-        </CardContent>
+        <CardHeader
+          className={classes.cardheader}
+          avatar={
+            <Avatar sx={{ bgcolor: pink[700] }}>
+              <PersonOutlineTwoTone />
+            </Avatar>
+          }
+          title="Profile Settings"
+        />
       </Card>
-      <Card
-        onClick={() => handleCardAccount()}
-        type="submit"
-        className={classes.card}
-        sx={{ maxWidth: 450 }}
-      >
-        <CardContent>
-          <Avatar className={classes.avatar} sx={{ bgcolor: grey[700] }} alt="Remy Sharp">
-            <AccountBoxSharp />
-          </Avatar>
-          <MDTypography className={classes.headings} variant="h5" color="text.secondary">
-            Account settings
-          </MDTypography>
-        </CardContent>
+      <Card onClick={() => handleCardAccount()} className={classes.card} sx={{ maxWidth: 450 }}>
+        <CardHeader
+          className={classes.cardheader}
+          avatar={
+            <Avatar sx={{ bgcolor: grey[700] }}>
+              <AccountBoxSharp />
+            </Avatar>
+          }
+          title="Account Settings"
+        />
       </Card>
-      <Card
-        onClick={() => handleCardSystem()}
-        type="submit"
-        className={classes.card}
-        sx={{ maxWidth: 450 }}
-      >
-        <CardContent>
-          <Avatar className={classes.avatar} alt="Remy Sharp" sx={{ bgcolor: purple[400] }}>
-            <Settings />
-          </Avatar>
-          <MDTypography className={classes.headings} variant="h5" color="text.primary">
-            System settings
-          </MDTypography>
-        </CardContent>
+      <Card onClick={() => handleCardSystem()} className={classes.card} sx={{ maxWidth: 450 }}>
+        <CardHeader
+          className={classes.cardheader}
+          avatar={
+            <Avatar sx={{ bgcolor: purple[400] }}>
+              <Settings />
+            </Avatar>
+          }
+          title="System Settings"
+        />
       </Card>
       <Button
         className={classes.button}

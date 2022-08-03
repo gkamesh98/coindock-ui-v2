@@ -1,86 +1,79 @@
 import React, { useState } from "react";
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import Typography from "@mui/material/Typography";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useNavigate } from "react-router-dom"; // @mui material components
+import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
-import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
-import { useAccountData, useAccount } from "api/accapi";
-import { Button } from "@mui/material";
+import * as Yup from "yup";
+import MDBox from "components/MDBox";
+import { useAccount } from "api/accapi";
+import MDInput from "components/MDInput";
+import MDButton from "components/MDButton"; // Authentication layout components
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { useAccountData } from "api/accapi";
+import MDTypography from "components/MDTypography";
 
 function ProfileName() {
   const { data: account } = useAccount();
-  const navigate = useNavigate();
-  const accountDetails = account?.data?.results?.user || {};
-  const initialValues = {
-    first_name: accountDetails.first_name,
-    last_name: accountDetails.last_name,
-  };
 
-  const validate = (values, label = "Name", length = 0) => {
-    const errors = {};
-    if (!values.first_name) {
-      errors.first_name = "Required";
-    }
-    if (!values.last_name) {
-      errors.last_name = "Required";
-    } else if (values.length > 45) {
-      errors = ` The ${label} may not be greater than ${length} characters.`;
-    }
-    return errors;
-    // setValid(isValid);
-    // return {
-    //   isValid,
-    //   errors,
-    // };
-  };
-  const [isValid, setValid] = useState(false);
+  const accountDetails = account?.user || {};
+  const validationSchema = Yup.object({
+    firstName: Yup.string()
+      .matches(/^[A-Za-z ]*$/, "Please enter valid name")
+      .max(45)
+      .required(),
+    lastName: Yup.string()
+      .matches(/^[A-Za-z ]*$/, "Please enter valid name")
+      .max(45)
+      .required(),
+  });
+
   const [getData] = useAccountData();
+  const navigate = useNavigate();
+  const initialValues = { firstName: accountDetails.firstName, lastName: accountDetails.lastName };
   const onSubmit = (values) => {
     console.log(values);
-    // getData({
-    //   ...values,
-    // })
-    //   .unwrap()
-    //   .then(() => {
-    //     navigate("/profile-settings");
-    //   });
+    getData({
+      ...values,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/profile-settings");
+      });
   };
 
   const formik = useFormik({
     initialValues,
-    validate,
     onSubmit,
+    validationSchema,
   });
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <MDTypography px={3} ml={4}>
+        Edit Name
+      </MDTypography>
+      <MDBox pt={4} pb={3} px={3} ml={4} sx={4} md={6} lg={12}>
+        <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
+          <MDBox mb={3}>
+            <MDInput label="First Name" {...formik.getFieldProps("firstName")} />
+            {formik?.errors?.firstName ? (
+              <div style={{ fontSize: "16px", color: "red" }}>{formik?.errors?.firstName}</div>
+            ) : null}
+          </MDBox>
+          <MDBox mb={3}>
+            <MDInput type="lastName" label="Last Name" {...formik.getFieldProps("lastName")} />
+            {formik?.errors?.lastName ? (
+              <div style={{ fontSize: "16px", color: "red" }}>{formik?.errors?.lastName}</div>
+            ) : null}
+          </MDBox>
 
-      <h3>Edit name</h3>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          name="first_name"
-          placeholder="Enter First Name"
-          label="First Name"
-          {...formik.getFieldProps("first_name")}
-        />
-        {formik.touched.first_name && formik.errors.first_name ? (
-          <div>{formik.errors.first_name}</div>
-        ) : null}
-        <TextField
-          name="last_name"
-          placeholder="Enter Last Name"
-          label="Last Name"
-          {...formik.getFieldProps("last_name")}
-        />
-        {formik.touched.last_name && formik.errors.last_name ? (
-          <div>{formik.errors.last_name}</div>
-        ) : null}
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
-      </form>
+          <MDBox mt={4} mb={1}>
+            <MDButton variant="gradient" color="info" type="submit">
+              Submit
+            </MDButton>
+          </MDBox>
+        </MDBox>
+      </MDBox>
     </DashboardLayout>
   );
 }

@@ -7,33 +7,36 @@ import { useAccount } from "api/accapi";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
-
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 function SystemSettings() {
-  const { data: account } = useAccount();
-  const accountDetails = account?.data?.results?.user || {};
+  const { data: account, isLoading } = useAccount();
+  const accountDetails = account?.user || {};
   console.log(account);
   const navigate = useNavigate();
   const useStyles = makeStyles({
     card: {
-      justifyContent: "space-between",
+      minWidth: "250px",
+      maxWidth: "500px",
       margin: "auto",
       marginTop: "30px",
-      width: "100%",
       height: "70px",
       marginBottom: "20px",
     },
+    cardcontent: {
+      marginTop: "10px",
+    },
   });
+
   const classes = useStyles();
   const fields = [
     {
       label: "Primary currency",
       fieldKey: "primarycurrency",
-      type: "edit",
     },
     {
       label: "Secondary currency",
       fieldKey: "secondarycurrency",
-      type: "edit",
     },
   ];
   const handlePrimary = () => {
@@ -46,52 +49,53 @@ function SystemSettings() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      {fields.map((field, id) => (
-        <div key={id}>
-          {field.fieldKey === "primarycurrency" ? (
-            <Card className={classes.card}>
-              <CardContent>
-                <MDTypography>
-                  {field.label} :{" "}
-                  {`${accountDetails.primary_currency} ${accountDetails.primary_currency_symbol}`}
-                </MDTypography>
-              </CardContent>
-            </Card>
-          ) : field.fieldKey === "changePassword" ? (
-            <Card className={classes.card}>
-              <CardContent>
-                <MDTypography> {field.label}</MDTypography>
-                <span
-                  type="submit"
-                  onClick={() => {
-                    handlePrimary();
-                  }}
-                >
-                  <FaEdit />
-                </span>
-              </CardContent>
-            </Card>
-          ) : field.fieldKey === "secondarycurrency" ? (
-            <Card className={classes.card}>
-              <CardContent>
-                <MDTypography>
-                  {" "}
-                  {field.label} :{" "}
-                  {`${accountDetails.secondary_currency} ${accountDetails.secondary_currency_symbol}`}
-                </MDTypography>
-                <span
-                  type="submit"
-                  onClick={() => {
-                    handleSecondary();
-                  }}
-                >
-                  <FaEdit />
-                </span>
-              </CardContent>
-            </Card>
-          ) : null}
-        </div>
-      ))}
+      {isLoading ? (
+        <Box display="flex" widht={1} justifyContent="center">
+          <CircularProgress />
+        </Box>
+      ) : (
+        fields.map((field, id) => (
+          <div key={id}>
+            {field.fieldKey === "primarycurrency" ? (
+              <Card className={classes.card}>
+                <CardContent className={classes.cardcontent}>
+                  <MDTypography style={{ fontSize: "18px" }}>
+                    {field.label} :{" "}
+                    {`${accountDetails.primaryCurrency} ${accountDetails.primaryCurrencySymbol}`}
+                    <span
+                      style={{ float: "right" }}
+                      type="submit"
+                      onClick={() => {
+                        handlePrimary();
+                      }}
+                    >
+                      <FaEdit />
+                    </span>
+                  </MDTypography>
+                </CardContent>
+              </Card>
+            ) : field.fieldKey === "secondarycurrency" ? (
+              <Card className={classes.card}>
+                <CardContent className={classes.cardcontent}>
+                  <MDTypography style={{ fontSize: "18px" }}>
+                    {" "}
+                    {field.label} :
+                    <span
+                      style={{ float: "right" }}
+                      type="submit"
+                      onClick={() => {
+                        handleSecondary();
+                      }}
+                    >
+                      <FaEdit />
+                    </span>{" "}
+                  </MDTypography>
+                </CardContent>
+              </Card>
+            ) : null}
+          </div>
+        ))
+      )}
     </DashboardLayout>
   );
 }

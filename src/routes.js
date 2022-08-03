@@ -31,6 +31,10 @@ import ProfileName from "layouts/Account/Profile/ProfileName";
 import Country from "layouts/Account/Profile/Country";
 import DateofBirth from "layouts/Account/Profile/DateOfBirth";
 import RecoveryCodeBoxStepAccount from "Shared/RecoveryStep/RecoveryStepAccount";
+import Accountpassword from "layouts/Account/AccountS.js/Accountpassword";
+import RecoveryCodeTestStepAccount from "Shared/RecoveryCodeTestStep/RecoveryCodeTestStepAccount";
+import Primary from "layouts/Account/System.js/Primary";
+import Secondary from "layouts/Account/System.js/Secondary";
 
 export const loggedroutes = [
   {
@@ -40,6 +44,14 @@ export const loggedroutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Account",
+    key: "Account",
+    icon: <Icon fontSize="small">account_circle</Icon>,
+    route: "/account",
+    component: <Account />,
   },
   {
     type: "route",
@@ -62,7 +74,7 @@ export const loggedroutes = [
     route: "/profile-name",
     component: <ProfileName />,
   },
-  // recovery-codes-account
+  // apassword
   {
     type: "route",
     name: "Country",
@@ -73,8 +85,8 @@ export const loggedroutes = [
   {
     type: "route",
     name: "Date-of-birth",
-    key: "profile-dob",
-    route: "/profile-dob",
+    key: "profile-Date-of-Birth",
+    route: "/profile-date-of-birth",
     component: <DateofBirth />,
   },
   {
@@ -86,17 +98,46 @@ export const loggedroutes = [
   },
   {
     type: "route",
-    name: "Country",
-    key: "profile-country",
+    name: "accountPassword",
+    key: "account-password",
+    route: "/account-password",
+    component: <Accountpassword />,
+  },
+  {
+    type: "route",
+    name: "RecoveryCodes",
+    key: "account-recovery",
     route: "/recovery-codes-account",
     component: <RecoveryCodeBoxStepAccount />,
   },
+  {
+    type: "route",
+    name: "RecoveryCodes",
+    key: "account-recovery",
+    route: "/recovery-test-account",
+    component: <RecoveryCodeTestStepAccount />,
+  },
+
   {
     type: "route",
     name: "SystemSettings",
     key: "system-settings",
     route: "/system-settings",
     component: <SystemSettings />,
+  },
+  {
+    type: "route",
+    name: "PrimaryCurrency",
+    key: "primary-currency",
+    route: "/primary",
+    component: <Primary />,
+  },
+  {
+    type: "route",
+    name: "SecondaryCurrency",
+    key: "secondary-currency",
+    route: "/secondary",
+    component: <Secondary />,
   },
   {
     type: "collapse",
@@ -135,13 +176,13 @@ export const publicRoutes = [
     route: "/sign-in",
     component: <SignIn />,
   },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/sign-up",
-    component: <SignUp />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/sign-up",
+  //   component: <SignUp />,
+  // },
 ];
 export default { loggedroutes, publicRoutes };

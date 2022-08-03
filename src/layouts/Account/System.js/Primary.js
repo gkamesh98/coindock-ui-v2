@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import { makeStyles } from "@mui/styles";
 import { useAccount, useCurrency, useAccountData } from "api/accapi";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useNavigate } from "react-router-dom";
+import MDButton from "components/MDButton";
+import MDTypography from "components/MDTypography";
 
 function Primary() {
   const { data: account } = useAccount();
-  const accountDetails = account?.data?.results?.user || {};
-  const [formErrors, setformErrors] = useState({});
+  const accountDetails = account?.user || {};
   const initialValues = {
-    primary_currency: accountDetails.primary_currency,
+    primaryCurrency: accountDetails.primaryCurrency,
   };
   const navigate = useNavigate();
   const { data: currencyfilter } = useCurrency();
@@ -22,59 +24,49 @@ function Primary() {
     handleValidation({ ...formValues, [name]: value });
     setformValues({ ...formValues, [name]: value });
   };
-
+  console.log(currencyfilter);
   const handleChange = (e) => {
     setFilter(e.target.value);
   };
   const handleSubmit = () => {
-    const { errors, isValid } = handleValidation(formValues);
-    if (!isValid) {
-      setformErrors(errors);
-    } else {
-      getData({
-        ...formValues,
-      })
-        .unwrap()
-        .then(() => {
-          navigate("/system-settings");
-        });
-    }
+    getData({
+      ...formValues,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/system-settings");
+      });
   };
-  const handleValidation = (values) => {
-    const errors = {};
-    const isValid = !Object.values(errors).some(Boolean);
-    setformErrors(errors);
-    setValid(isValid);
-    return {
-      isValid,
-      errors,
-    };
-  };
-
+  const useStyles = makeStyles({
+    button: {
+      height: "15px",
+      marginTop: "15px",
+    },
+  });
+  const classes = useStyles();
   return (
-    <div className="container-2 col py-5">
-      <h3>Edit primary currency</h3>
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDTypography>Edit primary currency</MDTypography>
       <form onInput={handleChanges}>
         <select
-          className="form-control cd-select cd-mt-8"
+          style={{ width: "200px", height: "25px" }}
           name="primary_currency"
-          defaultValue={formValues.primary_currency}
+          defaultValue={formValues.primaryCurrency}
           onChange={handleChange}
           label="Primary Currency"
         >
-          {currencyfilter?.data?.results?.coins?.map((value, id) => (
+          {currencyfilter?.coins?.map((value, id) => (
             <option value={value.coin_id} key={id}>
               {value.coin_id}
             </option>
           ))}
         </select>
       </form>
-      <div className="cd-edit-style">
-        <button className="cd-button-2" disabled={!isValid} onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-    </div>
+      <MDButton className={classes.button} disabled={!isValid} onClick={handleSubmit}>
+        Submit
+      </MDButton>
+    </DashboardLayout>
   );
 }
 export default Primary;

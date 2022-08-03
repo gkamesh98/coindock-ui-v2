@@ -106,16 +106,11 @@ export default function App() {
           </>
         )
       )}
-<<<<<<< HEAD
       {layout === "vr" && <Configurator />}
-      {!authenticated ? (
+      {authenticated ? (
         <Routes>
           {getRoutes(loggedroutes)}
           <Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/account" element={<Navigate to="/Account" />} />
-          <Route path="/profile-settings" element={<Navigate to="/ProfileSettings" />} />
-          <Route path="/account-settings" element={<Navigate to="/AccountSettings" />} />
-          <Route path="/system-settings" element={<Navigate to="/SystemSettings" />} />
         </Routes>
       ) : (
         <Routes>
@@ -123,21 +118,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/sign-in" />} />
         </Routes>
       )}
-=======
-      {ready &&
-        (authenticated ? (
-          <Routes>
-            {getRoutes(loggedroutes)}
-            <Route path="*" element={<Navigate to="/dashboard" />} />
-            <Route path="/account" element={<Navigate to="/account" />} />
-          </Routes>
-        ) : (
-          <Routes>
-            {getRoutes(publicRoutes)}
-            <Route path="*" element={<Navigate to="/sign-in" />} />
-          </Routes>
-        ))}
->>>>>>> 68c7f60fdd44a8861f47cbd72c87dbd6c2306c08
     </ThemeProvider>
   );
 }

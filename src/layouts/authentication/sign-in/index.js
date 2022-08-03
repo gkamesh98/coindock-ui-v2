@@ -1,5 +1,5 @@
 // react-router-dom components
-import { Link } from "react-router-dom"; // @mui material components
+import { Link, useNavigate } from "react-router-dom"; // @mui material components
 import Card from "@mui/material/Card";
 
 import Grid from "@mui/material/Grid";
@@ -13,7 +13,6 @@ import MDInput from "components/MDInput";
 import MDButton from "components/MDButton"; // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout"; // Images
 import { useLogin } from "api/auth";
-import YupPassword from "yup-password";
 // import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
@@ -26,7 +25,7 @@ const validationSchema = Yup.object({
 
 function Basic() {
   const [login, loginOptions] = useLogin();
-
+  const navigate = useNavigate();
   const initialValues = { email: "", password: "" };
   const onSubmit = (values, actions) => {
     console.log(values);

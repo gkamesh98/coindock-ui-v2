@@ -1,75 +1,93 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Field, useFormik } from "formik";
+import { makeStyles } from "@mui/styles";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useAccountData } from "api/accapi";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useNavigate } from "react-router-dom";
+import MDButton from "components/MDButton";
 import { useAccount } from "api/accapi";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import moment from "moment";
+import * as Yup from "yup";
+import DatePick from "Shared/Date/DatePick";
 
-import { Button } from "@mui/material";
-const dateValidation = (value) => {
-  let error = null;
-  if (!value) {
-    error = "Date of birth is required";
-  }
-  if (moment().diff(value, "years") < 15) {
-    error = "You need to be 15 years old to register for CoinDock";
-  }
-  return error;
-};
 function DateofBirth() {
   const { data: account } = useAccount();
-  const accountDetails = account?.data?.results?.user || {};
+  const accountDetails = account?.user || {};
   const [formErrors, setformErrors] = useState({});
+
   const initialValues = {
-    date_of_birth: accountDetails.date_of_birth,
+    dateOfBirth: accountDetails.dateOfBirth,
   };
+  const validationSchema = Yup.object({
+    dateOfBirth: Yup.string()
+      .required("Date-of-birth is required")
+      .test("DOB", "You need to be 15 years old to register for CoinDock", (value) => {
+        console.log("check", value);
+        return moment().diff(moment(value), "years") >= 15;
+      }),
+  });
+
   const navigate = useNavigate();
   const [formValues, setformValues] = useState(initialValues);
-  const [isValid, setValid] = useState(false);
+
   const [getData] = useAccountData();
-  const handleChanges = (e) => {
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setformValues({ ...formValues, [name]: value });
-    handleValidation({ ...formValues, [name]: value });
+    formik.setFieldValue(name);
   };
-  console.log(setformValues);
-  const handleValidation = (values) => {
-    const errors = {};
-    errors.date_of_birth = dateValidation(values.date_of_birth);
-    const isValid = !Object.values(errors).some(Boolean);
-    setformErrors(errors);
-    setValid(isValid);
-    return {
-      isValid,
-      errors,
-    };
-  };
+  const useStyles = makeStyles({
+    button: {
+      height: "20px",
+      marginTop: "15px",
+    },
+    dates: {
+      margin: "auto",
+      alignItems: "center",
+      marginTop: "5px",
+    },
+  });
+  const classes = useStyles();
   const handleSubmit = () => {
-    const { errors, isValid } = handleValidation(formValues);
-    if (!isValid) {
-      setformErrors(errors);
-    } else {
-      getData({
-        ...formValues,
-      })
-        .unwrap()
-        .then(() => {
-          navigate("/profile-settings");
-        });
-    }
+    getData({
+      ...formValues,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/profile-settings");
+      });
+    setformErrors(formErrors);
   };
+  const formik = useFormik({
+    initialValues,
+    handleChange,
+    handleSubmit,
+    validationSchema,
+  });
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <form onInput={handleChanges}>
-        <DatePicker name="date_of_birth" value={formValues.date_of_birth} formErrors={formErrors} />
+      <form className={classes.dates}>
+        <DatePick name="dateOfBirth" value={formik.values.dateOfBirth} onChange={handleChange} />
+        {formik?.errors?.dateOfBirth ? (
+          <div style={{ fontSize: "14px", color: "red", marginTop: "3px" }}>
+            {formik?.errors?.dateOfBirth}
+          </div>
+        ) : null}
       </form>
 
-      <Button className="cd-button-2 cd-button " disabled={!isValid} onClick={handleSubmit}>
+      <MDButton
+        className={classes.button}
+        variant="gradient"
+        color="info"
+        type="submit"
+        onClick={handleSubmit}
+      >
         Submit
-      </Button>
+      </MDButton>
     </DashboardLayout>
   );
 }

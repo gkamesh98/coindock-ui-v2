@@ -1,73 +1,69 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // @mui material components
+import Card from "@mui/material/Card";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import * as Yup from "yup";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import MDInput from "components/MDInput";
+import MDButton from "components/MDButton"; // Authentication layout components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useAccountData } from "api/accapi";
-import { useNavigate } from "react-router-dom";
-import Password, { passwordValidation } from "Shared/Password/Password";
 
 function Accountpassword() {
-  const [formErrors, setformErrors] = useState({});
-  const initialValues = {
-    password: "",
-  };
-  const navigate = useNavigate();
-  const [formValues, setformValues] = useState(initialValues);
-  const [isValid, setValid] = useState(false);
+  const validationSchema = Yup.object({
+    password: Yup.string()
+      .required("Please Enter your password")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
+  });
+
   const [getData] = useAccountData();
-  const handleValidation = (values) => {
-    const errors = {};
-    errors.password = passwordValidation({
-      value: values.password,
-      label: "Password",
-      minlength: 12,
-      maxlength: 45,
-    });
-    const isValid = !Object.values(errors).some(Boolean);
-    setformErrors(errors);
-    setValid(isValid);
-    return {
-      isValid,
-      errors,
-    };
-  };
-  const handleChanges = (e) => {
-    const { name, value } = e.target;
-    setformValues({ ...formValues, [name]: value });
-    handleValidation({ ...formValues, [name]: value });
+  const navigate = useNavigate();
+  const initialValues = { password: "" };
+  const onSubmit = (values, actions) => {
+    console.log(values);
+    getData({
+      ...values,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/account-settings");
+      });
   };
 
-  const handleSubmit = () => {
-    const { errors, isValid } = handleValidation(formValues);
-    if (!isValid) {
-      setformErrors(errors);
-    } else {
-      getData({
-        ...formValues,
-      })
-        .unwrap()
-        .then(() => {
-          navigate("/account-settings");
-        });
-    }
-  };
-
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
   return (
-    <div className="container-2 col py-5">
-      <h3>Change Password </h3>
-      <form onInput={handleChanges}>
-        <Password
-          name="password"
-          formErrors={formErrors}
-          placeholder="Enter your password"
-          label="Password"
-        />
-      </form>
-      <div className="cd-edit-style">
-        <button className="cd-button-2 cd-button " disabled={!isValid} onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-    </div>
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDTypography ml={3} mb={-2}>
+        Change Password
+      </MDTypography>
+      <MDBox pt={4} pb={3} px={3}>
+        <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
+          <MDBox mb={2}>
+            <MDInput type="password" label="Password" {...formik.getFieldProps("password")} />
+            {formik?.errors?.password ? (
+              <div style={{ fontSize: "16px", color: "red" }}>{formik?.errors?.password}</div>
+            ) : null}
+          </MDBox>
+
+          <MDBox mt={4} mb={1}>
+            <MDButton variant="gradient" color="info" type="submit">
+              Submit
+            </MDButton>
+          </MDBox>
+        </MDBox>
+      </MDBox>
+    </DashboardLayout>
   );
 }
+
 export default Accountpassword;

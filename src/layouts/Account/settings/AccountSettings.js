@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@mui/styles";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import MDTypography from "components/MDTypography";
@@ -8,20 +8,30 @@ import { useAccount } from "api/accapi";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
-
+import MDButton from "components/MDButton";
+import Box from "@mui/material/Box";
 function AccountSettings() {
-  const { data: account } = useAccount();
-  const accountDetails = account?.data?.results?.user || {};
+  const { data: account, isLoading } = useAccount();
+  const accountDetails = account?.user || {};
   console.log(account);
   const navigate = useNavigate();
   const useStyles = makeStyles({
     card: {
-      justifyContent: "space-between",
+      minWidth: "250px",
+      maxWidth: "500px",
       margin: "auto",
       marginTop: "30px",
-      width: "100%",
       height: "70px",
       marginBottom: "20px",
+    },
+    cardcontent: {
+      marginTop: "10px",
+    },
+    button: {
+      onHover: "light blue",
+      float: "right",
+      color: "white",
+      backgroundColor: "blue",
     },
   });
   const classes = useStyles();
@@ -41,56 +51,64 @@ function AccountSettings() {
   ];
 
   const handlePassword = () => {
-    navigate("/apassword");
+    navigate("/account-password");
   };
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      {fields.map((field, id) => (
-        <div key={id}>
-          {field.fieldKey === "email" ? (
-            <Card className={classes.card}>
-              <CardContent>
-                <MDTypography>
-                  {field.label} : {`${accountDetails.email}`}
-                </MDTypography>
-              </CardContent>
-            </Card>
-          ) : field.fieldKey === "changePassword" ? (
-            <Card className={classes.card}>
-              <CardContent>
-                <MDTypography> {field.label}</MDTypography>
-                <span
-                  type="submit"
-                  onClick={() => {
-                    handlePassword();
-                  }}
-                >
-                  <FaEdit />
-                </span>
-              </CardContent>
-            </Card>
-          ) : field.fieldKey === "recoverycode" ? (
-            <Card className={classes.card}>
-              <CardContent>
-                <MDTypography>
-                  {" "}
-                  {field.label} : {accountDetails.country}
-                </MDTypography>
-                <button
-                  onClick={() => {
-                    navigate("/recovery-codes-account");
-                  }}
-                  className="cd-card-button1"
-                >
-                  Re-Generate
-                </button>
-              </CardContent>
-            </Card>
-          ) : null}
-        </div>
-      ))}
+      {isLoading ? (
+        <Box display="flex" widht={1} justifyContent="center">
+          <CircularProgress />
+        </Box>
+      ) : (
+        fields.map((field, id) => (
+          <div key={id}>
+            {field.fieldKey === "email" ? (
+              <Card className={classes.card}>
+                <CardContent className={classes.cardcontent}>
+                  <MDTypography style={{ fontSize: "18px" }}>
+                    {field.label} : {`${accountDetails.email}`}
+                  </MDTypography>
+                </CardContent>
+              </Card>
+            ) : field.fieldKey === "changePassword" ? (
+              <Card className={classes.card}>
+                <CardContent className={classes.cardcontent}>
+                  <MDTypography style={{ fontSize: "18px" }}>
+                    {" "}
+                    {field.label}
+                    <span
+                      style={{ float: "right" }}
+                      type="submit"
+                      onClick={() => {
+                        handlePassword();
+                      }}
+                    >
+                      <FaEdit />
+                    </span>
+                  </MDTypography>
+                </CardContent>
+              </Card>
+            ) : field.fieldKey === "recoverycode" ? (
+              <Card className={classes.card}>
+                <CardContent className={classes.cardcontent}>
+                  <MDTypography style={{ fontSize: "18px" }}> {field.label}</MDTypography>
+                  <MDButton
+                    style={{ marginTop: "-7%" }}
+                    className={classes.button}
+                    onClick={() => {
+                      navigate("/recovery-codes-account");
+                    }}
+                  >
+                    Re-Generate
+                  </MDButton>
+                </CardContent>
+              </Card>
+            ) : null}
+          </div>
+        ))
+      )}
     </DashboardLayout>
   );
 }

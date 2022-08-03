@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import RecoveryBoxs from "Shared/Form/RecoveryBoxes";
 import { usePutRecoveryCodesMutation, useGetRandomRecoveryCodesQuery } from "api/recoveryCodes";
 import { useNavigate } from "react-router-dom";
-
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@mui/styles";
+import Box from "@mui/material/Box";
 import Popup from "Shared/Popup/Popup";
+import MDTypography from "components/MDTypography";
+import Button from "components/MDButton";
 
 function RecoveryCodeTestStepAccount() {
   const navigate = useNavigate();
@@ -15,7 +21,26 @@ function RecoveryCodeTestStepAccount() {
   const [formValues, setformValues] = useState({
     key_response: {},
   });
-
+  const useStyles = makeStyles({
+    button: {
+      marginTop: "4%",
+      marginLeft: "4%",
+      textDecorationColor: "white",
+      backgroundColor: "blue",
+    },
+    label: {
+      marginLeft: "3%",
+    },
+    checkbox: {
+      marginLeft: "3%",
+    },
+    download: {
+      marginBottom: "2%",
+      marginTop: "2%",
+      marginLeft: "3%",
+    },
+  });
+  const classes = useStyles();
   const [buttonPopup, setButtonPopup] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -41,58 +66,40 @@ function RecoveryCodeTestStepAccount() {
   const recoveryCodes = data?.results;
 
   return (
-    <div className="paper">
-      <div className="paper-container">
-        <div className="row content d-flex justify-content-center align-items-center">
-          <div style={{ height: "100%" }}>
-            <div>
-              <div className="d-flex justify-content-between"></div>
-              <form onInput={handleOnInput}>
-                <div className="p-3" />
+    <DashboardLayout>
+      <DashboardNavbar />
 
-                <div className="cd-step-header-content">
-                  Please enter the recovery words on the same order to activate the CoinDock
-                  account.
-                </div>
+      <form onInput={handleOnInput}>
+        <MDTypography className={classes.label}>
+          Please enter the recovery words on the same order to activate the CoinDock account.
+        </MDTypography>
+        <Box sx={{ flexGrow: 1 }} mt={5} ml={4}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {Boolean(recoveryCodes) &&
+              recoveryCodes.map((index, number) => (
+                <Grid item md={2} key={number}>
+                  <RecoveryBoxs key={index} index={number} submitEvent={true} input={true} />
+                </Grid>
+              ))}
+          </Grid>
+        </Box>
 
-                <div className="p-3" />
-
-                <div className="cd-recover-table">
-                  {Boolean(recoveryCodes) &&
-                    recoveryCodes.map((number, index) => {
-                      return (
-                        <RecoveryBoxs key={index} index={number} submitEvent={true} input={true} />
-                      );
-                    })}
-                </div>
-                <div className="p-3" />
-                <div className="row cd-row-space-between">
-                  <div className="col-md-4 cd-width-unset">
-                    <button
-                      className="cd-button"
-                      onClick={() => {
-                        navigate("/recovery-codes-account");
-                      }}
-                    >
-                      Back
-                    </button>
-                  </div>
-
-                  <div className="col-md-4 offset-md-4 cd-width-unset">
-                    <button className="cd-button" onClick={handleSubmit}>
-                      Confirm
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <Popup trigger={buttonPopup} setTrigger={setButtonPopup} buttonLable="OK">
-                <p>{error?.data?.error?.message}</p>
-              </Popup>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Button
+          className={classes.button}
+          onClick={() => {
+            navigate("/recovery-codes-account");
+          }}
+        >
+          Back
+        </Button>
+        <Button className={classes.button} onClick={handleSubmit}>
+          Confirm
+        </Button>
+      </form>
+      <Popup trigger={buttonPopup} setTrigger={setButtonPopup} buttonLable="OK">
+        <p>{error?.data?.error?.message}</p>
+      </Popup>
+    </DashboardLayout>
   );
 }
 

@@ -1,82 +1,93 @@
 import React, { useState } from "react";
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import MDButton from "components/MDButton";
+import MDTypography from "components/MDTypography";
+import MenuItem from "@mui/material/MenuItem";
+import { makeStyles } from "@mui/styles";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { useCountry, useAccount, useAccountData } from "api/accapi";
+import { useCountry } from "api/accapi";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import { useNavigate } from "react-router-dom";
-
-// import { countryValidation } from "Shared/Form/Select/Select";
+import { useAccount } from "api/accapi";
+import { useAccountData } from "api/accapi";
+import { Select } from "@mui/material";
 
 function Country() {
   const { data: account } = useAccount();
-  const accountDetails = account?.data?.results?.user || {};
-  const [formErrors, setformErrors] = useState({});
+  const accountDetails = account?.user || {};
+
   const initialValues = {
     country: accountDetails.country,
   };
   const { data: countryfilter } = useCountry();
+
   const [formValues, setformValues] = useState(initialValues);
-  const [isValid, setValid] = useState(false);
-  const [filter, setFilter] = useState({});
+
   const [getData] = useAccountData();
-  const handleValidation = (values) => {
-    const errors = {};
-    // errors.country = countryValidation(values.country);
-    const isValid = !Object.values(errors).some(Boolean);
-    setformErrors(errors);
-    setValid(isValid);
-    return {
-      isValid,
-      errors,
-    };
-  };
-  const handleChanges = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setformValues({ ...formValues, [name]: value });
-    handleValidation({ ...formValues, [name]: value });
   };
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFilter(e.target.value);
-  };
+  const useStyles = makeStyles({
+    input: {
+      marginLeft: "3.5rem",
+      width: "200px",
+      height: "25px",
+      marginTop: "3px",
+      borderRadius: "5px",
+    },
+    button: {
+      height: "15px",
+      marginTop: "15px",
+      marginLeft: "3.5rem",
+    },
+  });
+  const classes = useStyles();
   const handleSubmit = () => {
-    const { errors, isValid } = handleValidation(formValues);
-    if (!isValid) {
-      setformErrors(errors);
-    } else {
-      getData({
-        ...formValues,
-      })
-        .unwrap()
-        .then(() => {
-          navigate("/profile-settings");
-        });
-    }
+    getData({
+      ...formValues,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/profile-settings");
+      });
   };
+
+  console.log(formValues.country);
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <h3>Edit Country</h3>
-      <form onInput={handleChanges}>
-        <select
-          className="form-control cd-select cd-mt-8"
+      <MDTypography px={3} ml={4}>
+        Edit Country
+      </MDTypography>
+      <form onInput={(e) => handleChange(e)}>
+        <Select
+          className={classes.input}
           name="country"
           onChange={handleChange}
           defaultValue={formValues.country}
           label="Country"
         >
-          {countryfilter?.data?.results?.countries?.map((value) => (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          ))}
-        </select>
+          {countryfilter?.countries?.map((value) => {
+            return (
+              <MenuItem value={value} key={value}>
+                {value}
+              </MenuItem>
+            );
+          })}
+        </Select>
       </form>
-      <div className="cd-edit-style">
-        <button className="cd-button-2" disabled={!isValid} onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+      <MDButton
+        className={classes.button}
+        variant="gradient"
+        color="info"
+        type="submit"
+        // disabled={!isValid}
+        onClick={handleSubmit}
+      >
+        Submit
+      </MDButton>
     </DashboardLayout>
   );
 }

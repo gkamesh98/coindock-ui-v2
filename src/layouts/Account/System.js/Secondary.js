@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import { useCurrency, useAccountData } from "api/accapi";
+import { makeStyles } from "@mui/styles";
+import { useAccount, useCurrency, useAccountData } from "api/accapi";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useNavigate } from "react-router-dom";
+import MDButton from "components/MDButton";
+import MDTypography from "components/MDTypography";
 
 function Secondary() {
-  const [formErrors, setformErrors] = useState({});
+  const { data: account } = useAccount();
+  const accountDetails = account?.user || {};
   const initialValues = {
-    secondary_currency: "",
+    secondaryCurrency: accountDetails.secondaryCurrency,
   };
+  const useStyles = makeStyles({
+    button: {
+      height: "15px",
+      marginTop: "15px",
+    },
+  });
+  const classes = useStyles();
   const navigate = useNavigate();
   const { data: currencyfilter } = useCurrency();
   const [formValues, setformValues] = useState(initialValues);
@@ -25,53 +36,38 @@ function Secondary() {
     setFilter(e.target.value);
   };
   const handleSubmit = () => {
-    const { errors, isValid } = handleValidation(formValues);
-    if (!isValid) {
-      setformErrors(errors);
-    } else {
-      getData({
-        ...formValues,
-      })
-        .unwrap()
-        .then(() => {
-          navigate("/system-settings");
-        });
-    }
+    getData({
+      ...formValues,
+    })
+      .unwrap()
+      .then(() => {
+        navigate("/system-settings");
+      });
   };
-  const handleValidation = (values) => {
-    const errors = {};
-    const isValid = !Object.values(errors).some(Boolean);
-    setformErrors(errors);
-    setValid(isValid);
-    return {
-      isValid,
-      errors,
-    };
-  };
-
+  console.log(currencyfilter);
   return (
-    <div className="container-2 col py-5">
-      <h3>Edit secondary currency</h3>
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDTypography>Edit secondary currency</MDTypography>
       <form onInput={handleChanges}>
         <select
-          className="form-control cd-select cd-mt-8"
+          style={{ width: "200px", height: "25px" }}
           name="secondary_currency"
+          defaultValue={formValues.secondaryCurrency}
           onChange={handleChange}
           label="Secondary Currency"
         >
-          {currencyfilter?.data?.results?.coins?.map((value, id) => (
+          {currencyfilter?.coins?.map((value, id) => (
             <option value={value.coin_id} key={id}>
               {value.coin_id}
             </option>
           ))}
         </select>
       </form>
-      <div className="cd-edit-style">
-        <button className="cd-button-2" disabled={!isValid} onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-    </div>
+      <MDButton className={classes.button} disabled={!isValid} onClick={handleSubmit}>
+        Submit
+      </MDButton>
+    </DashboardLayout>
   );
 }
 export default Secondary;

@@ -1,6 +1,5 @@
 import React from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
-import "./Popup.css";
 
 function Popup(props) {
   const handleClick = () => {
@@ -28,6 +27,8 @@ function Popup(props) {
   );
 }
 Popup.propTypes = {
+  buttonOnclick: propTypes.function,
+  setTrigger: propTypes.function,
   trigger: propTypes.function,
   buttonLable: propTypes.string,
   disabled: propTypes.boolean,

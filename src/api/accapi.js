@@ -10,14 +10,16 @@ const accapi = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/`,
         method: "get",
       }),
+      transformResponse: (response) => response?.data?.results,
       providesTags: ["accountDetails"],
     }),
 
     currencyfilter: build.query({
       query: () => ({
-        url: `/v1/coins/currency-conversions`,
+        url: `/v1/coins/accepted-crypto`,
         method: "get",
       }),
+      transformResponse: (response) => response?.data?.results,
       provideTags: ["account"],
     }),
     countryfilter: build.query({
@@ -25,6 +27,7 @@ const accapi = baseApi.injectEndpoints({
         url: `/v1/countries/`,
         method: "get",
       }),
+      transformResponse: (response) => response?.data?.results,
       provideTags: ["account"],
     }),
     putAccountData: build.mutation({
@@ -33,6 +36,7 @@ const accapi = baseApi.injectEndpoints({
         method: "put",
         data,
       }),
+
       invalidatesTags: ["accountDetails"],
     }),
   }),

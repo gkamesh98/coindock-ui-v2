@@ -1,5 +1,5 @@
 import { getUserId } from "helper/functions";
-import { baseApi } from "./api";
+import baseApi from "./api";
 
 baseApi.enhanceEndpoints({
   addTagTypes: ["pie", "piefilter"],
