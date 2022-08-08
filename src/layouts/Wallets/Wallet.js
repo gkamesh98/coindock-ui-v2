@@ -43,7 +43,6 @@ function Wallet() {
                       className="text-end"
                       maxLetters={4}
                     />
-
                     <p className="mb-2 text-muted text-end">BTC</p>
                   </div>
                 </div>

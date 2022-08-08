@@ -20,7 +20,7 @@ import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnut
 import { usePieChart } from "api/piechartapi";
 
 import { useLineChart } from "api/linechartapi";
-import { MenuItem, Select } from "@mui/material";
+import { Avatar, MenuItem, Select } from "@mui/material";
 
 function Dashboard() {
   const { sales } = reportsLineChartData;
@@ -40,21 +40,22 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="dark"
                 icon="weekend"
-                // image={total?.img_url}
-                title={total?.heading}
-                count={total?.balance.toFixed(4)}
+                // image=
+
+                title="Total BTC"
+                count={total?.balance ? total?.balance.toFixed(4) : "NA"}
                 percentage={{
                   color: "success",
                 }}
-              />
+              ></ComplexStatisticsCard>
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
-                title={primary?.heading}
-                count={primary?.balance.toFixed(4)}
+                title="Primary Currency"
+                count={primary?.balance ? primary?.balance.toFixed(4) : "NA"}
                 percentage={{
                   color: "success",
                   // amount: "+3%",
@@ -68,8 +69,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="success"
                 icon="trending_up"
-                title={top?.heading}
-                count={top?.balance.toFixed(4)}
+                title="Top Performer"
+                count={top?.coinId ? top?.coinId : "NA"}
                 percentage={{
                   color: "success",
                   // amount: "+1%",
@@ -83,8 +84,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="primary"
                 icon="trending_down"
-                title={low?.heading}
-                count={low?.balance.toFixed(4)}
+                title="Low Performer"
+                count={low?.coinId ? low?.coinId : "NA"}
                 percentage={{
                   color: "success",
                   // amount: "",
@@ -98,32 +99,12 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
+                <ReportsLineChart color="success" title="Line chart" chart={sales} />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <DefaultDoughnutChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
+                <DefaultDoughnutChart color="success" title="Doughnut chart" chart={sales} />
               </MDBox>
             </Grid>
           </Grid>

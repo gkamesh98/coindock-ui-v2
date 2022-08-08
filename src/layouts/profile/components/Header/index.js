@@ -10,6 +10,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar"; // Material Dashboard 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints"; // Images
+import { Avatar } from "@mui/material";
 
 function Header({ children }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
@@ -20,7 +21,7 @@ function Header({ children }) {
       return window.innerWidth < breakpoints.values.sm
         ? setTabsOrientation("vertical")
         : setTabsOrientation("horizontal");
-    } /** 
+    } /**
      The event listener that's calling the handleTabsOrientation function when resizing the window.
     */
     window.addEventListener("resize", handleTabsOrientation); // Call the handleTabsOrientation function to set the state with the initial value.
@@ -58,7 +59,14 @@ function Header({ children }) {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <MDAvatar alt="profile-image" size="xl" shadow="sm" />
+            <Avatar
+              alt="profile-image"
+              size="xl"
+              shadow="sm"
+              src="https://th.bi.com/th/id/OIP.ssZfUI8_yehzacZn"
+            >
+              k
+            </Avatar>
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>

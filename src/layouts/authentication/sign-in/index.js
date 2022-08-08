@@ -29,7 +29,6 @@ function Basic() {
 
   const initialValues = { email: "", password: "" };
   const onSubmit = (values, actions) => {
-    console.log(values);
     login({
       ...values,
     })
@@ -67,7 +66,9 @@ function Basic() {
             <MDBox mb={2}>
               <MDInput type="email" label="Email" fullWidth {...formik.getFieldProps("email")} />
               {formik.touched.email && formik?.errors?.email ? (
-                <div>{formik?.errors?.email}</div>
+                <MDTypography color="error" fontSize="12px">
+                  {formik?.errors?.email}
+                </MDTypography>
               ) : null}
             </MDBox>
             <MDBox mb={2}>
@@ -78,7 +79,9 @@ function Basic() {
                 {...formik.getFieldProps("password")}
               />
               {formik.touched.password && formik?.errors?.password ? (
-                <div>{formik?.errors?.password}</div>
+                <MDTypography color="error" fontSize="12px">
+                  {formik?.errors?.password}
+                </MDTypography>
               ) : null}
             </MDBox>
 

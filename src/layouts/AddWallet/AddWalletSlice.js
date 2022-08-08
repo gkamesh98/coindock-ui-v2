@@ -10,6 +10,7 @@ const popupSlice = createSlice({
 
   reducers: {
     openPopup: (state) => {
+      console.log("state", state);
       state.open = true;
     },
     closePopup: (state) => {

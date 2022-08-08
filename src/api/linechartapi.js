@@ -12,7 +12,10 @@ const linechartapi = baseApi.injectEndpoints({
         params: { ...params },
         method: "get",
       }),
-      transformResponse: (response) => response?.data?.results,
+      transformResponse: (response) => {
+        console.log("in api", response, response?.data?.results);
+        return response?.data?.results;
+      },
       providesTags: ["linechart"],
     }),
     filter: build.query({

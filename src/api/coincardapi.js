@@ -1,4 +1,4 @@
-import { getUserId } from "App/Auth/helper";
+import { getUserId } from "helper/functions";
 import { baseApi } from "./api";
 
 baseApi.enhanceEndpoints({
@@ -7,10 +7,13 @@ baseApi.enhanceEndpoints({
 const coincardapi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     coincard: build.query({
-      query: () => ({
-        url: `/v1/users/${getUserId()}/coin-cards/`,
-        method: "get",
-      }),
+      query: () => {
+        console.log("in the coin card", getUserId());
+        return {
+          url: `/v1/users/${getUserId()}/coin-cards/`,
+          method: "get",
+        };
+      },
       transformResponse: (response) => response?.data?.results,
       providesTags: ["coincard"],
     }),

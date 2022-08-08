@@ -14,6 +14,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import { useIsAuthenticated, useFetchAuthRefresh } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import AddWallet from "layouts/AddWallet";
 
 const getRoutes = (allRoutes) =>
   allRoutes.map((route) => {
@@ -117,6 +118,7 @@ export default function App() {
           <Routes>
             {getRoutes(publicRoutes)}
             <Route path="*" element={<Navigate to="/sign-in" />} />
+            <Route path="/addwallet" element={<Navigate to="/addwallet" />} />
           </Routes>
         ))}
     </ThemeProvider>

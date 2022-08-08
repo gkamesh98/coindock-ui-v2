@@ -23,9 +23,13 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "context";
+import { openPopup } from "layouts/AddWallet/AddWalletSlice";
+import { useDispatch } from "react-redux";
+import Addwallet from "layouts/AddWallet";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
+  const dispatchaction = useDispatch();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
@@ -39,10 +43,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
     } // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
       setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
-    } /** 
-     The event listener that's calling the handleTransparentNavbar function when 
-     scrolling the window.
-    */
+    }
     window.addEventListener("scroll", handleTransparentNavbar); // Call the handleTransparentNavbar function to set the state with the initial value.
     handleTransparentNavbar(); // Remove event listener on cleanup
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
@@ -116,6 +117,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 sx={navbarIconButton}
                 onClick={handleConfiguratorOpen}
               >
+                <Icon sx={iconsStyle}>settings</Icon>
+              </IconButton>
+              <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarIconButton}
+                onClick={() => dispatchaction(openPopup())}
+              >
                 <Icon sx={iconsStyle}>add</Icon>
               </IconButton>
               {renderMenu()}
@@ -123,6 +133,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
           </MDBox>
         )}
       </Toolbar>
+      <Addwallet />
     </AppBar>
   );
 } // Setting default values for the props of DashboardNavbar

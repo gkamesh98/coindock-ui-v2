@@ -42,6 +42,7 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
               <Icon fontSize="medium">{icon.component}</Icon>
             </MDBox>
           )}
+
           <MDBox mt={icon.component ? -2 : 0}>
             {title && <MDTypography variant="h6">{title}</MDTypography>}
             <MDBox mb={2}>
@@ -50,32 +51,30 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
               </MDTypography>
             </MDBox>
           </MDBox>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={filter}
+            //label="Age"
+            onChange={handleChange}
+          >
+            {piefilter?.map((value) => {
+              return (
+                <MenuItem value={value} key={value}>
+                  {value}
+                </MenuItem>
+              );
+            })}
+          </Select>
         </MDBox>
       ) : null}
       {useMemo(() => {
-        console.log({ data, options });
-        console.log(piefilter);
         return (
           <MDBox height={height}>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              // value={age}
-              // label="Age"
-              onChange={handleChange}
-            >
-              {piefilter?.map((value) => {
-                return (
-                  <MenuItem value={value} key={value}>
-                    {value}
-                  </MenuItem>
-                );
-              })}
-            </Select>
             <Doughnut data={data} options={options} />
           </MDBox>
         );
-      }, [chart, height])}
+      }, [chart, height, data, piefilter])}
     </MDBox>
   );
   return title || description ? <Card>{renderChart}</Card> : renderChart;

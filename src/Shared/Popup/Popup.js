@@ -1,6 +1,10 @@
 import React from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
-import "./Popup.css";
+import PropTypes from "prop-types";
+import MDButton from "components/MDButton";
+import { Card } from "@mui/material";
+import MDBox from "components/MDBox";
+import { Dialog } from "@mui/material";
+import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 function Popup(props) {
   const handleClick = () => {
@@ -8,30 +12,37 @@ function Popup(props) {
     props.setTrigger(false);
   };
 
-  return props.trigger ? (
-    <div className="cd-popup">
-      <div className="cd-popup-inner">
+  return (
+    <Dialog
+      open={props.trigger}
+      sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 435 } }}
+      maxWidth="xs"
+    >
+      <Card>
         {props.children}
-        <div className="d-flex justify-content-center cd-mt-39">
-          <button
-            className="cd-button cd-button-2 "
+        <MDBox mb={1}>
+          <MDButton
+            variant="gradient"
+            color="info"
+            type="submit"
+            sx={{ m: 1, minWidth: 396, marginLeft: 3 }}
             onClick={handleClick}
             disabled={props.disabled}
           >
             {props.buttonLable}
-          </button>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <></>
+          </MDButton>
+        </MDBox>
+      </Card>
+    </Dialog>
   );
 }
 Popup.propTypes = {
-  trigger: propTypes.function,
-  buttonLable: propTypes.string,
-  disabled: propTypes.boolean,
-  children: propTypes.element,
+  buttonLable: PropTypes.string,
+  trigger: PropTypes.bool,
+  disabled: PropTypes.bool,
+  children: PropTypes.element,
+  buttonOnclick: PropTypes.func,
+  setTrigger: PropTypes.func,
 };
 
 export default Popup;

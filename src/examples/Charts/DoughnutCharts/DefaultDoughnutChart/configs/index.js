@@ -1,28 +1,34 @@
 // Material Dashboard 2 React base styles
-import { usePieFilter } from "api/piechartapi";
-import { usePieChart } from "api/piechartapi";
+
 import colors from "assets/theme/base/colors";
-import { useState } from "react";
 
 const { gradients, dark } = colors;
 function configs(labels, datasets, cutout = 60, data) {
-  console.log(data);
-  const backgroundColors = [];
-  if (datasets.backgroundColors) {
-    datasets.backgroundColors.forEach((color) => {
-      if (gradients[color]) {
-        if (color === "info") {
-          backgroundColors.push(gradients.info.main);
-        } else {
-          backgroundColors.push(gradients[color].state);
-        }
-      } else {
-        backgroundColors.push(dark.main);
-      }
-    });
-  } else {
-    backgroundColors.push(dark.main);
-  }
+  // const backgroundColors = [];
+  // if (datasets.backgroundColors) {
+  //   datasets.backgroundColors.forEach((color) => {
+  //     if (gradients[color]) {
+  //       if (color === "info") {
+  //         backgroundColors.push(gradients.info.main);
+  //       } else {
+  //         backgroundColors.push(gradients[color].state);
+  //       }
+  //     } else {
+  //       backgroundColors.push(dark.main);
+  //     }
+  //   });
+  // } else {
+  //   backgroundColors.push(dark.main);
+  // }
+  const generateRandomColor = () => {
+    const letters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
   return {
     data: {
       labels: labels,
@@ -34,9 +40,13 @@ function configs(labels, datasets, cutout = 60, data) {
           tension: 0.9,
           pointRadius: 2,
           borderWidth: 2,
-          backgroundColor: backgroundColors,
+          // backgroundColor: backgroundColors,
           fill: false,
           data: data,
+          backgroundColor: [...Array(data.length)].map(() => {
+            return generateRandomColor();
+          }),
+          borderWidth: 0,
         },
       ],
     },

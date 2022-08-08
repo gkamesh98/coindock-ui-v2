@@ -5,6 +5,9 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDProgress from "components/MDProgress"; // Images
+import { useCoinCard } from "api/coincardapi";
+import EllipseNumber from "Shared/EllipeseText";
+import { Avatar, ImageList, ImageListItem } from "@mui/material";
 function Company({ image, name }) {
   return (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -26,7 +29,8 @@ Company.propTypes = {
   name: PropTypes.string,
 };
 
-export default function data() {
+export default function data(coincard) {
+  console.log({ coincard });
   const avatars = (members) =>
     members.map(([image, name]) => (
       <Tooltip key={name} title={name} placeholder="bottom">
@@ -52,30 +56,47 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "companies", accessor: "companies", width: "45%", align: "left" },
-      { Header: "members", accessor: "members", width: "10%", align: "left" },
-      { Header: "budget", accessor: "budget", align: "center" },
-      { Header: "completion", accessor: "completion", align: "center" },
+      { Header: "logo", accessor: "logo", width: "45%", align: "left" },
+      { Header: "total btc", accessor: "totalbtc", width: "10%", align: "left" },
+      { Header: "no of  Coins", accessor: "coins", align: "center" },
+      { Header: "primary currency", accessor: "primary", align: "center" },
+      { Header: "secondary currency", accessor: "secondary", align: "center" },
     ],
-    rows: [
-      {
-        companies: <Company name="Material UI XD Version" />,
-        members: (
-          <MDBox display="flex" py={1}>
-            {avatars([])}
-          </MDBox>
+    rows: Object.values(coincard ?? {}).map((value) => {
+      return {
+        logo: (
+          // <MDAvatar alt={value?.coinName} src={value?.logo} />
+
+          <Avatar size="xl" shadow="sm" src={value?.logo}>
+            {value.coinName}
+          </Avatar>
         ),
-        budget: (
+        totalbtc: (
           <MDTypography variant="caption" color="text" fontWeight="medium">
-            $14,000
+            <EllipseNumber
+              component="h4"
+              text={value?.btcCoin?.toString() ?? ""}
+              className="text-end"
+              maxLetters={4}
+            />
           </MDTypography>
         ),
-        completion: (
-          <MDBox width="8rem" textAlign="left">
-            <MDProgress value={60} color="info" variant="gradient" label={false} />
-          </MDBox>
+        coins: (
+          <MDTypography variant="caption" color="text" fontWeight="medium">
+            {value.numberOfCoins}
+          </MDTypography>
         ),
-      },
-    ],
+        primary: (
+          <MDTypography variant="caption" color="text" fontWeight="medium">
+            {value.primaryCurrency.toFixed(2)}
+          </MDTypography>
+        ),
+        secondary: (
+          <MDTypography variant="caption" color="text" fontWeight="medium">
+            {value.secondaryCurrency}
+          </MDTypography>
+        ),
+      };
+    }),
   };
 }

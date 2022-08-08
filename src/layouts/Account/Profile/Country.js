@@ -34,7 +34,7 @@ function Country() {
     handleValidation({ ...formValues, [name]: value });
   };
   const navigate = useNavigate();
- 
+
   const handleChange = (e) => {
     setFilter(e.target.value);
   };
@@ -64,18 +64,14 @@ function Country() {
           label="Country"
         >
           {countryfilter?.data?.results?.countries?.map((value) => (
-              <option value={value} key={value}>
-                {value}
-              </option>
-            ))}
+            <option value={value} key={value}>
+              {value}
+            </option>
+          ))}
         </select>
       </form>
       <div className="cd-edit-style">
-        <button
-          className="cd-button-2"
-          disabled={!isValid}
-          onClick={handleSubmit}
-        >
+        <button className="cd-button-2" disabled={!isValid} onClick={handleSubmit}>
           Submit
         </button>
       </div>
