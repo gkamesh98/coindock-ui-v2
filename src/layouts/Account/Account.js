@@ -16,15 +16,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 function Account() {
   const [logout] = useLogout();
   const navigate = useNavigate();
-  const handleCardProfile = () => {
-    navigate("/profile-settings");
-  };
-  const handleCardAccount = () => {
-    navigate("/account-settings");
-  };
-  const handleCardSystem = () => {
-    navigate("/system-settings");
-  };
+
   const useStyles = makeStyles({
     avatar: {
       marginTop: "-6px",
@@ -67,7 +59,7 @@ function Account() {
       <DashboardNavbar />
       <Card
         onClick={() => {
-          handleCardProfile();
+          navigate("/profile-settings");
         }}
         className={classes.card}
         elevation={7}
@@ -84,7 +76,7 @@ function Account() {
         />
       </Card>
       <Card
-        onClick={() => handleCardAccount()}
+        onClick={() => navigate("/account-settings")}
         className={classes.card}
         elevation={7}
         sx={{ maxWidth: 450 }}
@@ -100,7 +92,7 @@ function Account() {
         />
       </Card>
       <Card
-        onClick={() => handleCardSystem()}
+        onClick={() => navigate("/system-settings")}
         elevation={7}
         className={classes.card}
         sx={{ maxWidth: 450 }}

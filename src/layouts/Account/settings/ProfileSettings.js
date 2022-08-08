@@ -34,29 +34,19 @@ function ProfileSettings() {
     {
       label: "Name",
       fieldKey: "name",
-      type: "edit",
+      navigate: "/profile-name",
     },
     {
       label: "Date-of-Birth",
       fieldKey: "dateofbirth",
-      type: "edit",
+      navigate: "/profile-date-of-birth",
     },
     {
       label: "Country",
       fieldKey: "country",
-      type: "edit",
+      navigate: "/profile-country",
     },
   ];
-
-  const handleProfileName = () => {
-    navigate("/profile-name");
-  };
-  const handleProfileDob = () => {
-    navigate("/profile-date-of-birth");
-  };
-  const handleProfileCountry = () => {
-    navigate("/profile-country");
-  };
 
   const date = moment(accountDetails.dateOfBirth).format("DD-MM-YYYY");
 
@@ -71,52 +61,23 @@ function ProfileSettings() {
       ) : (
         fields.map((field, id) => (
           <div key={id}>
-            {field.fieldKey === "name" ? (
+            {field.navigate ? (
               <Card className={classes.card}>
                 <CardContent className={classes.cardcontent}>
                   <MDTypography style={{ fontSize: "18px" }}>
-                    {field.label} : {accountDetails.firstName + " " + accountDetails.lastName}{" "}
+                    {field.label} :{" "}
+                    {field.fieldKey == "name"
+                      ? accountDetails.firstName + " " + accountDetails.lastName
+                      : field.fieldKey == "dateofbirth"
+                      ? date
+                      : field.fieldKey == "country"
+                      ? accountDetails.country
+                      : null}
                     <span
                       style={{ float: "right" }}
                       type="submit"
                       onClick={() => {
-                        handleProfileName();
-                      }}
-                    >
-                      <FaEdit />
-                    </span>
-                  </MDTypography>
-                </CardContent>
-              </Card>
-            ) : field.fieldKey === "dateofbirth" ? (
-              <Card className={classes.card}>
-                <CardContent className={classes.cardcontent}>
-                  <MDTypography style={{ fontSize: "18px" }}>
-                    {" "}
-                    {field.label} : {date}
-                    <span
-                      style={{ float: "right" }}
-                      type="submit"
-                      onClick={() => {
-                        handleProfileDob();
-                      }}
-                    >
-                      <FaEdit />
-                    </span>
-                  </MDTypography>
-                </CardContent>
-              </Card>
-            ) : field.fieldKey === "country" ? (
-              <Card className={classes.card}>
-                <CardContent className={classes.cardcontent}>
-                  <MDTypography style={{ fontSize: "18px" }}>
-                    {" "}
-                    {field.label} : {accountDetails.country}
-                    <span
-                      style={{ float: "right" }}
-                      type="submit"
-                      onClick={() => {
-                        handleProfileCountry();
+                        navigate(field.navigate);
                       }}
                     >
                       <FaEdit />

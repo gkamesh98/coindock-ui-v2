@@ -34,18 +34,14 @@ function SystemSettings() {
     {
       label: "Primary currency",
       fieldKey: "primarycurrency",
+      navigate: "/primary",
     },
     {
       label: "Secondary currency",
       fieldKey: "secondarycurrency",
+      navigate: "/secondary",
     },
   ];
-  const handlePrimary = () => {
-    navigate("/primary");
-  };
-  const handleSecondary = () => {
-    navigate("/secondary");
-  };
 
   return (
     <DashboardLayout>
@@ -57,39 +53,23 @@ function SystemSettings() {
       ) : (
         fields.map((field, id) => (
           <div key={id}>
-            {field.fieldKey === "primarycurrency" ? (
+            {field.navigate ? (
               <Card className={classes.card}>
                 <CardContent className={classes.cardcontent}>
                   <MDTypography style={{ fontSize: "18px" }}>
                     {field.label} :{" "}
-                    {`${accountDetails.primaryCurrency} ${accountDetails.primaryCurrencySymbol}`}
+                    {field.fieldKey === "primarycurrency"
+                      ? accountDetails.primaryCurrency + " " + accountDetails.primaryCurrencySymbol
+                      : null}
                     <span
                       style={{ float: "right" }}
                       type="submit"
                       onClick={() => {
-                        handlePrimary();
+                        navigate(field.navigate);
                       }}
                     >
                       <FaEdit />
                     </span>
-                  </MDTypography>
-                </CardContent>
-              </Card>
-            ) : field.fieldKey === "secondarycurrency" ? (
-              <Card className={classes.card}>
-                <CardContent className={classes.cardcontent}>
-                  <MDTypography style={{ fontSize: "18px" }}>
-                    {" "}
-                    {field.label} :
-                    <span
-                      style={{ float: "right" }}
-                      type="submit"
-                      onClick={() => {
-                        handleSecondary();
-                      }}
-                    >
-                      <FaEdit />
-                    </span>{" "}
                   </MDTypography>
                 </CardContent>
               </Card>
