@@ -39,7 +39,6 @@ function AccountSettings() {
     {
       label: "Email",
       key: "email",
-      // displayLabel: "Email",
     },
     {
       label: "Change Password",
@@ -70,9 +69,7 @@ function AccountSettings() {
                 <CardContent className={classes.cardcontent}>
                   <MDTypography style={{ fontSize: "18px" }}>
                     {field.label}
-                    {field.key == "email" ? (
-                      accountDetails.email
-                    ) : field.key == "changePassword" ? (
+                    {field.key == "changePassword" ? (
                       <span
                         type="submit"
                         style={{ float: "right" }}
