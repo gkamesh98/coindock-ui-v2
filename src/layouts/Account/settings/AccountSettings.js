@@ -39,7 +39,7 @@ function AccountSettings() {
     {
       label: "Email",
       key: "email",
-      displayLabel: "Email",
+      // displayLabel: "Email",
     },
     {
       label: "Change Password",
@@ -69,7 +69,7 @@ function AccountSettings() {
               <Card className={classes.card}>
                 <CardContent className={classes.cardcontent}>
                   <MDTypography style={{ fontSize: "18px" }}>
-                    {field.label}:{" "}
+                    {field.label}
                     {field.key == "email" ? (
                       accountDetails.email
                     ) : field.key == "changePassword" ? (
@@ -96,7 +96,15 @@ function AccountSettings() {
                   </MDTypography>
                 </CardContent>
               </Card>
-            ) : null}
+            ) : (
+              <Card className={classes.card}>
+                <CardContent className={classes.cardcontent}>
+                  <MDTypography style={{ fontSize: "18px" }}>
+                    {field.label} : {accountDetails.email}
+                  </MDTypography>
+                </CardContent>
+              </Card>
+            )}
           </div>
         ))
       )}
