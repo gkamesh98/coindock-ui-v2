@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Field, useFormik } from "formik";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import { useAccountData } from "api/accapi";
@@ -9,21 +13,19 @@ import MDButton from "components/MDButton";
 import { useAccount } from "api/accapi";
 import moment from "moment";
 import * as Yup from "yup";
-import DatePick from "Shared/Date/DatePick";
 
 function DateofBirth() {
   const { data: account } = useAccount();
   const accountDetails = account?.user || {};
-  const [formErrors, setformErrors] = useState({});
-
+  const [isValid, setValid] = useState(false);
   const initialValues = {
     dateOfBirth: accountDetails.dateOfBirth,
   };
   const validationSchema = Yup.object({
     dateOfBirth: Yup.string()
-      .required("Date-of-birth is required")
+      .nullable()
+      .required("Required")
       .test("DOB", "You need to be 15 years old to register for CoinDock", (value) => {
-        console.log("check", value);
         return moment().diff(moment(value), "years") >= 15;
       }),
   });
@@ -33,11 +35,12 @@ function DateofBirth() {
 
   const [getData] = useAccountData();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setformValues({ ...formValues, [name]: value });
-    formik.setFieldValue(name);
+  const handleChange = (value) => {
+    setValid(true);
+    console.log(value);
+    formik.setFieldValue("dateOfBirth", value);
   };
+
   const useStyles = makeStyles({
     button: {
       height: "20px",
@@ -50,28 +53,38 @@ function DateofBirth() {
     },
   });
   const classes = useStyles();
-  const handleSubmit = () => {
+  const handleSubmit = (values) => {
     getData({
-      ...formValues,
+      ...values,
+      dateOfBirth: moment(values.dateOfBirth).format("YYYY-MM-DD"),
     })
       .unwrap()
       .then(() => {
         navigate("/profile-settings");
       });
-    setformErrors(formErrors);
   };
   const formik = useFormik({
     initialValues,
-    handleChange,
-    handleSubmit,
+    onSubmit: handleSubmit,
     validationSchema,
+    enableReinitialize: true,
   });
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <form className={classes.dates}>
-        <DatePick name="dateOfBirth" value={formik.values.dateOfBirth} onChange={handleChange} />
+      <form onSubmit={formik.handleSubmit} className={classes.dates}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            name="dateOfBirth"
+            label="Date"
+            inputFormat={"dd/MM/yyyy"}
+            className={classes.input}
+            value={formik.values.dateOfBirth}
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
         {formik?.errors?.dateOfBirth ? (
           <div style={{ fontSize: "14px", color: "red", marginTop: "3px" }}>
             {formik?.errors?.dateOfBirth}
@@ -80,11 +93,12 @@ function DateofBirth() {
       </form>
 
       <MDButton
+        disabled={!isValid}
         className={classes.button}
         variant="gradient"
         color="info"
         type="submit"
-        onClick={handleSubmit}
+        onClick={formik.handleSubmit}
       >
         Submit
       </MDButton>

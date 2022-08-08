@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // @mui material components
-
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import MDBox from "components/MDBox";
@@ -20,11 +19,11 @@ function ProfileName() {
     firstName: Yup.string()
       .matches(/^[A-Za-z ]*$/, "Please enter valid name")
       .max(45)
-      .required(),
+      .required("First name is required"),
     lastName: Yup.string()
       .matches(/^[A-Za-z ]*$/, "Please enter valid name")
       .max(45)
-      .required(),
+      .required("Last name is required"),
   });
   const handleOnChange = () => {
     setValid(true);
@@ -48,6 +47,7 @@ function ProfileName() {
     initialValues,
     onSubmit,
     validationSchema,
+    enableReinitialize: true,
   });
   return (
     <DashboardLayout>
@@ -55,21 +55,23 @@ function ProfileName() {
       <MDTypography px={3} ml={4}>
         Edit Name
       </MDTypography>
-      <MDBox pt={4} pb={3} px={3} ml={4} sx={4} md={6} lg={12}>
+      <MDBox pt={2} pb={3} px={3} ml={4} sx={4} md={4} lg={12}>
         <MDBox
           component="form"
           role="form"
           onSubmit={formik.handleSubmit}
           onChange={handleOnChange}
         >
-          <MDBox mb={3}>
-            <MDInput label="First Name" {...formik.getFieldProps("firstName")} />
+          <MDBox mb={2}>
+            <MDTypography style={{ fontSize: 16 }}>First Name:</MDTypography>
+            <MDInput {...formik.getFieldProps("firstName")} />
             {formik?.errors?.firstName ? (
-              <div style={{ fontSize: "16px", color: "red" }}>{formik?.errors?.firstName}</div>
+              <div style={{ fontSize: "15px", color: "red" }}>{formik?.errors?.firstName}</div>
             ) : null}
           </MDBox>
-          <MDBox mb={3}>
-            <MDInput type="lastName" label="Last Name" {...formik.getFieldProps("lastName")} />
+          <MDBox mb={1}>
+            <MDTypography style={{ fontSize: 16 }}>Last Name:</MDTypography>
+            <MDInput {...formik.getFieldProps("lastName")} />
             {formik?.errors?.lastName ? (
               <div style={{ fontSize: "16px", color: "red" }}>{formik?.errors?.lastName}</div>
             ) : null}

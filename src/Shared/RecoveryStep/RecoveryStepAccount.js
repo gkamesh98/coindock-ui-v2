@@ -31,7 +31,7 @@ function RecoveryCodeBoxStepAccount() {
 
   const useStyles = makeStyles({
     button: {
-      marginTop: "2%",
+      marginTop: "1%",
       marginLeft: "2%",
       color: "white",
     },
@@ -43,7 +43,7 @@ function RecoveryCodeBoxStepAccount() {
     },
     download: {
       marginBottom: "3%",
-      marginTop: "3%",
+      marginTop: "2%",
       marginLeft: "3%",
     },
   });
@@ -57,15 +57,15 @@ function RecoveryCodeBoxStepAccount() {
         Please note down the below recovery words in the same order and keep it securely
       </MDTypography>
       {isLoading ? (
-        <Box display="flex" widht={1} justifyContent="center">
+        <Box display="flex" justifyContent="center">
           <CircularProgress style={{ color: "blue" }} />
         </Box>
       ) : (
-        <Box sx={{ flexGrow: 1 }} mt={5} ml={4}>
+        <Box mt={1} ml={3}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {Boolean(recoveryCodes) &&
               recoveryCodes.map((value, number) => (
-                <Grid item md={2} key={number}>
+                <Grid item md={3} key={number}>
                   <RecoveryBoxs key={number} index={number + 1} code={value} />
                 </Grid>
               ))}

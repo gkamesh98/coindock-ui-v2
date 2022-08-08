@@ -56,7 +56,6 @@ function Country() {
       });
   };
 
-  console.log(formValues.country);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -70,6 +69,7 @@ function Country() {
           </Box>
         ) : (
           <Select
+            name="country"
             className={classes.input}
             onChange={handleChange}
             defaultValue={formValues.country}
@@ -89,7 +89,6 @@ function Country() {
         variant="gradient"
         color="info"
         type="submit"
-        // disabled={!isValid}
         onClick={handleSubmit}
       >
         Submit

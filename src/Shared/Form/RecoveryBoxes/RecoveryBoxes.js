@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     border: "1px solid #0080b1",
     borderRadius: "10px",
     justifyContent: "center",
-    margin: "6px",
+    margin: "5px",
     display: "flex",
   },
   boxDate: {

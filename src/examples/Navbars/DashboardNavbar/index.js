@@ -6,6 +6,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
 import Icon from "@mui/material/Icon"; // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput"; // Material Dashboard 2 React example components
@@ -81,6 +82,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       return colorValue;
     },
   });
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -98,7 +100,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <IconButton onClick={handleAccount} sx={navbarIconButton} size="small" disableRipple>
-                <Icon sx={iconsStyle}>account_circle</Icon>
+                <Icon sx={iconsStyle}>
+                  <PersonIcon />
+                </Icon>
               </IconButton>
 
               <IconButton
