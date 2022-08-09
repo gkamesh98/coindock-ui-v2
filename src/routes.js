@@ -17,24 +17,23 @@
 */ // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up"; // @mui icons
 import Icon from "@mui/material/Icon";
-import Account from "layouts/Account/Account";
-import ProfileSettings from "layouts/Account/settings/ProfileSettings";
-import AccountSettings from "layouts/Account/settings/AccountSettings";
-import SystemSettings from "layouts/Account/settings/SystemSettings";
-import ProfileName from "layouts/Account/ProfileSettings/ProfileName";
-import Country from "layouts/Account/ProfileSettings/Country";
-import DateofBirth from "layouts/Account/ProfileSettings/DateOfBirth";
-import RecoveryCodeBoxStepAccount from "Shared/RecoveryStep/RecoveryStepAccount";
-import Accountpassword from "layouts/Account/AccountSettings.js/Accountpassword";
-import RecoveryCodeTestStepAccount from "Shared/RecoveryCodeTestStep/RecoveryCodeTestStepAccount";
-import Primary from "layouts/Account/SystemSettings.js/primaryCurrency";
-import Secondary from "layouts/Account/SystemSettings.js/secondaryCurrency";
+import Account from "layouts/account/Account";
+import ProfileSettings from "layouts/account/settings/ProfileSettings";
+import AccountSettings from "layouts/account/settings/AccountSettings";
+import SystemSettings from "layouts/account/settings/SystemSettings";
+import ProfileName from "layouts/account/profilesettings/ProfileName";
+import Country from "layouts/account/profilesettings/Country";
+import DateofBirth from "layouts/account/profilesettings/DateOfBirth";
+import RecoveryCodeBoxStepAccount from "components/RecoveryStep/RecoveryStepAccount";
+import Accountpassword from "layouts/account/accountsettings.js/Accountpassword";
+import RecoveryCodeTestStepAccount from "components/RecoveryCodeTestStep/RecoveryCodeTestStepAccount";
+import Primary from "layouts/account/systemsettings.js/primaryCurrency";
+import Secondary from "layouts/account/systemsettings.js/secondaryCurrency";
 
 export const loggedroutes = [
   {
@@ -74,7 +73,6 @@ export const loggedroutes = [
     route: "/profile-name",
     component: <ProfileName />,
   },
-  // apassword
   {
     type: "route",
     name: "Country",

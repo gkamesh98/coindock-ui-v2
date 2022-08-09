@@ -3,7 +3,7 @@ import React from "react";
 
 import EllipseNumber from "Shared/EllipeseText";
 
-import { PlusCircle } from "react-bootstrap-icons";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { openPopup } from "Screens/AddWallet/AddWalletSlice";
 import { useDispatch } from "react-redux";
 
@@ -20,7 +20,7 @@ function Wallet() {
       <div className="card p-3">
         <div className="cd-row-space-between" style={{ display: "flex", width: "100%" }}>
           <h6>Wallets</h6>
-          <PlusCircle size={30} onClick={() => dispatch(openPopup())} />
+          <AddCircleOutlineIcon size={30} onClick={() => dispatch(openPopup())} />
         </div>
 
         {Object.values(coincard?.data?.results ?? {}).map((value) => (

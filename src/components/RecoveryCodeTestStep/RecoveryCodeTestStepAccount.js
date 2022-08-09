@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import RecoveryBoxs from "Shared/Form/RecoveryBoxes";
+import RecoveryBoxs from "components/Form/RecoveryBoxes";
 import { usePutRecoveryCodesMutation, useGetRandomRecoveryCodesQuery } from "api/recoveryCodes";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import Box from "@mui/material/Box";
-import Popup from "Shared/Popup/Popup";
+import Popup from "components/Popup/Popup";
 import MDTypography from "components/MDTypography";
 import { Button } from "@mui/material";
 

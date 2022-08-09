@@ -1,10 +1,6 @@
-import { chainPropTypes } from "@mui/utils";
 /* eslint-disable react/prop-types */
-
 import React from "react";
-
 import Box from "@mui/material/Box";
-
 import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   box: {

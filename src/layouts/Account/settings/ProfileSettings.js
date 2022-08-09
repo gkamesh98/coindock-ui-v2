@@ -6,7 +6,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import MDTypography from "components/MDTypography";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useAccount } from "api/accapi";
-import { FaEdit } from "react-icons/fa";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -80,7 +80,7 @@ function ProfileSettings() {
                         navigate(field.navigate);
                       }}
                     >
-                      <FaEdit />
+                      <ModeEditIcon />
                     </span>
                   </MDTypography>
                 </CardContent>

@@ -1,5 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import propTypes from "prop-types";
