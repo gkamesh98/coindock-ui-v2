@@ -108,6 +108,10 @@ export default function App() {
       {authenticated ? (
         <Routes>
           {getRoutes(loggedroutes)}
+          <Route
+            path="/sign-up/recovery-codes"
+            element={<Navigate to="authentication/sign-up/recovery-codes" />}
+          />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       ) : (

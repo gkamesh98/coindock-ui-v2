@@ -1,4 +1,3 @@
-import data from "layouts/tables/data/authorsTableData";
 import { baseApi } from "./api";
 
 const accapi = baseApi.injectEndpoints({

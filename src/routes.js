@@ -29,6 +29,22 @@ import Icon from "@mui/material/Icon";
 export const loggedroutes = [
   {
     type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/sign-up/recovery-codes",
+    component: <RecoveryCodes />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/sign-up/recovery-code-test",
+    component: <RecoveryCodeTest />,
+  },
+  {
+    type: "collapse",
     name: "Dashboard",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
@@ -85,22 +101,6 @@ export const publicRoutes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/sign-up/create-account",
     component: <SignUp />,
-  },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/sign-up/recovery-codes",
-    component: <RecoveryCodes />,
-  },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/sign-up/recovery-code-test",
-    component: <RecoveryCodeTest />,
   },
 ];
 export default { loggedroutes, publicRoutes };

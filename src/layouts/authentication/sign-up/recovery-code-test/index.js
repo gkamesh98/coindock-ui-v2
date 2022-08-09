@@ -9,8 +9,11 @@ import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 import { Card } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { UndoOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 function Cover() {
+  const navigate = useNavigate();
+
   return (
     <CoverLayout image={bgImage}>
       <Grid item xs={11} sm={9} md={5} lg={4} xl={3.8}>
@@ -35,7 +38,15 @@ function Cover() {
           </MDBox>
           <Grid container spacing={2} mt={3} mx={-4} mb={1} textAlign="center">
             <Grid item xs>
-              <UndoOutlined fontSize="large" color="info" variant="gradient" />
+              <UndoOutlined
+                fontSize="large"
+                variant="gradient"
+                color="info"
+                id="confirm"
+                onClick={() => {
+                  navigate("/sign-up/recovery-codes");
+                }}
+              />
             </Grid>
             <Grid item xs={6}>
               <MDButton
@@ -43,7 +54,7 @@ function Cover() {
                 color="info"
                 id="confirm"
                 onClick={() => {
-                  navigate("/authentication/sign-up/recovery-code-test");
+                  navigate("/sign-up/recovery-codes");
                   textAlign = "right";
                 }}
               >
