@@ -6,7 +6,6 @@ import EllipseNumber from "Shared/EllipeseText";
 import { PlusCircle } from "react-bootstrap-icons";
 import { openPopup } from "Screens/AddWallet/AddWalletSlice";
 import { useDispatch } from "react-redux";
-import "./Wallet.css";
 
 function Wallet() {
   const { data: coincard, isLoading, isError } = useCoinCard();

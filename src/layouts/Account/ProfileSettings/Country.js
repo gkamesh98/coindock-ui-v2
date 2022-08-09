@@ -16,7 +16,7 @@ import { Select } from "@mui/material";
 function Country() {
   const { data: account } = useAccount();
   const accountDetails = account?.user || {};
-
+  const [isValid, setValid] = useState(false);
   const initialValues = {
     country: accountDetails.country,
   };
@@ -24,9 +24,10 @@ function Country() {
 
   const [formValues, setformValues] = useState(initialValues);
 
-  const [getData] = useAccountData();
+  const [putData] = useAccountData();
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setValid(true);
     setformValues({ ...formValues, [name]: value });
   };
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function Country() {
   });
   const classes = useStyles();
   const handleSubmit = () => {
-    getData({
+    putData({
       ...formValues,
     })
       .unwrap()
@@ -87,6 +88,7 @@ function Country() {
       <MDButton
         className={classes.button}
         variant="gradient"
+        disabled={!isValid}
         color="info"
         type="submit"
         onClick={handleSubmit}

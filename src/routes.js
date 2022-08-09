@@ -27,14 +27,14 @@ import Account from "layouts/Account/Account";
 import ProfileSettings from "layouts/Account/settings/ProfileSettings";
 import AccountSettings from "layouts/Account/settings/AccountSettings";
 import SystemSettings from "layouts/Account/settings/SystemSettings";
-import ProfileName from "layouts/Account/Profile/ProfileName";
-import Country from "layouts/Account/Profile/Country";
-import DateofBirth from "layouts/Account/Profile/DateOfBirth";
+import ProfileName from "layouts/Account/ProfileSettings/ProfileName";
+import Country from "layouts/Account/ProfileSettings/Country";
+import DateofBirth from "layouts/Account/ProfileSettings/DateOfBirth";
 import RecoveryCodeBoxStepAccount from "Shared/RecoveryStep/RecoveryStepAccount";
-import Accountpassword from "layouts/Account/AccountS.js/Accountpassword";
+import Accountpassword from "layouts/Account/AccountSettings.js/Accountpassword";
 import RecoveryCodeTestStepAccount from "Shared/RecoveryCodeTestStep/RecoveryCodeTestStepAccount";
-import Primary from "layouts/Account/System.js/Primary";
-import Secondary from "layouts/Account/System.js/Secondary";
+import Primary from "layouts/Account/SystemSettings.js/primaryCurrency";
+import Secondary from "layouts/Account/SystemSettings.js/secondaryCurrency";
 
 export const loggedroutes = [
   {

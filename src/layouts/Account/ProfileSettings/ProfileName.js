@@ -29,12 +29,12 @@ function ProfileName() {
     setValid(true);
   };
 
-  const [getData] = useAccountData();
+  const [putData] = useAccountData();
   const navigate = useNavigate();
   const initialValues = { firstName: accountDetails.firstName, lastName: accountDetails.lastName };
   const onSubmit = (values) => {
     console.log(values);
-    getData({
+    putData({
       ...values,
     })
       .unwrap()

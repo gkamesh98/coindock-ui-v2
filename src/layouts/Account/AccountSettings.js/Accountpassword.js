@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // @mui material components
-import Card from "@mui/material/Card";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import React from "react";
+import { useNavigate } from "react-router-dom"; // @mui material components
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -21,12 +20,12 @@ function Accountpassword() {
       ),
   });
 
-  const [getData] = useAccountData();
+  const [putData] = useAccountData();
   const navigate = useNavigate();
   const initialValues = { password: "" };
   const onSubmit = (values, actions) => {
     console.log(values);
-    getData({
+    putData({
       ...values,
     })
       .unwrap()

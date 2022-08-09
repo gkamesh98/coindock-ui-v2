@@ -33,10 +33,12 @@ function SystemSettings() {
   const fields = [
     {
       label: "Primary currency",
+      fieldKey: "primarycurrency",
       navigate: "/primary",
     },
     {
       label: "Secondary currency",
+      fieldKey: "secondarycurrency",
       navigate: "/secondary",
     },
   ];
@@ -55,8 +57,10 @@ function SystemSettings() {
               <Card className={classes.card}>
                 <CardContent className={classes.cardcontent}>
                   <MDTypography style={{ fontSize: "18px" }}>
-                    {field.label} :
-                    {accountDetails.primaryCurrency + " " + accountDetails.primaryCurrencySymbol}
+                    {field.label} :{" "}
+                    {field.fieldKey === "primarycurrency"
+                      ? accountDetails.primaryCurrency + " " + accountDetails.primaryCurrencySymbol
+                      : null}
                     <span
                       style={{ float: "right" }}
                       type="submit"

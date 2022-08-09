@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Field, useFormik } from "formik";
+import { useFormik } from "formik";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -31,13 +31,11 @@ function DateofBirth() {
   });
 
   const navigate = useNavigate();
-  const [formValues, setformValues] = useState(initialValues);
 
-  const [getData] = useAccountData();
+  const [putData] = useAccountData();
 
   const handleChange = (value) => {
     setValid(true);
-    console.log(value);
     formik.setFieldValue("dateOfBirth", value);
   };
 
@@ -54,7 +52,7 @@ function DateofBirth() {
   });
   const classes = useStyles();
   const handleSubmit = (values) => {
-    getData({
+    putData({
       ...values,
       dateOfBirth: moment(values.dateOfBirth).format("YYYY-MM-DD"),
     })

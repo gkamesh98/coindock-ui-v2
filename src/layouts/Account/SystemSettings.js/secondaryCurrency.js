@@ -29,9 +29,9 @@ function Secondary() {
   const navigate = useNavigate();
   const { data: currencyfilter } = useCurrency();
   const [formValues, setformValues] = useState(initialValues);
-
+  const [isValid, setValid] = useState(false);
   const [filter, setFilter] = useState({});
-  const [getData] = useAccountData();
+  const [putData] = useAccountData();
   const handleChanges = (e) => {
     const { name, value } = e.target;
     handleValidation({ ...formValues, [name]: value });
@@ -39,10 +39,11 @@ function Secondary() {
   };
 
   const handleChange = (e) => {
+    setValid(true);
     setFilter(e.target.value);
   };
   const handleSubmit = () => {
-    getData({
+    putData({
       ...formValues,
     })
       .unwrap()
@@ -69,7 +70,12 @@ function Secondary() {
           ))}
         </Select>
       </form>
-      <Button variant="contained" className={classes.button} onClick={handleSubmit}>
+      <Button
+        variant="contained"
+        className={classes.button}
+        disabled={!isValid}
+        onClick={handleSubmit}
+      >
         Submit
       </Button>
     </DashboardLayout>

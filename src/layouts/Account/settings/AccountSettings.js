@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
-import outlined from "assets/theme/components/button/outlined";
+
 function AccountSettings() {
   const { data: account, isLoading } = useAccount();
   const accountDetails = account?.user || {};
