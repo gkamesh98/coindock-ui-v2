@@ -6,7 +6,7 @@ const useStyles = makeStyles({
   box: {
     position: "relative",
     boxSizing: "border-box",
-    width: "100px",
+    width: "79px",
     height: "65px",
     background: "#ffffff",
     border: "1px solid #0080b1",
@@ -14,12 +14,15 @@ const useStyles = makeStyles({
     justifyContent: "center",
     margin: "5px",
     display: "flex",
+    flex: "auto",
   },
-  boxDate: {
+  boxData: {
     margin: "0px",
     justifyContent: "center",
+    height: "fit-content",
     padding: "20px",
-    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    fontSize: "16px",
+    fontFamily: "Times New Roman,serif",
   },
   input: {
     padding: "20px",
@@ -29,12 +32,13 @@ const useStyles = makeStyles({
     border: "indigo",
     borderRadius: "10px",
     textAlign: "center",
-    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    fontFamily: "Times New Roman,serif",
   },
   boxIndex: {
     position: "absolute",
     top: "2px",
     left: "4px",
+    fontSize: "15px",
     margin: "0px",
   },
 });
@@ -42,14 +46,14 @@ const useStyles = makeStyles({
 function RecoveryBoxs(props) {
   const classes = useStyles();
   return (
-    <Box sx={{ flexGrow: 1 }} className={classes.box}>
+    <div className={classes.box}>
       {props.input ? (
         <input className={classes.input} type="text" value={props.code} name={props.index} />
       ) : (
-        <p className={classes.boxDate}>{props?.code}</p>
+        <p className={classes.boxData}>{props?.code}</p>
       )}
       <p className={classes.boxIndex}>{props.index}</p>
-    </Box>
+    </div>
   );
 }
 

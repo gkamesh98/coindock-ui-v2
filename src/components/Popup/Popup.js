@@ -27,7 +27,7 @@ function Popup(props) {
       position: "relative",
       padding: "14px",
       width: "100%",
-      maxWidth: "353px",
+      maxWidth: "340px",
       backgroundColor: "#ffff",
       borderRadius: "10px",
     },

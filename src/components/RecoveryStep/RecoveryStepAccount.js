@@ -31,20 +31,56 @@ function RecoveryCodeBoxStepAccount() {
 
   const useStyles = makeStyles({
     button: {
+      width: "50px",
+      height: "20px",
+      display: "flex",
+      justifyContent: "center",
       marginTop: "1%",
-      marginLeft: "2%",
+      marginLeft: "4%",
       color: "white",
     },
-    label: {
-      marginLeft: "3%",
+
+    paper: {
+      marginLeft: "6%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
     },
-    checkbox: {
-      marginLeft: "3%",
+    paperContainer: {
+      minWidth: "400px",
+      width: "100%",
+      height: "100%",
     },
+    headerContent: {
+      marginLeft: "5%",
+      width: "335px",
+      height: "87px",
+      left: "14px",
+      top: "141px",
+      display: "inline",
+      fontWeight: "400",
+      fontSize: "20px",
+      lineHeight: "160%",
+      fontFamily: "Times New Roman,serif",
+    },
+    table: {
+      display: "flex",
+      marginTop: 30,
+      marginLeft: "5%",
+      flexFlow: "wrap",
+      height: "auto",
+      listStyle: "none",
+    },
+
     download: {
+      display: "flex",
+      width: "100%",
+      justifyContent: "center",
+      flexDirection: "row",
+      fontFamily: "Times New Roman,serif",
       marginBottom: "3%",
-      marginTop: "2%",
-      marginLeft: "3%",
+      marginTop: "3%",
     },
   });
   const classes = useStyles();
@@ -53,42 +89,44 @@ function RecoveryCodeBoxStepAccount() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDTypography className={classes.label}>
-        Please note down the below recovery words in the same order and keep it securely
-      </MDTypography>
-      {isLoading ? (
-        <Box display="flex" justifyContent="center">
-          <CircularProgress style={{ color: "blue" }} />
-        </Box>
-      ) : (
-        <Box mt={1} ml={3}>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {Boolean(recoveryCodes) &&
-              recoveryCodes.map((value, number) => (
-                <Grid item md={3} key={number}>
-                  <RecoveryBoxs key={number} index={number + 1} code={value} />
-                </Grid>
-              ))}
-          </Grid>
-        </Box>
-      )}
-      <div className={classes.download}>
-        <DownloadRecoverykeys />
+      <div className={classes.paper}>
+        <div className={classes.paperContainer}>
+          <MDTypography className={classes.headerContent}>
+            Please note down the below recovery words in the same order and keep it securely
+          </MDTypography>
+
+          {isLoading ? (
+            <Box display="flex" justifyContent="center">
+              <CircularProgress style={{ color: "blue" }} />
+            </Box>
+          ) : (
+            <div className={classes.table}>
+              {Boolean(recoveryCodes) &&
+                recoveryCodes.map((value, number) => (
+                  <Grid sx={8} md={3} key={number}>
+                    <RecoveryBoxs key={number} index={number + 1} code={value} />
+                  </Grid>
+                ))}
+            </div>
+          )}
+          <div className={classes.download}>
+            <DownloadRecoverykeys />
+          </div>
+          <Checkbox
+            label="Yes, I noted down the recovery words securely"
+            checked={checked}
+            onChange={handleOnCheckBoxChange}
+          />
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={handleOnSubmit}
+            disabled={!checked}
+          >
+            Next
+          </Button>
+        </div>
       </div>
-      <Checkbox
-        className={classes.checkbox}
-        label="Yes, I noted down the recovery words securely"
-        checked={checked}
-        onChange={handleOnCheckBoxChange}
-      />
-      <Button
-        variant="contained"
-        className={classes.button}
-        onClick={handleOnSubmit}
-        disabled={!checked}
-      >
-        Next
-      </Button>
     </DashboardLayout>
   );
 }

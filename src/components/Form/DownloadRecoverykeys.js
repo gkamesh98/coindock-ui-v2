@@ -9,7 +9,15 @@ function DownloadRecoverykeys() {
     downloadble();
   };
   return (
-    <Button variant="contained" style={{ color: "white" }} onClick={handleOnClick}>
+    <Button
+      variant="contained"
+      style={{
+        color: "white",
+        fontFamily: "Times New Roman,serif",
+        fontSize: "11px",
+      }}
+      onClick={handleOnClick}
+    >
       Download words
     </Button>
   );
