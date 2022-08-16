@@ -42,9 +42,9 @@ function Cover() {
           <MDBox mt={6} display="grid">
             <Box sx={1} mt={5} ml={4}>
               <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                {data.map((value, index) => (
-                  <Grid item xs={2} sm={4} md={4} key={index}>
-                    <RecoveryBox key={index} index={index + 1} code={value} />
+                {data.map((value, number) => (
+                  <Grid item xs={2} sm={4} md={4} key={number}>
+                    <RecoveryBox key={number} index={number + 1} code={value} />
                   </Grid>
                 ))}
               </Grid>

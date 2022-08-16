@@ -17,22 +17,6 @@ import { usePostRegisterMutation } from "api/signup";
 import Popup from "shared/popup";
 import Lock from "assets/images/Lock.png";
 
-const validationSchema = yup.object({
-  firstName: yup.string("Enter your first name").required("First name is required"),
-  lastName: yup.string("Enter your last name").required("Last name is required"),
-  dateOfBirth: yup.string("Enter your Date of Birth").required("Date of Birth is required"),
-  country: yup.string("Enter your country").required("Country is required"),
-  email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
-  reEnterPassword: yup
-    .string("Enter your Re-enter password")
-    .min(8, "Re-enter password should be same as password")
-    .required("Re-enter password is required"),
-});
-
 function Cover() {
   const navigate = useNavigate();
 
@@ -61,7 +45,27 @@ function Cover() {
       password: "",
       reEnterPassword: "",
     },
-    validationSchema: validationSchema,
+    validationSchema: yup.object({
+      firstName: yup.string("Enter your first name").required("First name is required"),
+      lastName: yup.string("Enter your last name").required("Last name is required"),
+      dateOfBirth: yup.string("Enter your Date of Birth").required("Date of Birth is required"),
+      country: yup
+        .string("Enter your country")
+        .required("Country is required")
+        .oneOf(data, "Country must be one of the given list."),
+      email: yup
+        .string("Enter your email")
+        .email("Enter a valid email")
+        .required("Email is required"),
+      password: yup
+        .string("Enter your password")
+        .min(8, "Password should be of minimum 8 characters length")
+        .required("Password is required"),
+      reEnterPassword: yup
+        .string("Enter your Re-enter password")
+        .min(8, "Re-enter password should be same as password")
+        .required("Re-enter password is required"),
+    }),
     onSubmit: (values) => {
       register({
         ...values,
@@ -106,8 +110,6 @@ function Cover() {
               role="form"
               onSubmit={formik.handleSubmit}
               type="form"
-              // onSubmit={formik.handleSubmit}
-              // onInput={formik.handleChange}
               isValidating
             >
               <MDBox mb={2}>
@@ -165,7 +167,7 @@ function Cover() {
                   options={data}
                   renderInput={(params) => (
                     <MDInput
-                      type="text"
+                      type="select"
                       {...params}
                       label="Country"
                       name="country"

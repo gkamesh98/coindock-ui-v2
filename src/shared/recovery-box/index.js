@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
+import propTypes from "prop-types";
 
 const useStyles = makeStyles({
   input: {
@@ -28,14 +29,23 @@ function RecoveryBox(props) {
         boxSizing: "border-box",
         width: [100, 65, 100],
         border: 1,
-        borderColor: (theme: Theme) => theme.palette.secondary.main,
+        borderColor: (theme) => theme.palette.secondary.main,
         borderRadius: "12px",
         justifyContent: "center",
         display: "flex",
       }}
     >
       {props.input ? (
-        <MDInput type="text" value={props.code} name={props.index} required />
+        <MDInput
+          type="text"
+          display="block"
+          fontWeight="regular"
+          my={3}
+          value={props.code}
+          name={props.name}
+          required
+          position="center"
+        />
       ) : (
         <MDTypography display="block" fontWeight="regular" my={3}>
           {props?.code}
@@ -59,9 +69,10 @@ function RecoveryBox(props) {
 }
 
 RecoveryBox.propTypes = {
-  code: PropTypes.string,
-  input: PropTypes.bool,
-  index: PropTypes.integer,
+  code: propTypes.string,
+  input: propTypes.bool,
+  index: propTypes.number.isRequired,
+  name: propTypes.string,
 };
 
 export default RecoveryBox;

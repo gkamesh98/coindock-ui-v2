@@ -9,8 +9,6 @@ export const recoveryCodes = baseApi.injectEndpoints({
         method: "post",
       }),
       transformResponse: (response) => {
-        console.log(response?.data?.results.recoveryCode);
-        console.log(response?.data?.results.recoveryCode.recoveryCodes);
         return response?.data?.results.recoveryCode.recoveryCodes;
       },
       providesTags: ["recover-codes"],
@@ -39,11 +37,14 @@ export const recoveryCodes = baseApi.injectEndpoints({
     }),
 
     putRecoveryCodes: build.mutation({
-      query: ({ key_response }) => ({
-        url: `/v1/users/${getUserId()}/recovery-codes/activate`,
-        method: "put",
-        data: { key_response },
-      }),
+      query: ({ keyResponse }) => {
+        console.log(keyResponse);
+        return {
+          url: `/v1/users/${getUserId()}/recovery-codes/activate`,
+          method: "put",
+          data: { keyResponse },
+        };
+      },
       transformResponse: (response) => {
         return response;
       },
@@ -55,7 +56,7 @@ export const recoveryCodes = baseApi.injectEndpoints({
         method: "get",
       }),
       transformResponse: (response) => {
-        return response.data;
+        return response.data?.results;
       },
     }),
   }),

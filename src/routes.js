@@ -29,17 +29,17 @@ import Icon from "@mui/material/Icon";
 export const loggedroutes = [
   {
     type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
+    name: "recovery-codes",
+    key: "Recovery codes",
+    icon: <Icon fontSize="small">recoveryCodes</Icon>,
     route: "/sign-up/recovery-codes",
     component: <RecoveryCodes />,
   },
   {
     type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
+    name: "recovery-code-test",
+    key: "Recovery code test",
+    icon: <Icon fontSize="small">recoveryTestCodes</Icon>,
     route: "/sign-up/recovery-code-test",
     component: <RecoveryCodeTest />,
   },
