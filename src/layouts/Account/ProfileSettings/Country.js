@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useAccount } from "api/accapi";
 import { useAccountData } from "api/accapi";
 import { Select } from "@mui/material";
+import { useFormik } from "formik";
 
 function Country() {
   const { data: account } = useAccount();
@@ -56,46 +57,53 @@ function Country() {
         navigate("/profile-settings");
       });
   };
-
+  const formik = useFormik({
+    initialValues,
+    onSubmit: handleSubmit,
+    enableReinitialize: true,
+  });
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <MDTypography px={3} ml={4}>
-        Edit Country
-      </MDTypography>
-      <form onInput={(e) => handleChange(e)}>
-        {isLoading ? (
-          <Box display="flex" width={0.5} justifyContent="center">
-            <CircularProgress style={{ color: "blue" }} />
-          </Box>
-        ) : (
-          <Select
-            name="country"
-            className={classes.input}
-            onChange={handleChange}
-            defaultValue={formValues.country}
-          >
-            {countryfilter?.countries?.map((value) => {
-              return (
-                <MenuItem value={value} key={value}>
-                  {value}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        )}
-      </form>
-      <MDButton
-        className={classes.button}
-        variant="gradient"
-        disabled={!isValid}
-        color="info"
-        type="submit"
-        onClick={handleSubmit}
-      >
-        Submit
-      </MDButton>
-    </DashboardLayout>
+    <>
+      <DashboardLayout>
+        <DashboardNavbar />
+        <MDTypography px={3} ml={4}>
+          Edit Country
+        </MDTypography>
+        <form onInput={(e) => handleChange(e)}>
+          {isLoading ? (
+            <Box display="flex" width={0.5} justifyContent="center">
+              <CircularProgress style={{ color: "blue" }} />
+            </Box>
+          ) : (
+            <Select
+              name="country"
+              className={classes.input}
+              onChange={handleChange}
+              defaultValue={formik.values.country}
+            >
+              {countryfilter?.countries?.map((value) => {
+                return (
+                  <MenuItem value={value} key={value}>
+                    {value}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          )}
+        </form>
+
+        <MDButton
+          className={classes.button}
+          variant="gradient"
+          disabled={!isValid}
+          color="info"
+          type="submit"
+          onClick={formik.handleSubmit}
+        >
+          Submit
+        </MDButton>
+      </DashboardLayout>
+    </>
   );
 }
 export default Country;
