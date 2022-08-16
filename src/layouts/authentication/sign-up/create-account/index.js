@@ -16,16 +16,22 @@ import { useRefresh } from "api/auth";
 import { usePostRegisterMutation } from "api/signup";
 import Popup from "shared/popup";
 import Lock from "assets/images/Lock.png";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import moment from "moment";
 
 function Cover() {
   const navigate = useNavigate();
 
   const [buttonPopup, setButtonPopup] = useState(false);
+
+  const [dob, setDob] = useState(null);
+
   const [refresh] = useRefresh();
 
   const { data = [] } = useCountry();
 
-  const [register] = usePostRegisterMutation();
+  const [register, { error }] = usePostRegisterMutation();
 
   const handleSuccessPopupButtonClick = () => {
     refresh()
@@ -39,7 +45,7 @@ function Cover() {
     initialValues: {
       firstName: "",
       lastName: "",
-      dateOfBirth: "",
+      dateOfBirth: moment().format("YYYY-MM-DD"),
       country: "",
       email: "",
       password: "",
@@ -67,17 +73,26 @@ function Cover() {
         .oneOf([yup.ref("password")], "Re-enter password must must match with password")
         .required("Re-enter password is required"),
     }),
-    onSubmit: (values) => {
+
+    onSubmit: (values, { setFieldError }) => {
       register({
         ...values,
       })
         .unwrap()
         .then(() => {
           setButtonPopup(true);
+        })
+        .catch((error) => {
+          if (error.status === 422) {
+            Object.entries(error?.data?.errors).forEach(([index, value]) =>
+              setFieldError(index, value)
+            );
+          }
         });
     },
   });
 
+  console.log(formik.initialValues);
   return (
     <CoverLayout image={bgImage}>
       <Grid item xs={11} sm={9} md={5} lg={4} xl={3.125}>
@@ -112,6 +127,8 @@ function Cover() {
               onSubmit={formik.handleSubmit}
               type="form"
               isValidating
+              validateOnBlur={false}
+              validateOnChange={false}
             >
               <MDBox mb={2}>
                 <MDInput
@@ -146,7 +163,7 @@ function Cover() {
                 ) : null}
               </MDBox>
               <MDBox mb={2}>
-                <MDInput
+                {/* <MDInput
                   name="dateOfBirth"
                   type="Date"
                   label="Date of Birth"
@@ -155,7 +172,32 @@ function Cover() {
                   fullWidth
                   required
                   {...formik.getFieldProps("dateOfBirth")}
-                />
+                /> */}
+
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    renderInput={(params) => (
+                      <MDInput
+                        type="select"
+                        {...params}
+                        label="Date of birth"
+                        variant="standard"
+                        name="dateOfBirth"
+                        InputLabelProps={{ shrink: true }}
+                        fullWidth
+                        required
+                        {...formik.getFieldProps("dateOfBirth")}
+                      />
+                    )}
+                    showYearDropdown
+                    showMonthDropdown
+                    disabledKeyboardNavigation
+                    onChange={(date) => {
+                      console.log(moment(date).format("YYYY-MM-DD"));
+                      formik.setFieldValue("dateOfBirth", moment(date).format("YYYY-MM-DD"));
+                    }}
+                  />
+                </LocalizationProvider>
                 {formik.touched.dateOfBirth && formik?.errors?.dateOfBirth ? (
                   <MDTypography color="error" fontSize="12px">
                     {formik?.errors?.dateOfBirth}
@@ -253,6 +295,7 @@ function Cover() {
                 fullWidth
                 id="confirm"
                 type="submit"
+                disabled={!(formik.isValid && formik.dirty)}
               >
                 confirm
               </MDButton>

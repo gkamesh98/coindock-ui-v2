@@ -4,10 +4,12 @@ import { getUserId } from "helper/functions";
 const signup = baseApi.injectEndpoints({
   endpoints: (build) => ({
     postRegister: build.mutation({
-      query: ({ data }) => ({
+      query: (data) => ({
         url: "/v1/users",
         method: "post",
-        data: data,
+        data: {
+          ...data,
+        },
       }),
     }),
     signupsteps: build.query({
