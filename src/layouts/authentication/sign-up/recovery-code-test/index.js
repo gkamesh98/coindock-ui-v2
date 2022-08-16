@@ -12,6 +12,7 @@ import { useGetRandomRecoveryCodesQuery, usePutRecoveryCodesMutation } from "api
 import RecoveryBox from "shared/recovery-box";
 import { useState } from "react";
 import { useFormik } from "formik";
+import Popup from "shared/popup";
 
 function Cover() {
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ function Cover() {
 
   const [keyResponse, setKeyResponse] = useState({});
 
+  const handleOnClick = () => {
+    if (displayErrorMessage) setDisplayErrorMessage(false);
+  };
+
   const formik = useFormik({
     initialValues: keyResponse,
     enableReinitialize: true,
@@ -38,7 +43,6 @@ function Cover() {
           navigate("/dashboard");
         })
         .catch((error) => {
-          console.log(error);
           if (error.status === 400) {
             setButtonPopup(true);
           }
@@ -67,17 +71,30 @@ function Cover() {
               Please enter the recovery words on the same order to activate the CoinDock account.
             </MDTypography>
           </MDBox>
+          <MDBox display="center" alignItems="center" ml={2}>
+            <MDTypography display="block" variant="button" my={1} fontWeight="medium" textGradient>
+              Steps {"3"} of {"3"}
+            </MDTypography>
+          </MDBox>
           <MDBox
             component="form"
             role="form"
             onSubmit={formik.handleSubmit}
             type="form"
             isValidating
+            onClick={handleOnClick}
           >
+            {displayErrorMessage ? (
+              <MDBox variant="gradient" borderRadius="lg" px={2}>
+                <MDTypography display="block" mt={1} color="error">
+                  {"*" + error?.data?.message.substring(0, error?.data?.message.indexOf(".")) + "."}
+                </MDTypography>
+              </MDBox>
+            ) : null}
             <MDBox mt={6} display="grid">
               <Box
                 sx={1}
-                mt={5}
+                mt={-2}
                 ml={4}
                 onInput={(event) => {
                   setKeyResponse((keyResponse) => {
@@ -91,7 +108,7 @@ function Cover() {
                       <Grid item xs={2} sm={4} md={4} key={number}>
                         <RecoveryBox
                           key={value}
-                          name={value}
+                          name={value.toString()}
                           index={value}
                           submitEvent={true}
                           input={true}
@@ -103,7 +120,7 @@ function Cover() {
               </Box>
             </MDBox>
 
-            <Grid container spacing={2} mt={3} mx={-4} mb={1} textAlign="center">
+            <Grid container spacing={2} mt={9} mx={-4} mb={5} textAlign="center">
               <Grid item xs>
                 <UndoOutlined
                   fontSize="large"
@@ -122,6 +139,14 @@ function Cover() {
               </Grid>
             </Grid>
           </MDBox>
+
+          <Popup trigger={buttonPopup} setTrigger={setButtonPopup} buttonLable="OK">
+            <MDBox variant="gradient" borderRadius="lg" pt={2} pb={2} px={2}>
+              <MDTypography display="block" mt={1}>
+                {error?.data?.error?.message ?? ""}
+              </MDTypography>
+            </MDBox>
+          </Popup>
         </Card>
       </Grid>
     </CoverLayout>

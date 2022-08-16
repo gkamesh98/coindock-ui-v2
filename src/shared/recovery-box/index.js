@@ -1,23 +1,8 @@
+import propTypes from "prop-types";
 import React from "react";
 import Box from "@mui/material/Box";
-import { makeStyles } from "@mui/styles";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
-import propTypes from "prop-types";
-
-const useStyles = makeStyles({
-  input: {
-    padding: "20px",
-    boxSizing: "content-box",
-    display: "block",
-    width: "100%",
-    border: "indigo",
-    borderRadius: "10px",
-    textAlign: "center",
-    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
-  },
-  boxIndex: {},
-});
 
 function RecoveryBox(props) {
   return (
@@ -26,11 +11,7 @@ function RecoveryBox(props) {
         boxShadow: 1,
         flexGrow: 1,
         position: "relative",
-        boxSizing: "border-box",
         width: [100, 65, 100],
-        border: 1,
-        borderColor: (theme) => theme.palette.secondary.main,
-        borderRadius: "12px",
         justifyContent: "center",
         display: "flex",
       }}
@@ -38,13 +19,18 @@ function RecoveryBox(props) {
       {props.input ? (
         <MDInput
           type="text"
-          display="block"
-          fontWeight="regular"
           my={3}
           value={props.code}
           name={props.name}
           required
-          position="center"
+          sx={{
+            position: "absolute",
+            top: "2px",
+            left: "0px",
+            display: "block",
+            fontWeight: "regular",
+            textAlign: "center",
+          }}
         />
       ) : (
         <MDTypography display="block" fontWeight="regular" my={3}>
@@ -58,8 +44,9 @@ function RecoveryBox(props) {
           left: "4px",
           margin: "0px",
           display: "block",
-          fontWeight: "regular",
         }}
+        fontWeight="light"
+        variant="h6"
         label={props.index}
       >
         {props.index}
@@ -72,7 +59,7 @@ RecoveryBox.propTypes = {
   code: propTypes.string,
   input: propTypes.bool,
   index: propTypes.number.isRequired,
-  name: propTypes.string,
+  name: propTypes.oneOfType([propTypes.string, propTypes.number]),
 };
 
 export default RecoveryBox;

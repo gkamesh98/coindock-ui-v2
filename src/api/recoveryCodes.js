@@ -38,7 +38,6 @@ export const recoveryCodes = baseApi.injectEndpoints({
 
     putRecoveryCodes: build.mutation({
       query: ({ keyResponse }) => {
-        console.log(keyResponse);
         return {
           url: `/v1/users/${getUserId()}/recovery-codes/activate`,
           method: "put",

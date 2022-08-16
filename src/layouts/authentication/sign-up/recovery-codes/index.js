@@ -38,7 +38,11 @@ function Cover() {
               Please note down the below recovery words in the same order and keep it securely
             </MDTypography>
           </MDBox>
-
+          <MDBox display="center" alignItems="center" ml={2}>
+            <MDTypography display="block" variant="button" my={1} fontWeight="medium" textGradient>
+              Steps {"2"} of {"3"}
+            </MDTypography>
+          </MDBox>
           <MDBox mt={6} display="grid">
             <Box sx={1} mt={5} ml={4}>
               <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -68,8 +72,7 @@ function Cover() {
             <Checkbox checked={checked} onChange={handleChecked} />
             <MDTypography
               variant="button"
-              fontWeight="light"
-              color="text"
+              fontWeight="regular"
               onClick={handleChecked}
               sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
             >

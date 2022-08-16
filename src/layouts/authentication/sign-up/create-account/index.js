@@ -63,7 +63,8 @@ function Cover() {
         .required("Password is required"),
       reEnterPassword: yup
         .string("Enter your Re-enter password")
-        .min(8, "Re-enter password should be same as password")
+        .min(8, "Re-enter password should be of minimum 8 characters length")
+        .oneOf([yup.ref("password")], "Re-enter password must must match with password")
         .required("Re-enter password is required"),
     }),
     onSubmit: (values) => {
