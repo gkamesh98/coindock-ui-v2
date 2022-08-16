@@ -1,8 +1,12 @@
 // Material Dashboard 2 React base styles
+import { usePieFilter } from "api/piechartapi";
+import { usePieChart } from "api/piechartapi";
 import colors from "assets/theme/base/colors";
+import { useState } from "react";
 
 const { gradients, dark } = colors;
-function configs(labels, datasets, cutout = 60) {
+function configs(labels, datasets, cutout = 60, data) {
+  console.log(data);
   const backgroundColors = [];
   if (datasets.backgroundColors) {
     datasets.backgroundColors.forEach((color) => {
@@ -21,7 +25,7 @@ function configs(labels, datasets, cutout = 60) {
   }
   return {
     data: {
-      labels,
+      labels: labels,
       datasets: [
         {
           label: datasets.label,
@@ -32,7 +36,7 @@ function configs(labels, datasets, cutout = 60) {
           borderWidth: 2,
           backgroundColor: backgroundColors,
           fill: false,
-          data: datasets.data,
+          data: data,
         },
       ],
     },

@@ -10,9 +10,12 @@
     "@emotion/cache": "11.7.1",
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
+    "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/icons-material": "5.4.1",
     "@mui/material": "5.4.1",
     "@mui/styled-engine": "5.4.1",
+    "@mui/styles": "^5.9.2",
+    "@mui/x-date-pickers": "^5.0.0-beta.3",
     "@reduxjs/toolkit": "1.8.3",
     "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "12.1.2",
@@ -20,8 +23,10 @@
     "axios": "0.27.2",
     "chart.js": "3.4.1",
     "chroma-js": "2.4.2",
+    "formik": "^2.2.9",
     "jose": "^4.8.3",
     "lodash": "4.17.21",
+    "moment": "^2.29.4",
     "prop-types": "15.8.1",
     "react": "17.0.2",
     "react-chartjs-2": "3.0.4",
@@ -34,7 +39,7 @@
     "redux-logger": "3.0.6",
     "redux-thunk": "2.4.1",
     "web-vitals": "2.1.4",
-    "yup": "0.32.11"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

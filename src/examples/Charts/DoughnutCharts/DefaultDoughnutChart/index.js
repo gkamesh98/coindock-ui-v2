@@ -1,4 +1,4 @@
-import { useMemo } from "react"; // porp-types is a library for typechecking of props
+import { useMemo, useState } from "react"; // porp-types is a library for typechecking of props
 import PropTypes from "prop-types"; // react-chartjs-2 components
 import { Doughnut } from "react-chartjs-2"; // @mui material components
 import Card from "@mui/material/Card";
@@ -6,9 +6,20 @@ import Icon from "@mui/material/Icon"; // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography"; // DefaultDoughnutChart configurations
 import configs from "examples/Charts/DoughnutCharts/DefaultDoughnutChart/configs";
+import { MenuItem, Select } from "@mui/material";
+import { usePieFilter } from "api/piechartapi";
+import { usePieChart } from "api/piechartapi";
 
 function DefaultDoughnutChart({ icon, title, description, height, chart }) {
-  const { data, options } = configs(chart.labels || [], chart.datasets || {}, chart.cutout);
+  const [filter, setFilter] = useState("coins");
+  const { data: piefilter } = usePieFilter();
+  const { data: pie } = usePieChart(filter);
+  const label = Object.keys(pie ?? {});
+  const piedata = Object.values(pie ?? {});
+  const { options, data } = configs(label || [], chart.datasets || {}, chart.cutout, piedata);
+  const handleChange = (e) => {
+    setFilter(e.target.value);
+  };
   const renderChart = (
     <MDBox py={2} pr={2} pl={icon.component ? 1 : 2}>
       {title || description ? (
@@ -41,14 +52,30 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
           </MDBox>
         </MDBox>
       ) : null}
-      {useMemo(
-        () => (
+      {useMemo(() => {
+        console.log({ data, options });
+        console.log(piefilter);
+        return (
           <MDBox height={height}>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              // value={age}
+              // label="Age"
+              onChange={handleChange}
+            >
+              {piefilter?.map((value) => {
+                return (
+                  <MenuItem value={value} key={value}>
+                    {value}
+                  </MenuItem>
+                );
+              })}
+            </Select>
             <Doughnut data={data} options={options} />
           </MDBox>
-        ),
-        [chart, height]
-      )}
+        );
+      }, [chart, height])}
     </MDBox>
   );
   return title || description ? <Card>{renderChart}</Card> : renderChart;
@@ -58,6 +85,7 @@ DefaultDoughnutChart.defaultProps = {
   title: "",
   description: "",
   height: "19.125rem",
+  data: [],
 }; // Typechecking props for the DefaultDoughnutChart
 DefaultDoughnutChart.propTypes = {
   icon: PropTypes.shape({
@@ -77,5 +105,6 @@ DefaultDoughnutChart.propTypes = {
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
+  data: PropTypes.array,
 };
 export default DefaultDoughnutChart;

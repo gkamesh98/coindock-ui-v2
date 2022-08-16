@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"; // react-router components
-import { useLocation, Link } from "react-router-dom"; // prop-types is a library for typechecking of props.
+import { useLocation, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types"; // @material-ui core components
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
 import Icon from "@mui/material/Icon"; // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput"; // Material Dashboard 2 React example components
@@ -30,6 +32,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const navigate = useNavigate();
   useEffect(() => {
     // Setting the navbar type
     if (fixedNavbar) {
@@ -49,7 +52,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
   }, [dispatch, fixedNavbar]);
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-  const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
+  const handleAccount = () => {
+    navigate("/account");
+  };
   const handleCloseMenu = () => setOpenMenu(false); // Render the notifications menu
   const renderMenu = () => (
     <Menu
@@ -77,6 +82,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
       return colorValue;
     },
   });
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -93,11 +99,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
+              <IconButton onClick={handleAccount} sx={navbarIconButton} size="small" disableRipple>
+                <Icon sx={iconsStyle}>
+                  <PersonIcon />
+                </Icon>
+              </IconButton>
+
               <IconButton
                 size="small"
                 disableRipple
@@ -116,19 +123,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 sx={navbarIconButton}
                 onClick={handleConfiguratorOpen}
               >
-                <Icon sx={iconsStyle}>settings</Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                disableRipple
-                color="inherit"
-                sx={navbarIconButton}
-                aria-controls="notification-menu"
-                aria-haspopup="true"
-                variant="contained"
-                onClick={handleOpenMenu}
-              >
-                <Icon sx={iconsStyle}>notifications</Icon>
+                <Icon sx={iconsStyle}>add</Icon>
               </IconButton>
               {renderMenu()}
             </MDBox>

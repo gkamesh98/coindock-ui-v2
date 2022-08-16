@@ -17,12 +17,23 @@
 */ // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up"; // @mui icons
 import Icon from "@mui/material/Icon";
+import Account from "layouts/account/Account";
+import ProfileSettings from "layouts/account/settings/ProfileSettings";
+import AccountSettings from "layouts/account/settings/AccountSettings";
+import SystemSettings from "layouts/account/settings/SystemSettings";
+import ProfileName from "layouts/account/profilesettings/ProfileName";
+import Country from "layouts/account/profilesettings/Country";
+import DateofBirth from "layouts/account/profilesettings/DateOfBirth";
+import RecoveryCodeBoxStepAccount from "components/RecoveryStep/RecoveryStepAccount";
+import Accountpassword from "layouts/account/accountsettings.js/Accountpassword";
+import RecoveryCodeTestStepAccount from "components/RecoveryCodeTestStep/RecoveryCodeTestStepAccount";
+import Primary from "layouts/account/systemsettings.js/primaryCurrency";
+import Secondary from "layouts/account/systemsettings.js/secondaryCurrency";
 
 export const loggedroutes = [
   {
@@ -35,20 +46,106 @@ export const loggedroutes = [
   },
   {
     type: "collapse",
+    name: "Account",
+    key: "Account",
+    icon: <Icon fontSize="small">account_circle</Icon>,
+    route: "/account",
+    component: <Account />,
+  },
+  {
+    type: "route",
+    name: "Account",
+    key: "Account",
+    route: "/account",
+    component: <Account />,
+  },
+  {
+    type: "route",
+    name: "ProfileSettings",
+    key: "profile-settings",
+    route: "/profile-settings",
+    component: <ProfileSettings />,
+  },
+  {
+    type: "route",
+    name: "Name",
+    key: "profile-name",
+    route: "/profile-name",
+    component: <ProfileName />,
+  },
+  {
+    type: "route",
+    name: "Country",
+    key: "profile-country",
+    route: "/profile-country",
+    component: <Country />,
+  },
+  {
+    type: "route",
+    name: "Date-of-birth",
+    key: "profile-Date-of-Birth",
+    route: "/profile-date-of-birth",
+    component: <DateofBirth />,
+  },
+  {
+    type: "route",
+    name: "AccountSettings",
+    key: "account-settings",
+    route: "/account-settings",
+    component: <AccountSettings />,
+  },
+  {
+    type: "route",
+    name: "accountPassword",
+    key: "account-password",
+    route: "/account-password",
+    component: <Accountpassword />,
+  },
+  {
+    type: "route",
+    name: "RecoveryCodes",
+    key: "account-recovery",
+    route: "/recovery-codes-account",
+    component: <RecoveryCodeBoxStepAccount />,
+  },
+  {
+    type: "route",
+    name: "RecoveryCodes",
+    key: "account-recovery",
+    route: "/recovery-test-account",
+    component: <RecoveryCodeTestStepAccount />,
+  },
+
+  {
+    type: "route",
+    name: "SystemSettings",
+    key: "system-settings",
+    route: "/system-settings",
+    component: <SystemSettings />,
+  },
+  {
+    type: "route",
+    name: "PrimaryCurrency",
+    key: "primary-currency",
+    route: "/primary",
+    component: <Primary />,
+  },
+  {
+    type: "route",
+    name: "SecondaryCurrency",
+    key: "secondary-currency",
+    route: "/secondary",
+    component: <Secondary />,
+  },
+  {
+    type: "collapse",
     name: "Tables",
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
   },
-  {
-    type: "collapse",
-    name: "Billing",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
-  },
+
   {
     type: "collapse",
     name: "Notifications",
@@ -57,6 +154,7 @@ export const loggedroutes = [
     route: "/notifications",
     component: <Notifications />,
   },
+
   {
     type: "collapse",
     name: "Profile",
@@ -76,13 +174,13 @@ export const publicRoutes = [
     route: "/sign-in",
     component: <SignIn />,
   },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/sign-up",
-    component: <SignUp />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/sign-up",
+  //   component: <SignUp />,
+  // },
 ];
 export default { loggedroutes, publicRoutes };
