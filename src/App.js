@@ -112,6 +112,10 @@ export default function App() {
             path="/sign-up/recovery-codes"
             element={<Navigate to="authentication/sign-up/recovery-codes" />}
           />
+          <Route
+            path="/sign-up/recovery-code-test"
+            element={<Navigate to="authentication/sign-up/recovery-code-test" />}
+          />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       ) : (

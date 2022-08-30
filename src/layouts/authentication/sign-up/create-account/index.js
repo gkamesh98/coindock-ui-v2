@@ -16,7 +16,7 @@ import { useRefresh } from "api/auth";
 import { usePostRegisterMutation } from "api/signup";
 import Popup from "shared/popup";
 import Lock from "assets/images/Lock.png";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import moment from "moment";
 
@@ -24,8 +24,6 @@ function Cover() {
   const navigate = useNavigate();
 
   const [buttonPopup, setButtonPopup] = useState(false);
-
-  const [dob, setDob] = useState(null);
 
   const [refresh] = useRefresh();
 
@@ -45,7 +43,7 @@ function Cover() {
     initialValues: {
       firstName: "",
       lastName: "",
-      dateOfBirth: moment().format("YYYY-MM-DD"),
+      dateOfBirth: "",
       country: "",
       email: "",
       password: "",
@@ -54,11 +52,13 @@ function Cover() {
     validationSchema: yup.object({
       firstName: yup.string("Enter your first name").required("First name is required"),
       lastName: yup.string("Enter your last name").required("Last name is required"),
-      dateOfBirth: yup.string("Enter your Date of Birth").required("Date of Birth is required"),
-      country: yup
-        .string("Enter your country")
-        .required("Country is required")
-        .oneOf(data, "Country must be one of the given list."),
+      dateOfBirth: yup
+        .string("Enter your Date of Birth")
+        .required("Date of Birth is required")
+        .test("DOB", "Please choose a valid date of birth", (value) => {
+          return moment().diff(moment(value), "years") >= 15;
+        }),
+      country: yup.string("Enter your country").required("Country is required"),
       email: yup
         .string("Enter your email")
         .email("Enter a valid email")
@@ -91,8 +91,6 @@ function Cover() {
         });
     },
   });
-
-  console.log(formik.initialValues);
   return (
     <CoverLayout image={bgImage}>
       <Grid item xs={11} sm={9} md={5} lg={4} xl={3.125}>
@@ -162,42 +160,32 @@ function Cover() {
                   </MDTypography>
                 ) : null}
               </MDBox>
-              <MDBox mb={2}>
-                {/* <MDInput
-                  name="dateOfBirth"
-                  type="Date"
-                  label="Date of Birth"
-                  variant="standard"
-                  InputLabelProps={{ shrink: true }}
-                  fullWidth
-                  required
-                  {...formik.getFieldProps("dateOfBirth")}
-                /> */}
 
+              <MDBox mb={2}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    disableFuture
+                    onChange={(date) => {
+                      formik.setFieldValue("dateOfBirth", moment(date).format("YYYY-MM-DD"));
+                    }}
+                    value={formik.values.dateOfBirth}
                     renderInput={(params) => (
                       <MDInput
                         type="select"
                         {...params}
-                        label="Date of birth"
+                        label={formik.values.dateOfBirth ? "Date of birth" : null}
                         variant="standard"
                         name="dateOfBirth"
                         InputLabelProps={{ shrink: true }}
                         fullWidth
+                        error={false}
                         required
                         {...formik.getFieldProps("dateOfBirth")}
                       />
                     )}
-                    showYearDropdown
-                    showMonthDropdown
-                    disabledKeyboardNavigation
-                    onChange={(date) => {
-                      console.log(moment(date).format("YYYY-MM-DD"));
-                      formik.setFieldValue("dateOfBirth", moment(date).format("YYYY-MM-DD"));
-                    }}
                   />
                 </LocalizationProvider>
+
                 {formik.touched.dateOfBirth && formik?.errors?.dateOfBirth ? (
                   <MDTypography color="error" fontSize="12px">
                     {formik?.errors?.dateOfBirth}
@@ -208,6 +196,10 @@ function Cover() {
                 <Autocomplete
                   disablePortal
                   options={data}
+                  value={formik.values.country}
+                  onChange={(event, newValue) => {
+                    formik.setFieldValue("country", newValue);
+                  }}
                   renderInput={(params) => (
                     <MDInput
                       type="select"
