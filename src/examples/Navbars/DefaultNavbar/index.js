@@ -28,8 +28,8 @@ function DefaultNavbar({ transparent, light, action }) {
         setMobileView(false);
         setMobileNavbar(false);
       }
-    } /** 
-     The event listener that's calling the displayMobileNavbar function when 
+    } /**
+     The event listener that's calling the displayMobileNavbar function when
      resizing the window.
     */
     window.addEventListener("resize", displayMobileNavbar); // Call the displayMobileNavbar function to set the state with the initial value.
@@ -80,7 +80,7 @@ function DefaultNavbar({ transparent, light, action }) {
           <DefaultNavbarLink
             icon="account_circle"
             name="sign up"
-            route="/authentication/sign-up"
+            route="/sign-up/create-account"
             light={light}
           />
           <DefaultNavbarLink
