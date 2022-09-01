@@ -1,5 +1,5 @@
+import { baseApi } from "./api";
 import { getUserId } from "helper/functions";
-import baseApi from "./api";
 
 export const recoveryCodes = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -8,7 +8,9 @@ export const recoveryCodes = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/recovery-codes`,
         method: "post",
       }),
-      transformResponse: (response) => response,
+      transformResponse: (response) => {
+        return response?.data?.results.recoveryCode.recoveryCodes;
+      },
       providesTags: ["recover-codes"],
     }),
 
@@ -35,12 +37,16 @@ export const recoveryCodes = baseApi.injectEndpoints({
     }),
 
     putRecoveryCodes: build.mutation({
-      query: ({ key_response }) => ({
-        url: `/v1/users/${getUserId()}/recovery-codes/activate`,
-        method: "put",
-        data: { key_response },
-      }),
-      transformResponse: (response) => response,
+      query: ({ keyResponse }) => {
+        return {
+          url: `/v1/users/${getUserId()}/recovery-codes/activate`,
+          method: "put",
+          data: { keyResponse },
+        };
+      },
+      transformResponse: (response) => {
+        return response;
+      },
     }),
 
     getRandomRecoveryCodes: build.query({
@@ -48,7 +54,9 @@ export const recoveryCodes = baseApi.injectEndpoints({
         url: `/v1/users/${getUserId()}/recovery-codes/random`,
         method: "get",
       }),
-      transformResponse: (response) => response.data,
+      transformResponse: (response) => {
+        return response.data?.results;
+      },
     }),
   }),
 });

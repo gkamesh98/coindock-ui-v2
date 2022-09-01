@@ -1,38 +1,24 @@
+import { baseApi } from "./api";
 import { getUserId } from "helper/functions";
-import baseApi from "./api";
 
 const signup = baseApi.injectEndpoints({
   endpoints: (build) => ({
     postRegister: build.mutation({
-      query: ({
-        firstname,
-        lastname,
-        date,
-        email,
-        country,
-        password,
-        reenterpassword,
-        // ...data
-      }) => ({
+      query: (data) => ({
         url: "/v1/users",
         method: "post",
         data: {
-          first_name: firstname,
-          last_name: lastname,
-          date_of_birth: date,
-          email,
-          country,
-          password,
-          re_enter_password: reenterpassword,
+          ...data,
         },
       }),
-      transformResponse: (response) => response,
     }),
     signupsteps: build.query({
-      query: () => ({
-        url: `/v1/users/${getUserId()}/signup/info`,
-        method: "get",
-      }),
+      query: (params) => {
+        return {
+          url: `/v1/users/${getUserId()}/signup/info`,
+          method: "get",
+        };
+      },
       providesTags: ["signupsteps"],
     }),
   }),

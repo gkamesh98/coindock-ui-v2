@@ -21,11 +21,27 @@ import Tables from "layouts/tables";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up"; // @mui icons
+import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icons
+import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
+import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
 import Addwallet from "layouts/AddWallet";
 
 export const loggedroutes = [
+  {
+    name: "Recovery Codes",
+    key: "recovery-codes",
+    icon: <Icon fontSize="small">recoveryCodes</Icon>,
+    route: "/sign-up/recovery-codes",
+    component: <RecoveryCodes />,
+  },
+  {
+    name: "Recovery Code Test",
+    key: "recovery-code-test",
+    icon: <Icon fontSize="small">recoveryTestCodes</Icon>,
+    route: "/sign-up/recovery-code-test",
+    component: <RecoveryCodeTest />,
+  },
   {
     type: "collapse",
     name: "Dashboard",
@@ -72,10 +88,10 @@ export const publicRoutes = [
   },
   {
     type: "collapse",
-    name: "Sign Up",
+    name: "Create account",
     key: "sign-up",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/sign-up",
+    route: "/sign-up/create-account",
     component: <SignUp />,
   },
   {
