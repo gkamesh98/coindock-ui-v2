@@ -16,8 +16,8 @@ import * as Yup from "yup";
 import { Icon, IconButton, InputLabel, MenuItem, Select } from "@mui/material";
 import { useAddWalletMutation, useCoins } from "api/walletapi";
 
-import Popup from "Shared/Popup/Popup";
-import { closePopup } from "layouts/AddWallet/AddWalletSlice";
+import Popup from "shared/Popup";
+import { closePopup } from "reducers/wallet";
 import { useDispatch, useSelector } from "react-redux";
 
 const validationSchema = Yup.object({
@@ -27,7 +27,7 @@ const validationSchema = Yup.object({
 
 function Addwallet() {
   const { data: coins } = useCoins();
-  const open = useSelector((state) => state.addwallet.open);
+  const open = useSelector((state) => state.wallet.open);
   const dispatch = useDispatch();
   const [wallet] = useAddWalletMutation();
   const handleSetTrigger = () => {

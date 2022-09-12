@@ -9,10 +9,10 @@ import Grid from "@mui/material/Grid";
 import { UndoOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useGetRandomRecoveryCodesQuery, usePutRecoveryCodesMutation } from "api/recoveryCodes";
-import RecoveryBox from "shared/recovery-box";
+import RecoveryBox from "shared/RecoveryBox";
 import { useState } from "react";
 import { useFormik } from "formik";
-import Popup from "shared/popup";
+import Popup from "shared/Popup";
 
 function Cover() {
   const navigate = useNavigate();

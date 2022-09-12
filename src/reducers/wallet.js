@@ -22,4 +22,4 @@ export const { openPopup, closePopup } = popupSlice.actions;
 
 export default popupSlice.reducer;
 
-export const { reducer: popupReducer } = popupSlice;
+export const { reducer: wallet } = popupSlice;

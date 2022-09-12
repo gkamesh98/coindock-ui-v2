@@ -6,8 +6,7 @@ import { useCoinCard } from "api/coincardapi";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
-import { openPopup } from "layouts/AddWallet/AddWalletSlice";
-import Addwallet from "layouts/AddWallet";
+import { openPopup } from "reducers/wallet";
 import data from "layouts/dashboard/components/Projects/data";
 import { useDispatch } from "react-redux";
 

@@ -5,12 +5,12 @@ import thunk from "redux-thunk";
 import { logger } from "redux-logger";
 import { baseApi } from "api/api";
 import { authReducer } from "./auth";
-import { popupReducer } from "layouts/AddWallet/AddWalletSlice";
+import { wallet } from "reducers/wallet";
 
 const reducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   auth: authReducer,
-  addwallet: popupReducer,
+  wallet: wallet,
 });
 
 const rootReducer = (state, action) => {

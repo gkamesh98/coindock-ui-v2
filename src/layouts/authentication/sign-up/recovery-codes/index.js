@@ -6,7 +6,7 @@ import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 import { Box, Card, Checkbox } from "@mui/material";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
-import RecoveryBox from "shared/recovery-box";
+import RecoveryBox from "shared/RecoveryBox";
 import { usePostRecoveryCodesQuery, useGetRecoveryCodesDownloadMutation } from "api/recoveryCodes";
 import { useNavigate } from "react-router-dom";
 

@@ -5,8 +5,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDProgress from "components/MDProgress"; // Images
-import { useCoinCard } from "api/coincardapi";
-import EllipseNumber from "Shared/EllipeseText";
+import EllipseNumber from "shared/EllipeseText";
 import { Avatar, ImageList, ImageListItem } from "@mui/material";
 function Company({ image, name }) {
   return (

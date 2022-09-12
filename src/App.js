@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon"; // Material Dashboard 2 React components
 import MDBox from "components/MDBox"; // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator"; // Material Dashboard 2 React themes
 import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 import { publicRoutes, loggedroutes } from "routes"; // Material Dashboard 2 React contexts
@@ -14,7 +13,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import { useIsAuthenticated, useFetchAuthRefresh } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import AddWallet from "layouts/AddWallet";
+import AddWallet from "layouts/add-wallet";
 
 const getRoutes = (allRoutes) =>
   allRoutes.map((route) => {
@@ -61,29 +60,6 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const configsButton = (
-    <MDBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.25rem"
-      height="3.25rem"
-      bgColor="white"
-      shadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
-      zIndex={99}
-      color="dark"
-      sx={{ cursor: "pointer" }}
-      onClick={handleConfiguratorOpen}
-    >
-      <Icon fontSize="small" color="inherit">
-        settings
-      </Icon>
-    </MDBox>
-  );
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
@@ -102,8 +78,6 @@ export default function App() {
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
-            <Configurator />
-            {configsButton}
           </>
         )
       )}

@@ -16,16 +16,13 @@
   10. The `component` key is used to store the component of its route.
 */ // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
 
-import Notifications from "layouts/notifications";
-import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icons
 import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
 import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
-import Addwallet from "layouts/AddWallet";
+import Addwallet from "layouts/add-wallet";
 
 export const loggedroutes = [
   {
@@ -49,31 +46,6 @@ export const loggedroutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
-  },
-
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
   },
 ];
 
