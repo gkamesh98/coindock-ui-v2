@@ -24,7 +24,7 @@ import {
 } from "context";
 import { openPopup } from "reducers/wallet";
 import { useDispatch } from "react-redux";
-import Addwallet from "layouts/add-wallet";
+import Addwallet from "Shared/AddWallet";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();

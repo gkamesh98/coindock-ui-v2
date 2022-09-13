@@ -13,7 +13,6 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import { useIsAuthenticated, useFetchAuthRefresh } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import AddWallet from "layouts/add-wallet";
 
 const getRoutes = (allRoutes) =>
   allRoutes.map((route) => {
