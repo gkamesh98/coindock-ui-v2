@@ -22,7 +22,7 @@ import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icon
 import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
 import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
-import Addwallet from "Shared/AddWallet";
+import Addwallet from "shared/AddWallet";
 
 export const loggedroutes = [
   {
