@@ -74,7 +74,14 @@ function Basic() {
             onClick={handleOnClick}
           >
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth {...formik.getFieldProps("email")} />
+              <MDInput
+                type="email"
+                label="Email"
+                fullWidth
+                variant="standard"
+                required
+                {...formik.getFieldProps("email")}
+              />
               {formik.touched.email && formik?.errors?.email ? (
                 <MDTypography color="error" fontSize="12px">
                   {formik?.errors?.email}
@@ -86,6 +93,8 @@ function Basic() {
                 type="password"
                 label="Password"
                 fullWidth
+                variant="standard"
+                required
                 {...formik.getFieldProps("password")}
               />
               {formik.touched.password && formik?.errors?.password ? (
