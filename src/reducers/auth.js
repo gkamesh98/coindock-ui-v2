@@ -1,12 +1,14 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { authToken, getUserId } from "helper/functions";
 import auth from "api/auth";
+import signup from "api/signup";
 
 const reducer = createSlice({
   name: "auth",
   initialState: {
     userId: null,
     token: null,
+    signupInfo: {},
   },
   reducers: {},
   extraReducers: (build) => {
@@ -24,6 +26,12 @@ const reducer = createSlice({
         return state;
       }
     );
+    build.addMatcher(signup.endpoints.signupsteps.matchFulfilled, (state, action) => {
+      return {
+        ...state,
+        signupInfo: action?.payload?.stepDetails,
+      };
+    });
   },
 });
 

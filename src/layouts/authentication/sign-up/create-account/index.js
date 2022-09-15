@@ -124,7 +124,6 @@ function Cover() {
               role="form"
               onSubmit={formik.handleSubmit}
               type="form"
-              isValidating
               validateOnBlur={false}
               validateOnChange={false}
             >

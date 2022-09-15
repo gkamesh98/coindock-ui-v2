@@ -81,7 +81,6 @@ function Cover() {
             role="form"
             onSubmit={formik.handleSubmit}
             type="form"
-            isValidating
             onClick={handleOnClick}
           >
             {displayErrorMessage ? (

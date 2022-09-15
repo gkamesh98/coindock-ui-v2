@@ -1,23 +1,16 @@
 // react-router-dom components
 import { Link } from "react-router-dom"; // @mui material components
 import Card from "@mui/material/Card";
-
-import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link"; // @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google"; // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton"; // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout"; // Images
 import { useLogin } from "api/auth";
-import YupPassword from "yup-password";
-// import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { useState } from "react";
+import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Email is not Valid").required("Email is Required"),
@@ -25,9 +18,16 @@ const validationSchema = Yup.object({
 });
 
 function Basic() {
-  const [login, loginOptions] = useLogin();
+  const [login, { error }] = useLogin();
+
+  const [displayErrorMessage, setDisplayErrorMessage] = useState(false);
 
   const initialValues = { email: "", password: "" };
+
+  const handleOnClick = () => {
+    if (displayErrorMessage) setDisplayErrorMessage(false);
+  };
+
   const onSubmit = (values, actions) => {
     login({
       ...values,
@@ -35,6 +35,11 @@ function Basic() {
       .unwrap()
       .then(() => {
         navigate("/dashboard");
+      })
+      .catch((error) => {
+        if (error.status !== 200) {
+          setDisplayErrorMessage(true);
+        }
       });
   };
 
@@ -44,7 +49,7 @@ function Basic() {
     validationSchema,
   });
   return (
-    <BasicLayout>
+    <BasicLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
@@ -62,7 +67,12 @@ function Basic() {
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form" onSubmit={formik.handleSubmit}>
+          <MDBox
+            component="form"
+            role="form"
+            onSubmit={formik.handleSubmit}
+            onClick={handleOnClick}
+          >
             <MDBox mb={2}>
               <MDInput type="email" label="Email" fullWidth {...formik.getFieldProps("email")} />
               {formik.touched.email && formik?.errors?.email ? (
@@ -84,6 +94,13 @@ function Basic() {
                 </MDTypography>
               ) : null}
             </MDBox>
+            {displayErrorMessage ? (
+              <MDBox variant="gradient" borderRadius="lg" px={2}>
+                <MDTypography mt={1} color="error">
+                  {"*" + error?.data?.message}
+                </MDTypography>
+              </MDBox>
+            ) : null}
 
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" type="submit" fullWidth>

@@ -26,6 +26,7 @@ import Addwallet from "shared/AddWallet";
 
 export const loggedroutes = [
   {
+    type: "route",
     name: "Recovery Codes",
     key: "recovery-codes",
     icon: <Icon fontSize="small">recoveryCodes</Icon>,
@@ -33,6 +34,7 @@ export const loggedroutes = [
     component: <RecoveryCodes />,
   },
   {
+    type: "route",
     name: "Recovery Code Test",
     key: "recovery-code-test",
     icon: <Icon fontSize="small">recoveryTestCodes</Icon>,
