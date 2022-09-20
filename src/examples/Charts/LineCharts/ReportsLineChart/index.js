@@ -49,7 +49,6 @@ function ReportsLineChart({ color, title, description, date, chart }) {
   const handleRangeChange = (e) => {
     setRange(e.target.value);
   };
-  console.log(coinfilter);
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox padding="1rem">

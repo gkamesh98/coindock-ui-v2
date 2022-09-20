@@ -19,6 +19,9 @@ const signup = baseApi.injectEndpoints({
           method: "get",
         };
       },
+      transformResponse: (response) => {
+        return response?.data?.results;
+      },
       providesTags: ["signupsteps"],
     }),
   }),

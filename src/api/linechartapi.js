@@ -13,7 +13,6 @@ const linechartapi = baseApi.injectEndpoints({
         method: "get",
       }),
       transformResponse: (response) => {
-        console.log("in api", response, response?.data?.results);
         return response?.data?.results;
       },
       providesTags: ["linechart"],

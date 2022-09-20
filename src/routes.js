@@ -22,10 +22,11 @@ import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icon
 import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
 import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
-import Addwallet from "layouts/add-wallet";
+import Addwallet from "shared/AddWallet";
 
 export const loggedroutes = [
   {
+    type: "route",
     name: "Recovery Codes",
     key: "recovery-codes",
     icon: <Icon fontSize="small">recoveryCodes</Icon>,
@@ -33,6 +34,7 @@ export const loggedroutes = [
     component: <RecoveryCodes />,
   },
   {
+    type: "route",
     name: "Recovery Code Test",
     key: "recovery-code-test",
     icon: <Icon fontSize="small">recoveryTestCodes</Icon>,

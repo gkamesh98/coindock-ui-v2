@@ -29,7 +29,6 @@ Company.propTypes = {
 };
 
 export default function data(coincard) {
-  console.log({ coincard });
   const avatars = (members) =>
     members.map(([image, name]) => (
       <Tooltip key={name} title={name} placeholder="bottom">

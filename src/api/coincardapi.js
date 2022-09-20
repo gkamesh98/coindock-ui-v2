@@ -8,7 +8,6 @@ const coincardapi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     coincard: build.query({
       query: () => {
-        console.log("in the coin card", getUserId());
         return {
           url: `/v1/users/${getUserId()}/coin-cards/`,
           method: "get",
