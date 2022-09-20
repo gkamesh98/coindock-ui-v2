@@ -21,6 +21,7 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icons
 import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
 import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
+import SignOff from "layouts/authentication/sign-off";
 import Icon from "@mui/material/Icon";
 import Addwallet from "shared/AddWallet";
 
@@ -49,6 +50,14 @@ export const loggedroutes = [
     route: "/dashboard",
     component: <Dashboard />,
   },
+  {
+    type: "collapse",
+    name: "Logout",
+    key: "logout",
+    icon: <Icon fontSize="small">Logout</Icon>,
+    route: "/logout",
+    component: <SignOff />,
+  },
 ];
 
 export const publicRoutes = [
@@ -70,7 +79,7 @@ export const publicRoutes = [
   },
   {
     type: "route",
-    name: "add wallet",
+    name: "Add wallet",
     key: "addwallet",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/addwallet",
