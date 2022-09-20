@@ -16,10 +16,10 @@ import {
   useLowperformer,
 } from "api/coinperformance";
 import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
-import { usePieChart } from "api/piechartapi";
+// import { usePieChart } from "api/piechartapi";
 
-import { useLineChart } from "api/linechartapi";
-import { Avatar, MenuItem, Select } from "@mui/material";
+// import { useLineChart } from "api/linechartapi";
+// import { Avatar, MenuItem, Select } from "@mui/material";
 
 function Dashboard() {
   const { sales } = reportsLineChartData;
@@ -98,12 +98,12 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <ReportsLineChart color="success" title="Line chart" chart={sales} />
+                {/* <ReportsLineChart color="success" title="Line chart" chart={sales} /> */}
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                <DefaultDoughnutChart color="success" title="Doughnut chart" chart={sales} />
+                {/* <DefaultDoughnutChart color="success" title="Doughnut chart" chart={sales} /> */}
               </MDBox>
             </Grid>
           </Grid>
@@ -111,7 +111,7 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={12}>
-              <Projects />
+              {/* <Projects /> */}
             </Grid>
           </Grid>
         </MDBox>

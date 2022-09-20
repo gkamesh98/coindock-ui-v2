@@ -16,6 +16,12 @@ function Popup(props) {
       open={props.trigger}
       sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 435 } }}
       maxWidth="xs"
+      onClose={handleClick}
+      PaperProps={{
+        style: {
+          overflowY: "visible",
+        },
+      }}
     >
       <Card>
         {props.children}

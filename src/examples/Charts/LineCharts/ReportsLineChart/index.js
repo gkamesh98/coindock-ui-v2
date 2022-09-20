@@ -2,8 +2,7 @@ import { useMemo, useState } from "react"; // porp-types is a library for typech
 import PropTypes from "prop-types"; // react-chartjs-2 components
 import { Line } from "react-chartjs-2"; // @mui material components
 import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
-import Icon from "@mui/material/Icon"; // Material Dashboard 2 React components
+
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography"; // ReportsLineChart configurations
 import configs from "examples/Charts/LineCharts/ReportsLineChart/configs";
@@ -116,7 +115,7 @@ ReportsLineChart.propTypes = {
   color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
   title: PropTypes.string.isRequired,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  date: PropTypes.string.isRequired,
+  date: PropTypes.string,
   chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
 };
 export default ReportsLineChart;

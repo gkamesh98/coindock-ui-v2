@@ -195,6 +195,8 @@ function Cover() {
                 <Autocomplete
                   disablePortal
                   options={data}
+                  disableClearable={true}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
                   value={formik.values.country}
                   onChange={(event, newValue) => {
                     formik.setFieldValue("country", newValue);
