@@ -3,10 +3,8 @@ import Grid from "@mui/material/Grid"; // Material Dashboard 2 React components
 import MDBox from "components/MDBox"; // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard"; // Data
-
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData"; // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import {
@@ -16,10 +14,6 @@ import {
   useLowperformer,
 } from "api/coinperformance";
 import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
-// import { usePieChart } from "api/piechartapi";
-
-// import { useLineChart } from "api/linechartapi";
-// import { Avatar, MenuItem, Select } from "@mui/material";
 
 function Dashboard() {
   const { sales } = reportsLineChartData;
@@ -98,12 +92,12 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                {/* <ReportsLineChart color="success" title="Line chart" chart={sales} /> */}
+                <ReportsLineChart color="success" title="Line chart" chart={sales} />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <MDBox mb={3}>
-                {/* <DefaultDoughnutChart color="success" title="Doughnut chart" chart={sales} /> */}
+                <DefaultDoughnutChart color="success" title="Doughnut chart" chart={sales} />
               </MDBox>
             </Grid>
           </Grid>
@@ -111,7 +105,7 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={12}>
-              {/* <Projects /> */}
+              <Projects />
             </Grid>
           </Grid>
         </MDBox>
@@ -119,4 +113,5 @@ function Dashboard() {
     </DashboardLayout>
   );
 }
+
 export default Dashboard;

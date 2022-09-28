@@ -1,19 +1,20 @@
-import { IconButton } from "@mui/material";
-import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
+import { IconButton, Card, Icon } from "@mui/material";
 import { useCoinCard } from "api/coincardapi";
-
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 import { openPopup } from "reducers/wallet";
 import data from "layouts/dashboard/components/Projects/data";
 import { useDispatch } from "react-redux";
+import { memo } from "react";
 
 function Projects() {
   const { data: coincard } = useCoinCard();
+
   const { columns, rows } = data(coincard);
+
   const dispatchaction = useDispatch();
+
   return (
     <Card>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
@@ -47,4 +48,5 @@ function Projects() {
     </Card>
   );
 }
-export default Projects;
+
+export default memo(Projects);

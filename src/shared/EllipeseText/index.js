@@ -1,19 +1,26 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
+
 const EllipseNumber = ({ text, component: Component, initialStrink, maxLetters, classNames }) => {
   const initalMount = useRef(true);
+
   const [isCallaped, setIsCollapesed] = useState(initialStrink);
 
   const [displayText, setDisplayText] = useState(text);
+
   useEffect(() => {}, [displayText]);
+
   const handleCollapse = useCallback(() => {
     setDisplayText((initialText) => {
       if (!isCallaped) return text;
+
       const [beforeDecimal, afterDemial] = String(text).split(".");
+
       return [beforeDecimal ?? null, afterDemial?.substring(0, maxLetters)].join(".");
     });
     setIsCollapesed((value) => !value);
   }, [maxLetters, text, isCallaped]);
+
   useEffect(() => {
     if (initalMount.current) {
       if (initialStrink) {
@@ -22,6 +29,7 @@ const EllipseNumber = ({ text, component: Component, initialStrink, maxLetters, 
       initalMount.current = false;
     }
   }, [initialStrink, maxLetters, text, handleCollapse]);
+
   return (
     <React.Fragment>
       <Component onClick={handleCollapse} classNames={classNames}>
@@ -35,6 +43,7 @@ const EllipseNumber = ({ text, component: Component, initialStrink, maxLetters, 
 EllipseNumber.defaultProps = {
   initialStrink: true,
 };
+
 EllipseNumber.propTypes = {
   text: PropTypes.string,
   component: PropTypes.Component,
@@ -42,4 +51,5 @@ EllipseNumber.propTypes = {
   classNames: PropTypes.classNames,
   initialStrink: PropTypes.bool,
 };
+
 export default EllipseNumber;

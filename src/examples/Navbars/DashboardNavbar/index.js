@@ -12,7 +12,12 @@ import {
   navbarIconButton,
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles"; // Material Dashboard 2 React context
-import { useMaterialUIController, setTransparentNavbar, setMiniSidenav } from "context";
+import {
+  useMaterialUIController,
+  setTransparentNavbar,
+  setMiniSidenav,
+  setOpenConfigurator,
+} from "context";
 import { openPopup } from "reducers/wallet";
 import { useDispatch } from "react-redux";
 import Addwallet from "shared/AddWallet";
@@ -20,11 +25,11 @@ import Addwallet from "shared/AddWallet";
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
 
-  const dispatchaction = useDispatch();
+  const dispatchAction = useDispatch();
 
   const [controller, dispatch] = useMaterialUIController();
 
-  const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
+  const { miniSidenav, transparentNavbar, fixedNavbar, darkMode, openConfigurator } = controller;
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -50,6 +55,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
   }, [dispatch, fixedNavbar]);
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
+
+  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   const handleCloseMenu = () => setOpenMenu(false); // Render the notifications menu
 
@@ -79,7 +86,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   return (
     <AppBar
-      position={absolute ? "absolute" : navbarType}
+      position={navbarType}
       color="inherit"
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
@@ -102,8 +109,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
               >
+                {console.log([miniSidenav, iconsStyle])}
                 <Icon sx={iconsStyle} fontSize="medium">
-                  {miniSidenav ? "menu_open" : "menu"}
+                  menu
                 </Icon>
               </IconButton>
 
@@ -112,7 +120,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 disableRipple
                 color="inherit"
                 sx={navbarIconButton}
-                onClick={() => dispatchaction(openPopup())}
+                onClick={() => dispatchAction(openPopup())}
               >
                 <Icon sx={iconsStyle}>add</Icon>
               </IconButton>
