@@ -102,6 +102,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
             </MDBox>
 
             <MDBox color={light ? "white" : "inherit"}>
+              <Link to="/authentication/sign-in/basic">
+                <IconButton sx={navbarIconButton} size="small" disableRipple>
+                  <Icon sx={iconsStyle}>account_circle</Icon>
+                </IconButton>
+              </Link>
+
               <IconButton
                 size="small"
                 disableRipple
@@ -113,6 +119,16 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon sx={iconsStyle} fontSize="medium">
                   menu
                 </Icon>
+              </IconButton>
+
+              <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarIconButton}
+                onClick={handleConfiguratorOpen}
+              >
+                <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
 
               <IconButton

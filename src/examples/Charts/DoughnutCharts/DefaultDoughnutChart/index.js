@@ -25,12 +25,12 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
   };
 
   const renderChart = (
-    <MDBox py={2} pr={2} pl={icon.component ? 1 : 2}>
+    <MDBox padding="1rem" py={2} pr={2} pl={icon.component ? 1 : 2}>
       <MDBox height={height}>
         <Doughnut data={data} options={options} />
       </MDBox>
       {title || description ? (
-        <MDBox display="flex" px={description ? 1 : 0} pt={description ? 1 : 0}>
+        <MDBox>
           {icon.component && (
             <MDBox
               width="4rem"
@@ -50,35 +50,35 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
             </MDBox>
           )}
 
-          <MDBox>
-            {title && <MDTypography variant="h6">{title}</MDTypography>}
+          <MDTypography pt={3} pb={1} px={1} variant="h6" textTransform="capitalize">
+            {title}
+          </MDTypography>
 
-            <MDBox>
-              {description && (
-                <MDTypography component="div" variant="button" color="text">
-                  {description}
-                </MDTypography>
-              )}
-            </MDBox>
+          {description && (
+            <MDTypography pt={3} pb={1} px={1} component="div" variant="button" color="text">
+              {description}
+            </MDTypography>
+          )}
+
+          <MDBox pb={1} px={1}>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={filter}
+              label="Coins"
+              onChange={handleChange}
+              variant="standard"
+              sx={{ minWidth: 80, minHeight: 30 }}
+            >
+              {piefilter?.map((value) => {
+                return (
+                  <MenuItem value={value} key={value}>
+                    {value}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           </MDBox>
-
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={filter}
-            label="Coins"
-            onChange={handleChange}
-            variant="standard"
-            sx={{ minWidth: 80, minHeight: 30, mx: 12 }}
-          >
-            {piefilter?.map((value) => {
-              return (
-                <MenuItem value={value} key={value}>
-                  {value}
-                </MenuItem>
-              );
-            })}
-          </Select>
         </MDBox>
       ) : null}
     </MDBox>

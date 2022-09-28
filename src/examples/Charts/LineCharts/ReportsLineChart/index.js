@@ -63,7 +63,7 @@ function ReportsLineChart({ color, title, description, date, chart }) {
           mt={-5}
           height="18.7rem"
         >
-          <Line data={data} options={options} />;
+          <Line data={data} options={options} />
         </MDBox>
 
         <MDBox pt={3} pb={1} px={1}>
