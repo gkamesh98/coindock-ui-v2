@@ -115,7 +115,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
               >
-                {console.log([miniSidenav, iconsStyle])}
                 <Icon sx={iconsStyle} fontSize="medium">
                   menu
                 </Icon>

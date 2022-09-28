@@ -18,7 +18,7 @@ import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnut
 function Dashboard() {
   const { sales } = reportsLineChartData;
 
-  const { data: total } = useTotalCurrency();
+  const { data: totalCoins } = useTotalCurrency();
   const { data: primary } = usePrimaryCurrency();
   const { data: top } = useTopperformer();
   const { data: low } = useLowperformer();
@@ -32,11 +32,9 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="dark"
-                icon="weekend"
-                // image=
-
+                icon={totalCoins?.imgUrl}
                 title="Total BTC"
-                count={total?.balance ? total?.balance.toFixed(4) : "NA"}
+                count={totalCoins?.balance ? totalCoins?.balance.toFixed(4) : "NA"}
                 percentage={{
                   color: "success",
                 }}
@@ -46,13 +44,11 @@ function Dashboard() {
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                icon="leaderboard"
+                icon={primary?.imgUrl}
                 title="Primary Currency"
                 count={primary?.balance ? primary?.balance.toFixed(4) : "NA"}
                 percentage={{
                   color: "success",
-                  // amount: "+3%",
-                  // label: "than last month",
                 }}
               />
             </MDBox>
@@ -66,8 +62,6 @@ function Dashboard() {
                 count={top?.coinId ? top?.coinId : "NA"}
                 percentage={{
                   color: "success",
-                  // amount: "+1%",
-                  // label: "than yesterday",
                 }}
               />
             </MDBox>
@@ -81,8 +75,6 @@ function Dashboard() {
                 count={low?.coinId ? low?.coinId : "NA"}
                 percentage={{
                   color: "success",
-                  // amount: "",
-                  // label: "Just updated",
                 }}
               />
             </MDBox>
