@@ -87,9 +87,7 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
   return title || description ? (
     Boolean(pie) && Boolean(piefilter) ? (
       <Card sx={{ height: "100%" }}>{renderChart}</Card>
-    ) : (
-      ""
-    )
+    ) : null
   ) : (
     renderChart
   );

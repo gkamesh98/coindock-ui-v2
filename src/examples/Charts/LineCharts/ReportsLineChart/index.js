@@ -109,9 +109,7 @@ function ReportsLineChart({ color, title, description, date, chart }) {
         </MDBox>
       </MDBox>
     </Card>
-  ) : (
-    ""
-  );
+  ) : null;
 } // Setting default values for the props of ReportsLineChart
 
 ReportsLineChart.defaultProps = {

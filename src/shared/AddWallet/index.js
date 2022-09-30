@@ -7,7 +7,7 @@ import MDInput from "components/MDInput";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { Autocomplete, Icon, IconButton, InputLabel, MenuItem, Select } from "@mui/material";
+import { Autocomplete } from "@mui/material";
 import { useAddWalletMutation, useCoins } from "api/walletapi";
 
 import Popup from "shared/Popup";

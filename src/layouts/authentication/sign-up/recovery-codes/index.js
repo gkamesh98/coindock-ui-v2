@@ -7,16 +7,15 @@ import { Box, Card, Checkbox } from "@mui/material";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import RecoveryBox from "shared/RecoveryBox";
-import { usePostRecoveryCodesQuery, useGetRecoveryCodesDownloadMutation } from "api/recoveryCodes";
+import { usePostRecoveryCodesQuery } from "api/recoveryCodes";
 import { useNavigate } from "react-router-dom";
+import DownloadRecoverykeys from "shared/Form/DownloadRecoverykeys";
 
 function Cover() {
   const [checked, setChecked] = useState(false);
   const handleChecked = () => setChecked(!checked);
 
   const navigate = useNavigate();
-
-  const [downloadble] = useGetRecoveryCodesDownloadMutation();
 
   const { data = [] } = usePostRecoveryCodesQuery();
 
@@ -56,16 +55,7 @@ function Cover() {
           </MDBox>
 
           <MDBox mt={4} mb={2} textAlign="center">
-            <MDButton
-              variant="gradient"
-              color="info"
-              id="confirm"
-              onClick={() => {
-                downloadble();
-              }}
-            >
-              Download words
-            </MDButton>
+            <DownloadRecoverykeys />
           </MDBox>
 
           <MDBox mt={1} mx={4.3} p={3} mb={1}>

@@ -1,6 +1,6 @@
 import React from "react";
-
 import { useGetRecoveryCodesDownloadMutation } from "api/recoveryCodes";
+import MDButton from "components/MDButton";
 
 function DownloadRecoverykeys() {
   const [downloadble] = useGetRecoveryCodesDownloadMutation();
@@ -9,11 +9,9 @@ function DownloadRecoverykeys() {
     downloadble();
   };
   return (
-    <>
-      <button className="cd-button cd-card-button1" onClick={handleOnClick}>
-        Download words
-      </button>
-    </>
+    <MDButton variant="gradient" color="info" id="confirm" onClick={handleOnClick}>
+      Download words
+    </MDButton>
   );
 }
 export default DownloadRecoverykeys;

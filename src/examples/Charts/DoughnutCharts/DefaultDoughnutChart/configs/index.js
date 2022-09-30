@@ -4,22 +4,6 @@ import colors from "assets/theme/base/colors";
 
 const { gradients, dark } = colors;
 function configs(labels, datasets, cutout = 60, data) {
-  // const backgroundColors = [];
-  // if (datasets.backgroundColors) {
-  //   datasets.backgroundColors.forEach((color) => {
-  //     if (gradients[color]) {
-  //       if (color === "info") {
-  //         backgroundColors.push(gradients.info.main);
-  //       } else {
-  //         backgroundColors.push(gradients[color].state);
-  //       }
-  //     } else {
-  //       backgroundColors.push(dark.main);
-  //     }
-  //   });
-  // } else {
-  //   backgroundColors.push(dark.main);
-  // }
   const generateRandomColor = () => {
     const letters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
     var color = "#";
