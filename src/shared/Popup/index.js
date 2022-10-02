@@ -41,6 +41,7 @@ function Popup(props) {
     </Dialog>
   );
 }
+
 Popup.propTypes = {
   buttonLable: PropTypes.string,
   trigger: PropTypes.bool,

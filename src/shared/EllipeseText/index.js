@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 
-const EllipseNumber = ({ text, component: Component, initialStrink, maxLetters, classNames }) => {
+function EllipseNumber({ text, component: Component, initialStrink, maxLetters, classNames }) {
   const initalMount = useRef(true);
 
   const [isCallaped, setIsCollapesed] = useState(initialStrink);
@@ -38,7 +38,7 @@ const EllipseNumber = ({ text, component: Component, initialStrink, maxLetters, 
       </Component>
     </React.Fragment>
   );
-};
+}
 
 EllipseNumber.defaultProps = {
   initialStrink: true,

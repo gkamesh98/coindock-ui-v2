@@ -84,7 +84,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             // brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="CoinDock 2"
+            brandName="Coin Dock"
             routes={loggedroutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
