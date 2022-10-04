@@ -8,8 +8,6 @@ function EllipseNumber({ text, component: Component, initialStrink, maxLetters, 
 
   const [displayText, setDisplayText] = useState(text);
 
-  useEffect(() => {}, [displayText]);
-
   const handleCollapse = useCallback(() => {
     setDisplayText((initialText) => {
       if (!isCallaped) return text;
