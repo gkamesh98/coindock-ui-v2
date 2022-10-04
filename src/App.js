@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react"; // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom"; // @mui material components
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom"; // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon"; // Material Dashboard 2 React components
-import MDBox from "components/MDBox"; // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator"; // Material Dashboard 2 React themes
 import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 import { publicRoutes, loggedroutes } from "routes"; // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context"; // Images
-import brandWhite from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
-import { useIsAuthenticated, useFetchAuthRefresh } from "hooks/auth";
+
+import { useIsAuthenticated, useFetchAuthRefresh, useSignupedUp } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
+const signUpRoutes = {
+  step1Completed: "/sign-up/create-account",
+  step2Completed: "/sign-up/recovery-codes",
+  step3Completed: "/sign-up/recovery-code-test",
+};
 
 const getRoutes = (allRoutes) =>
   allRoutes.map((route) => {
@@ -27,21 +30,22 @@ const getRoutes = (allRoutes) =>
   });
 
 export default function App() {
+  const navigate = useNavigate();
   const authenticated = useIsAuthenticated();
   const ready = useFetchAuthRefresh();
+  const [signupedUpInfo, signupInfoReady] = useSignupedUp();
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
     layout,
     openConfigurator,
     sidenavColor,
-    transparentSidenav,
-    whiteSidenav,
+    // transparentSidenav,
+    // whiteSidenav,
     darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation(); // Cache for the rtl
-
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -60,62 +64,47 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const configsButton = (
-    <MDBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.25rem"
-      height="3.25rem"
-      bgColor="white"
-      shadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
-      zIndex={99}
-      color="dark"
-      sx={{ cursor: "pointer" }}
-      onClick={handleConfiguratorOpen}
-    >
-      <Icon fontSize="small" color="inherit">
-        settings
-      </Icon>
-    </MDBox>
-  );
+  const inCompleteSignUpStep = Object.keys(signupedUpInfo).find((key) => !signupedUpInfo[key]);
+
+  useEffect(() => {
+    if (inCompleteSignUpStep) {
+      navigate(signUpRoutes[inCompleteSignUpStep]);
+    }
+  }, [inCompleteSignUpStep]);
+
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
       {!ready ? (
-        <CircularProgress />
+        <Box display="flex" widht={1} justifyContent="center">
+          <CircularProgress />
+        </Box>
       ) : (
         layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="CoinDock 2"
-              routes={loggedroutes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
+          <Sidenav
+            color={sidenavColor}
+            // brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+            brandName="Coin Dock"
+            routes={loggedroutes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
         )
       )}
-      {layout === "vr" && <Configurator />}
-      {authenticated ? (
-        <Routes>
-          {getRoutes(loggedroutes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      ) : (
-        <Routes>
-          {getRoutes(publicRoutes)}
-          <Route path="*" element={<Navigate to="/sign-in" />} />
-        </Routes>
-      )}
+      {ready &&
+        (authenticated ? (
+          <Routes>
+            {getRoutes(loggedroutes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+            <Route path="/account" element={<Navigate to="/account" />} />
+          </Routes>
+        ) : (
+          <Routes>
+            {getRoutes(publicRoutes)}
+            <Route path="*" element={<Navigate to="/sign-in" />} />
+            <Route path="/addwallet" element={<Navigate to="/addwallet" />} />
+          </Routes>
+        ))}
     </ThemeProvider>
   );
 }

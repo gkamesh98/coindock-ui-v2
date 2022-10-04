@@ -16,18 +16,17 @@
   10. The `component` key is used to store the component of its route.
 */ // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import Notifications from "layouts/notifications";
-import Profile from "layouts/profile";
+
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up/create-account"; // @mui icons
 import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
 import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
+import Addwallet from "shared/AddWallet";
 
 export const loggedroutes = [
   {
+    type: "route",
     name: "Recovery Codes",
     key: "recovery-codes",
     icon: <Icon fontSize="small">recoveryCodes</Icon>,
@@ -35,6 +34,7 @@ export const loggedroutes = [
     component: <RecoveryCodes />,
   },
   {
+    type: "route",
     name: "Recovery Code Test",
     key: "recovery-code-test",
     icon: <Icon fontSize="small">recoveryTestCodes</Icon>,
@@ -48,38 +48,6 @@ export const loggedroutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
-  },
-  {
-    type: "collapse",
-    name: "Billing",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
-  },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
   },
 ];
 
@@ -99,6 +67,14 @@ export const publicRoutes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/sign-up/create-account",
     component: <SignUp />,
+  },
+  {
+    type: "route",
+    name: "Add wallet",
+    key: "addwallet",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/addwallet",
+    component: <Addwallet />,
   },
 ];
 export default { loggedroutes, publicRoutes };

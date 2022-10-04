@@ -41,11 +41,11 @@ function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
             component="span"
             variant="button"
             fontWeight="bold"
-            color={percentage.color}
+            color={percentage?.color}
           >
-            {percentage.amount}
+            {percentage?.amount ?? ""}
           </MDTypography>
-          &nbsp;{percentage.label}
+          &nbsp;{percentage?.label}
         </MDTypography>
       </MDBox>
     </Card>

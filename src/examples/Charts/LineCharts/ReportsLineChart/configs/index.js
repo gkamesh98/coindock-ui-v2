@@ -1,22 +1,23 @@
-function configs(labels, datasets) {
+function configs(labels, datasets, data) {
   return {
     data: {
       labels,
-      datasets: [
-        {
-          label: datasets.label,
-          tension: 0,
-          pointRadius: 5,
-          pointBorderColor: "transparent",
-          pointBackgroundColor: "rgba(255, 255, 255, .8)",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderWidth: 4,
-          backgroundColor: "transparent",
-          fill: true,
-          data: datasets.data,
-          maxBarThickness: 6,
-        },
-      ],
+      datasets:
+        data?.map(([key, obj]) => {
+          return {
+            label: key,
+            tension: 0,
+            pointRadius: 5,
+            pointBorderColor: "transparent",
+            pointBackgroundColor: "rgba(255, 255, 255, .8)",
+            borderColor: "rgba(255, 255, 255, .8)",
+            borderWidth: 4,
+            backgroundColor: "transparent",
+            fill: true,
+            data: Object.values(obj),
+            maxBarThickness: 6,
+          };
+        }) ?? [],
     },
     options: {
       responsive: true,

@@ -5,10 +5,12 @@ import thunk from "redux-thunk";
 import { logger } from "redux-logger";
 import { baseApi } from "api/api";
 import { authReducer } from "./auth";
+import { wallet } from "reducers/wallet";
 
 const reducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   auth: authReducer,
+  wallet: wallet,
 });
 
 const rootReducer = (state, action) => {
@@ -25,7 +27,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleWare) =>
     getDefaultMiddleWare({
       serializableCheck: false,
-    }).concat([thunk, baseApi.middleware, logger]),
+    }).concat([thunk, baseApi.middleware]),
 });
 
 setupListeners(store.dispatch);

@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { useState } from "react";
 import { useRefresh } from "api/auth";
 import { usePostRegisterMutation } from "api/signup";
-import Popup from "shared/popup";
+import Popup from "shared/Popup";
 import Lock from "assets/images/Lock.png";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -124,7 +124,6 @@ function Cover() {
               role="form"
               onSubmit={formik.handleSubmit}
               type="form"
-              isValidating
               validateOnBlur={false}
               validateOnChange={false}
             >
@@ -196,6 +195,8 @@ function Cover() {
                 <Autocomplete
                   disablePortal
                   options={data}
+                  disableClearable={true}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
                   value={formik.values.country}
                   onChange={(event, newValue) => {
                     formik.setFieldValue("country", newValue);
