@@ -4,6 +4,7 @@ import { baseApi } from "./api";
 baseApi.enhanceEndpoints({
   addTagTypes: ["coincard"],
 });
+
 const coincardapi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     coincard: build.query({
@@ -28,4 +29,5 @@ const coincardapi = baseApi.injectEndpoints({
 });
 
 export default coincardapi;
+
 export const { useCoincardQuery: useCoinCard, useGetDataMutation: useData } = coincardapi;

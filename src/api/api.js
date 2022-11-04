@@ -66,6 +66,7 @@ axiosInstance.interceptors.response.use(
     },
   })
 );
+
 const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: "" }) =>
   ({ method = "get", url, data = {}, params = {}, responseType = "json" }) =>

@@ -4,6 +4,7 @@ import { baseApi } from "./api";
 baseApi.enhanceEndpoints({
   addTagTypes: ["pie", "piefilter"],
 });
+
 const piechartapi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     pie: build.query({
@@ -35,6 +36,7 @@ const piechartapi = baseApi.injectEndpoints({
 });
 
 export default piechartapi;
+
 export const {
   usePieQuery: usePieChart,
   usePiefilterQuery: usePieFilter,

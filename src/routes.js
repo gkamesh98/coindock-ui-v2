@@ -23,6 +23,18 @@ import RecoveryCodes from "layouts/authentication/sign-up/recovery-codes";
 import RecoveryCodeTest from "layouts/authentication/sign-up/recovery-code-test";
 import Icon from "@mui/material/Icon";
 import Addwallet from "shared/AddWallet";
+import Account from "layouts/account";
+import Accountpassword from "layouts/account/account-settings/password";
+import ProfileSettings from "layouts/account/settings/profile";
+import AccountSettings from "layouts/account/settings/account";
+import SystemSettings from "layouts/account/settings/system";
+import ProfileName from "layouts/account/profile-settings/name";
+import Country from "layouts/account/profile-settings/country";
+import DateofBirth from "layouts/account/profile-settings/date-of-birth";
+import Primary from "layouts/account/system-settings/primary-currency";
+import Secondary from "layouts/account/system-settings/secoundary-currency";
+import AccountRecoveryCodeTest from "layouts/account/account-settings/recovery-code-test";
+import AccountRecoveryCodes from "layouts/account/account-settings/recovery-codes";
 
 export const loggedroutes = [
   {
@@ -49,6 +61,115 @@ export const loggedroutes = [
     route: "/dashboard",
     component: <Dashboard />,
   },
+  {
+    type: "route",
+    name: "Account",
+    key: "Account",
+    route: "/account",
+    component: <Account />,
+  },
+  {
+    type: "collapse",
+    name: "Account",
+    key: "Account",
+    icon: <Icon fontSize="small">account_circle</Icon>,
+    route: "/account",
+    component: <Account />,
+  },
+  {
+    type: "route",
+    name: "Account",
+    key: "Account",
+    route: "/account",
+    component: <Account />,
+  },
+  {
+    type: "route",
+    name: "Profile Settings",
+    key: "profile-settings",
+    route: "/profile-settings",
+    component: <ProfileSettings />,
+  },
+  {
+    type: "route",
+    name: "Name",
+    key: "profile name",
+    route: "/profile-name",
+    component: <ProfileName />,
+  },
+  {
+    type: "route",
+    name: "Country",
+    key: "profile country",
+    route: "/profile-country",
+    component: <Country />,
+  },
+  {
+    type: "route",
+    name: "Date of Birth",
+    key: "profile-Date-of-Birth",
+    route: "/profile-date-of-birth",
+    component: <DateofBirth />,
+  },
+  {
+    type: "route",
+    name: "Account Settings",
+    key: "account-settings",
+    route: "/account-settings",
+    component: <AccountSettings />,
+  },
+  {
+    type: "route",
+    name: "Account Password",
+    key: "account-password",
+    route: "/account-password",
+    component: <Accountpassword />,
+  },
+  {
+    type: "route",
+    name: "Account Recovery",
+    key: "account-recovery",
+    route: "/account/recovery",
+    component: <AccountRecoveryCodes />,
+  },
+  {
+    type: "route",
+    name: "Account Recovery Code",
+    key: "account-recovery-code",
+    route: "/account/recovery-code",
+    component: <AccountRecoveryCodeTest />,
+  },
+
+  {
+    type: "route",
+    name: "System Settings",
+    key: "system-settings",
+    route: "/system-settings",
+    component: <SystemSettings />,
+  },
+  {
+    type: "route",
+    name: "Primary Currency",
+    key: "primary-currency",
+    route: "/primary",
+    component: <Primary />,
+  },
+  {
+    type: "route",
+    name: "Secondary Currency",
+    key: "secondary-currency",
+    route: "/secondary",
+    component: <Secondary />,
+  },
+
+  // {
+  //   type: "collapse",
+  //   name: "Profile",
+  //   key: "profile",
+  //   icon: <Icon fontSize="small">person</Icon>,
+  //   route: "/profile",
+  //   component: <Profile />,
+  // },
 ];
 
 export const publicRoutes = [
