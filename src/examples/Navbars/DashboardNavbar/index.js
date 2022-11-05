@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"; // react-router components
-import { useLocation, Link } from "react-router-dom"; // prop-types is a library for typechecking of props.
+import { useLocation, NavLink, useNavigate } from "react-router-dom"; // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types"; // @material-ui core components
 import { AppBar, Toolbar, IconButton, Menu, Icon } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput"; // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
+import PersonIcon from "@mui/icons-material/Person";
 import {
   navbar,
   navbarContainer,
@@ -33,6 +34,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   const [openMenu, setOpenMenu] = useState(false);
 
+  const navigate = useNavigate();
+
   const route = useLocation().pathname.split("/").slice(1);
 
   useEffect(() => {
@@ -59,6 +62,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   const handleCloseMenu = () => setOpenMenu(false); // Render the notifications menu
+
+  const handleAccount = () => {
+    navigate("/account");
+  };
 
   const renderMenu = () => (
     <Menu
@@ -102,11 +109,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
             </MDBox>
 
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
+              <IconButton onClick={handleAccount} sx={navbarIconButton} size="small" disableRipple>
+                <Icon sx={iconsStyle}>
+                  <PersonIcon />
+                </Icon>
+              </IconButton>
 
               <IconButton
                 size="small"
@@ -118,16 +125,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon sx={iconsStyle} fontSize="medium">
                   menu
                 </Icon>
-              </IconButton>
-
-              <IconButton
-                size="small"
-                disableRipple
-                color="inherit"
-                sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
 
               <IconButton

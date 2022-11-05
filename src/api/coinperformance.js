@@ -4,6 +4,7 @@ import { baseApi } from "./api";
 baseApi.enhanceEndpoints({
   addTagTypes: ["total", "primarycurrency", "topperformer", "lowperformer"],
 });
+
 const coinperformanceapi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     total: build.query({
@@ -50,6 +51,7 @@ const coinperformanceapi = baseApi.injectEndpoints({
 });
 
 export default coinperformanceapi;
+
 export const {
   useTopQuery: useTopperformer,
   usePrimaryQuery: usePrimaryCurrency,

@@ -7,7 +7,6 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 import { publicRoutes, loggedroutes } from "routes"; // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context"; // Images
-
 import { useIsAuthenticated, useFetchAuthRefresh, useSignupedUp } from "hooks/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";

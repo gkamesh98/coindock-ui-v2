@@ -4,6 +4,7 @@ import { baseApi } from "./api";
 baseApi.enhanceEndpoints({
   addTagTypes: ["linechart", "filter", "coinfilter", "coinshortname"],
 });
+
 const linechartapi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     line: build.query({
@@ -54,6 +55,7 @@ const linechartapi = baseApi.injectEndpoints({
 });
 
 export default linechartapi;
+
 export const {
   useLineQuery: useLineChart,
   useFilterQuery: useLineFilter,
