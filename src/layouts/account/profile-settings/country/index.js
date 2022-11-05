@@ -46,7 +46,6 @@ function Country() {
   const formik = useFormik({
     initialValues: { country: accountDetails ? accountDetails.country : "" },
     onKeyUp: (value) => {
-      console.log(value);
       if (e.country != accountDetails.country) {
         setValid(true);
       }

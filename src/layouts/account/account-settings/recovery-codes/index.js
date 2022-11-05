@@ -1,12 +1,11 @@
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton"; // Authentication layout components
-import CoverLayout from "layouts/authentication/components/CoverLayout"; // Images
 import { Box, Card, CardContent, CardHeader, Checkbox, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import RecoveryBox from "shared/RecoveryBox";
-import { recoveryCodes, usePostRecoveryCodesQuery } from "api/recoveryCodes";
+import { usePostRecoveryCodesQuery } from "api/recoveryCodes";
 import { useNavigate } from "react-router-dom";
 import DownloadRecoverykeys from "shared/Form/DownloadRecoverykeys";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
